@@ -7,6 +7,55 @@ IsDiscreteProbability <- function(...){
   sum(...) == 1
 }
 
+GetRightTail <- function(z, ...){
+  round( pnorm(z, lower.tail=FALSE, ...), 4)
+}
+
+GetLeftTail <- function(z, ...){
+  round( pnorm(z, ...), 4)
+}
+
+GetOuterTails <- function(z1, z2, ...){
+  p <- pnorm(z2, lower.tail=FALSE, ...) + pnorm(z1, ...)
+  round(p, 4)
+}
+
+GetAreaBetweenValues <- function(z1, z2, ...){
+  p <- pnorm(z2, ...) - pnorm(z1, ...)
+  round(p, 4)
+}
+
+GetZFromInnerArea <- function(alpha, ...){
+  p <- qnorm(.5 - alpha/2, ...)
+  round(p, 4)
+}
+
+GetZFromAreaInOuterTails <- function(alpha, ...){
+  p <- qnorm(alpha/2, ...)
+  round(p, 4)
+}
+
+GetZFromAreaInLeftTail <- function(p, ...){
+  z <- qnorm(p, ...)
+  round(z, 4)
+}
+
+GetZFromAreaInRightTail <- function(p, ...){
+  z <- qnorm(1-p, ...)
+  round(z, 4)
+}
+
+GetTFromAlpha <- function(alpha, df, ...){
+  p <- qt(p=alpha/2, df=df, ...)
+  round(-p, 4)
+}
+
+GetFsFromAlpha <- function(alpha, df1, df2){
+  a <- qf(alpha/2, df1, df2, lower.tail = FALSE)
+  b <- qf(1 - (alpha/2), df1, df2, lower.tail = FALSE)
+  c(a, b)
+}
+
 GetVariance <- function(values, probabilities){
   expectedValues = values * probabilities
   mu = sum(expectedValues)
@@ -19,6 +68,8 @@ GetExpectedValue <- function(values, probabilities){
   expectedValues = values * probabilities
   sum(expectedValues)
 }
+
+
 
 GetProbabilityForBinomial <- function(p, n, lower.bound=1, upper.bound=lower.bound){
   totalP <- 0
@@ -50,44 +101,6 @@ GetProbabilityForHyperGeometric <- function(k, n, N, lower.bound=0, upper.bound=
   round(totalP, 4)
 }
 
-GetRightTail <- function(z, ...){
-  round( pnorm(z, lower.tail=FALSE, ...), 4)
-}
-
-GetLeftTail <- function(z, ...){
-  round( pnorm(z, ...), 4)
-}
-
-GetOuterTails <- function(z1, z2, ...){
-  p <- pnorm(z2, lower.tail=FALSE, ...) + pnorm(z1, ...)
-  round(p, 4)
-}
-
-GetAreaBetweenValues <- function(z1, z2, ...){
-  p <- pnorm(z2, ...) - pnorm(z1, ...)
-  round(p, 4)
-}
-
-GetZFromInnerArea <- function(alpha, ...){
-  p <- qnorm(.5 - alpha/2, ...)
-  round(p, 4)
-}
-
-GetZFromTail <- function(alpha, ...){
-  p <- qnorm(alpha/2, ...)
-  round(p, 4)
-}
-
-GetTFromAlpha <- function(alpha, df, ...){
-  p <- qt(p=alpha/2, df=df, ...)
-  round(-p, 4)
-}
-
-GetFsFromAlpha <- function(alpha, df1, df2){
-  a <- qf(alpha/2, df1, df2, lower.tail = FALSE)
-  b <- qf(1 - (alpha/2), df1, df2, lower.tail = FALSE)
-  c(a, b)
-}
 
 EstimatePopulationProportion <- function(p, n, lower.bound=FALSE, upper.bound=FALSE, ...){
   sd <- sqrt(p*(1-p)/n)
@@ -135,13 +148,13 @@ GetCriticalValuesForConfidenceInterval <- function(n, c){
 
 GetSampleSizeToEstimateMu <- function(sd, level.of.confidence, desired.error){
   alpha = 1 - level.of.confidence
-  z <- GetZFromTail(alpha)
+  z <- GetZFromAreaInOuterTails(alpha)
   (z*sd / desired.error)**2
 }
 
 GetSampleSizeToEstimateStandardDeviation <- function(sd, level.of.confidence, desired.error){
   alpha = 1 - level.of.confidence
-  z <- GetZFromTail(alpha)
+  z <- GetZFromAreaInOuterTails(alpha)
   (z*sd / desired.error)**2
 }
 
@@ -162,10 +175,31 @@ ApproximateProbabilityForBinomial <- function(p, n, lower.bound=FALSE, upper.bou
   new.p
 }
 
+ApproximateProbabilityForProportions <- function(p, n, lower.bound=FALSE, upper.bound=FALSE){
+  mu <- p
+  sd <- sqrt(p*(1-p)/n)
+  
+  if (!upper.bound){
+    print("right")
+    z <- (lower.bound-p)/sd
+    prob <- GetRightTail(z)
+  } else if (!lower.bound) {
+    print("left")
+    z <- (upper.bound-p)/sd
+    prob <- GetLeftTail(z)
+  } else {
+    print("outer tail")
+    z1 <- (lower.bound-p)/sd
+    z2 <- (upper.bound-p)/sd
+    prob <- GetOuterTail(z1, z2)
+  }
+  prob
+}
+
 EstimateErrorForDifferenceInTwoMeans <- function(n, c, sigma=c(FALSE), s=c(FALSE), sd.assumed.equal=FALSE){
   alpha = 1 - c
   if (sigma[1]){
-    z <- -GetZFromTail(alpha)
+    z <- -GetZFromAreaInOuterTails(alpha)
     v1 <- ((sigma[1]**2)/n[1])
     v2 <- ((sigma[2]**2)/n[2])
     E <- z * sqrt(v1+ v2)
@@ -176,12 +210,18 @@ EstimateErrorForDifferenceInTwoMeans <- function(n, c, sigma=c(FALSE), s=c(FALSE
     E <- t * sqrt(v1+ v2)
   } else {
     t <- GetTFromAlpha(alpha, n[1] + n[2] - 2)
+    print(t)
     a <- sqrt( 
       ((n[1]-1)*s[1]**2 + (n[2]-1)*s[2]**2)  
       /  (n[1] + n[2] - 2) 
     )
+    print("a")
+    print(a)
     b <- sqrt((1 / n[1]) + (1 / n[2]))
+    print("b")
+    print(b)
     E <- t*a*b
+    print(E)
   }
   E
 }
@@ -229,7 +269,9 @@ GetConfidenceIntervalForComparisonBetweenMeans <- function(mean, ...){
 
 EstimateErrorForDifferenceInProportions <- function(p, n, c){
   alpha <- 1-c
-  z <- -GetZFromTail(alpha)
+  z <- -GetZFromAreaInOuterTails(alpha)
+  print("Z value")
+  print(z)
   a <- p[1]*(1-p[1])/n[1]
   b <- p[2]*(1-p[2])/n[2]
   z * sqrt(a + b)
@@ -237,6 +279,36 @@ EstimateErrorForDifferenceInProportions <- function(p, n, c){
 
 GetConfidenceIntervalForDifferenceInProportions <- function(p, n, c){
   E <- EstimateErrorForDifferenceInProportions(p, n, c)
+  print("Calculated Error")
+  print(E)
   point.estimate <- (p[1]-p[2])
+  print("Point Estimate")
+  print(point.estimate)
   c(point.estimate - E, point.estimate + E)
 }
+
+GetTestStatisticForPopulationMean <- function(x.bar, mu, n, sigma=FALSE) {
+  if (sigma){
+    (x.bar - mu) / (sigma/sqrt(n))
+  } else {
+    
+  }
+}
+
+GetErrorForPopulationMean <- function(n, sd, c, sigma=FALSE){
+  if (sigma) {
+    
+  } else {
+    t <- GetTFromAlpha(1-c, n-1)
+    print("T-statistic")
+    print(t)
+    E <- t * (sd/sqrt(n))
+  }
+  E
+}
+
+GetConfidenceIntervalForPopulationMean <- function(x.bar, ...){
+  err <- GetErrorForPopulationMean(...)
+  c(x.bar - err, x.bar + err)
+}
+
