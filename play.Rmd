@@ -1,0 +1,11 @@
+---
+title: "Play"
+author: "Shay Diamond"
+date: "10/2/2018"
+output: html_document
+---
+```{r}
+x <- 5
+```
+
+`r x`

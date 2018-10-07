@@ -1,0 +1,219 @@
+#the set up
+setwd("~/Desktop/Econometrics/R Data/PUMSdata")
+load("pums_NY.RData")
+str(dat_pums_NY)
+attach(dat_pums_NY)
+
+#HW
+mean(Age[in_Brooklyn == 1])
+mean(Age[in_Queens == 1])
+
+#normalize the age
+norm_varb <- function(X_in) { 
+  m <- min(X_in, na.rm = TRUE)
+  M <- max(X_in, na.rm = TRUE)
+  
+  (X_in - m)/abs(M - m)
+}
+
+#test stat
+bk_norm_age <- norm_varb(Age[in_Brooklyn == 1])
+qn_norm_age <- norm_varb(Age[in_Queens == 1])
+
+bk_xbar <- mean(bk_norm_age)
+qn_xbar <- mean(qn_norm_age)
+
+bk_var <- var(bk_norm_age)
+qn_var <- var(qn_norm_age)
+
+bk_n <- length(bk_norm_age)
+qn_n <- length(qn_norm_age)
+
+our_df <- min(bk_n, qn_n) - 1
+
+numerator <- bk_xbar - qn_xbar
+denominator <- sqrt(bk_var/bk_n + qn_var/qn_n)
+
+test_stat <- numerator/denominator
+
+#our t-value
+pt(test_stat, our_df)
+#t-alpha
+qt(0.005, our_df)
+#Our t-value is significantly smaller than t-alpha for two-tailed test 
+# so statistically significant
+
+#test stat with top coding
+bk_norm_age <- norm_varb(Age[in_Brooklyn == 1 & Age < 90])
+qn_norm_age <- norm_varb(Age[in_Queens == 1 & Age < 90])
+
+bk_xbar <- mean(bk_norm_age)
+qn_xbar <- mean(qn_norm_age)
+
+bk_var <- var(bk_norm_age)
+qn_var <- var(qn_norm_age)
+
+bk_n <- length(bk_norm_age)
+qn_n <- length(qn_norm_age)
+
+our_df <- min(bk_n, qn_n) - 1
+
+numerator <- bk_xbar - qn_xbar
+denominator <- sqrt(bk_var/bk_n + qn_var/qn_n)
+
+test_stat <- numerator/denominator
+
+#our t-value
+pt(test_stat, our_df)
+#t-alpha
+qt(0.005, our_df)
+
+#comparing age ranges
+#children
+bk_children <- Age[in_Brooklyn == 1 & Age < 18]
+qn_children <- Age[in_Queens == 1 & Age < 18]
+
+bk_children_n <- length(bk_children)
+qn_children_n <- length(qn_children)
+
+p1_children <- mean(bk_children)
+p2_children <- mean(qn_children)
+
+numerator_pchild <- bk_children_n + qn_children_n
+denominator_pchild <- length(Age[in_Brooklyn == 1]) + length(Age[in_Queens == 1])
+pbar_children <- numerator_pchild/denominator_pchild
+
+numerator1 <- p1_children - p2_children
+denominator1 <- sqrt(pbar_children * (1 - pbar_children) 
+   * ((1 / bk_children_n) + (1 / qn_children_n)))
+
+z_value1 <- numerator1/denominator1
+pnorm(z_value1)
+
+#compare this value to our alpha (99% confidence level), so in our case p-value is 
+#super small and < alpha (0.005), so statistically significant
+
+#old ppl
+bk_old <- Age[in_Brooklyn == 1 & Age > 64]
+qn_old <- Age[in_Queens == 1 & Age > 64]
+
+bk_old_n <- length(bk_old)
+qn_old_n <- length(qn_old)
+
+p1_old <- mean(bk_old)
+p2_old <- mean(qn_old)
+
+numerator_pold <- bk_old_n + qn_old_n
+denominator_pold <- length(Age[in_Brooklyn == 1]) + length(Age[in_Queens == 1])
+pbar_old <- numerator_pold/denominator_pold
+
+numerator2 <- p1_old - p2_old
+denominator2 <- sqrt(pbar_old * (1 - pbar_old) 
+                     * ((1 / bk_old_n) + (1 / qn_old_n)))
+
+z_value2 <- numerator2/denominator2
+pnorm(z_value2)
+
+
+# stacked bargraph
+# first step is to find all of the age group population proportions per borough
+
+#Brooklyn
+bk_old <- Age[in_Brooklyn == 1 & Age > 64]
+bk_fifties <- (Age[in_Brooklyn == 1 & Age < 65 & Age > 49])
+bk_fourties <- (Age[in_Brooklyn == 1 & Age < 49 & Age > 39])
+bk_thirties <- (Age[in_Brooklyn == 1 & Age < 39 & Age > 29])
+bk_twenties <- (Age[in_Brooklyn == 1 & Age < 29 & Age > 17])
+bk_child <- Age[in_Brooklyn == 1 & Age < 18]
+bk_total_n <- length(bk_old) + length(bk_fifties) + length(bk_fourties) + length(bk_thirties) + length(bk_twenties) + length(bk_child)
+
+bk_prop_old <- length(bk_old) / bk_total_n
+bk_prop_fifties <- length(bk_fifties) / bk_total_n
+bk_prop_fourties <- length(bk_fourties) / bk_total_n
+bk_prop_thirties <- length(bk_thirties) / bk_total_n
+bk_prop_twenties <- length(bk_twenties) / bk_total_n
+bk_prop_child <- length(bk_child) / bk_total_n
+
+#Bronx
+bx_old <- Age[in_Bronx == 1 & Age > 64]
+bx_fifties <- (Age[in_Bronx == 1 & Age < 65 & Age > 49])
+bx_fourties <- (Age[in_Bronx == 1 & Age < 49 & Age > 39])
+bx_thirties <- (Age[in_Bronx == 1 & Age < 39 & Age > 29])
+bx_twenties <- (Age[in_Bronx == 1 & Age < 29 & Age > 17])
+bx_child <- Age[in_Bronx == 1 & Age < 18]
+bx_total_n <- length(bx_old) + length(bx_fifties) + length(bx_fourties) + length(bx_thirties) + length(bx_twenties) + length(bx_child)
+
+bx_prop_old <- length(bx_old) / bx_total_n
+bx_prop_fifties <- length(bx_fifties) / bx_total_n
+bx_prop_fourties <- length(bx_fourties) / bx_total_n
+bx_prop_thirties <- length(bx_thirties) / bx_total_n
+bx_prop_twenties <- length(bx_twenties) / bx_total_n
+bx_prop_child <- length(bx_child) / bx_total_n
+
+#Queens
+qn_old <- Age[in_Queens == 1 & Age > 64]
+qn_fifties <- (Age[in_Queens == 1 & Age < 65 & Age > 49])
+qn_fourties <- (Age[in_Queens == 1 & Age < 49 & Age > 39])
+qn_thirties <- (Age[in_Queens == 1 & Age < 39 & Age > 29])
+qn_twenties <- (Age[in_Queens == 1 & Age < 29 & Age > 17])
+qn_child <- Age[in_Queens == 1 & Age < 18]
+qn_total_n <- length(qn_old) + length(qn_fifties) + length(qn_fourties) + length(qn_thirties) + length(qn_twenties) + length(qn_child)
+
+qn_prop_old <- length(qn_old) / qn_total_n
+qn_prop_fifties <- length(qn_fifties) / qn_total_n
+qn_prop_fourties <- length(qn_fourties) / qn_total_n
+qn_prop_thirties <- length(qn_thirties) / qn_total_n
+qn_prop_twenties <- length(qn_twenties) / qn_total_n
+qn_prop_child <- length(qn_child) / qn_total_n
+
+#Manhatten
+mn_old <- Age[in_Manhattan == 1 & Age > 64]
+mn_fifties <- (Age[in_Manhattan == 1 & Age < 65 & Age > 49])
+mn_fourties <- (Age[in_Manhattan == 1 & Age < 49 & Age > 39])
+mn_thirties <- (Age[in_Manhattan == 1 & Age < 39 & Age > 29])
+mn_twenties <- (Age[in_Manhattan == 1 & Age < 29 & Age > 17])
+mn_child <- Age[in_Manhattan == 1 & Age < 18]
+mn_total_n <- length(mn_old) + length(mn_fifties) + length(mn_fourties) + length(mn_thirties) + length(mn_twenties) + length(mn_child)
+
+mn_prop_old <- length(mn_old) / mn_total_n
+mn_prop_fifties <- length(mn_fifties) / mn_total_n
+mn_prop_fourties <- length(mn_fourties) / mn_total_n
+mn_prop_thirties <- length(mn_thirties) / mn_total_n
+mn_prop_twenties <- length(mn_twenties) / mn_total_n
+mn_prop_child <- length(mn_child) / mn_total_n
+
+#Staten Island
+si_old <- Age[in_StatenI == 1 & Age > 64]
+si_fifties <- (Age[in_StatenI == 1 & Age < 65 & Age > 49])
+si_fourties <- (Age[in_StatenI == 1 & Age < 49 & Age > 39])
+si_thirties <- (Age[in_StatenI == 1 & Age < 39 & Age > 29])
+si_twenties <- (Age[in_StatenI == 1 & Age < 29 & Age > 17])
+si_child <- Age[in_StatenI == 1 & Age < 18]
+si_total_n <- length(si_old) + length(si_fifties) + length(si_fourties) + length(si_thirties) + length(si_twenties) + length(si_child)
+
+si_prop_old <- length(si_old) / si_total_n
+si_prop_fifties <- length(si_fifties) / si_total_n
+si_prop_fourties <- length(si_fourties) / si_total_n
+si_prop_thirties <- length(si_thirties) / si_total_n
+si_prop_twenties <- length(si_twenties) / si_total_n
+si_prop_child <- length(si_child) / si_total_n
+
+#data into matrix
+prop_vector <- c(bk_prop_old, bk_prop_fifties, bk_prop_fourties, bk_prop_thirties, bk_prop_twenties, bk_prop_child,
+                 bx_prop_old, bx_prop_fifties, bx_prop_fourties, bx_prop_thirties, bx_prop_twenties, bx_prop_child,
+                 qn_prop_old, qn_prop_fifties, qn_prop_fourties, qn_prop_thirties, qn_prop_twenties, qn_prop_child,
+                 mn_prop_old, mn_prop_fifties, mn_prop_fourties, mn_prop_thirties, mn_prop_twenties, mn_prop_child,
+                 si_prop_old, si_prop_fifties, si_prop_fourties, si_prop_thirties, si_prop_twenties, si_prop_child)
+
+age_data <- matrix(prop_vector, nrow = 6, ncol = 5, byrow = FALSE, 
+                   dimnames = list(c("65 and older", "50-64", "40-49", "30-39", "18-29", "Under 18"),
+                                   c("Brooklyn", "Bronx", "Queens", "Manhatten", "Staten Island")))
+
+#Stacked Barplot
+barplot(age_data, col=colors()[c(23,89,12,62,30,95)] , 
+        legend.text = TRUE, args.legend = list(x = "topright", bty= "n", inset=-0.2, xpd = TRUE),
+        border="white", space=0.04, 
+        font.axis=2, xlab="Borough", 
+        ylab= "age proportion")
+
+

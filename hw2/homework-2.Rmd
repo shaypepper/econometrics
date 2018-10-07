@@ -1,0 +1,299 @@
+---
+title: "Homework 2"
+author: "Ekaterina Marbot, Elizabeth Chung, Shay Culpepper, Flaka Bajraktari"
+date: "9/25/2018"
+output:
+  html_document:
+    df_print: paged
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
+library(ggplot2)
+library(plyr)
+
+setwd("/Users/shaypepper/Documents/school/econometrics")
+load("data/pums/pums_NY.RData")
+
+
+
+```
+
+## Benford's Law
+
+```{r}
+library(benford.analysis)
+data(corporate.payment)
+bfd.cp <- benford(corporate.payment$Amount)
+plot(bfd.cp)
+```
+
+``` {r}
+bfd.cp
+```
+
+## Education and Income
+Proportion of people with less than a college degree earn less than $70,000 income for each borough
+
+#### Bronx
+```{r}
+prop.table(table(dat_pums_NY$in_Bronx, dat_pums_NY$educ_nohs, dat_pums_NY$income_total <70000))
+```
+
+It means that proportion of people without high school degree earns less than $70,000 income in Bronx is 0.0264.
+ 
+We can find the same result by using subset and display it for each borough.
+
+```{r}
+dat_use1 <- subset(dat_pums_NY,((income_total < 70000) & educ_nohs))
+```
+
+Then use function ddply.
+
+Proportion of people without high school degree earns less than $70,000 income in Staten Island - 0.0062807543, in in Brooklyn - 0.0476023106, in Queens - 0.037399269. 
+ 
+Proportion of people without high school degree earns more than $70,000 income in Bronx, for example - 0.0001426286.
+ 
+Regarding proportion of people with college degree, for example, how have 
+Bachelor degree, in Manhattan is 0.006912395 each less than $70,000, and 0.004706745 how 
+earn more than $70,000. 
+
+
+## Income inequality, averages, by neighborhood and borough
+This isn't one of your questions, but this boxplot is a nice representation of the inequality by borough.
+```{r}
+
+pums.compact <- dat_pums_NY %>%
+  mutate(borough = factor(
+           1 * in_Bronx + 
+           2 * in_Brooklyn + 
+           3 * in_Manhattan + 
+           4 * in_StatenI + 
+           5 * in_Queens + 
+           6 * in_Westchester + 
+           7 * in_Nassau, 
+           levels = 0:7,
+           labels = c("Not NYC", 
+                      "Bronx", 
+                      "Brooklyn", 
+                      "Manhattan", 
+                      "Staten Island", 
+                      "Queens", 
+                      "Westchester", 
+                      "Nassau")
+           ),
+         edu = ordered(
+           1 * educ_nohs + 
+             2 * educ_hs + 
+             3 * educ_smcoll + 
+             4 * educ_as + 
+             5 * educ_bach +  
+             6 * educ_adv,
+           levels = 1:6,
+           labels = c("No High School", 
+                      "High School", 
+                      "Some College", 
+                      "Associates", 
+                      "Bachelors", 
+                      "Advanced Degree")
+           ),
+        race = factor(
+          1 * white + 
+          1 * Hispanic + 
+          3 * AfAm + 
+          4 * Amindian + 
+          5 * Asian + 
+          6 * race_oth,
+          levels = 1:6,
+          labels = c("White - non-hispanic", 
+                     "White - hispanic",
+                     "African American",
+                     "American Indian",
+                     "Asian",
+                     "Other")
+          ), 
+        PUMA = factor(PUMA, 
+                      levels=c(03701, 03702, 03703, 03704, 03705, 03706, 
+                               03707, 03708, 03709, 03710, 03801,
+                               03802, 03803, 03804, 03805, 03806, 
+                               03807, 03808, 03809, 03810, 03901,
+                               03902, 03903, 04001, 04002, 04003, 
+                               04004, 04005, 04006, 04007, 04008,
+                               04009, 04010, 04011, 04012, 04013,
+                               04014, 04015, 04016, 04017, 04018, 
+                               04101, 04102, 04103, 04104, 04105, 
+                               04106, 04107, 04108, 04109, 04110,
+                               04111, 04112, 04113, 04114),
+                      labels= c("Riverdale, Fieldston & Kingsbridge",
+                                "Wakefield, Williamsbridge & Woodlawn",
+                                "Co-op City, Pelham Bay & Schuylerville",
+                                "Pelham Parkway, Morris Park & Laconia",
+                                "Belmont, Crotona Park East & East Tremont",
+                                "Bedford Park, Fordham North & Norwood",
+                                "Morris Heights, Fordham South & Mount Hope",
+                                "Concourse, Highbridge & Mount Eden",
+                                "Castle Hill, Clason Point & Parkchester",
+                                "Hunts Point, Longwood & Melrose",
+                                "Washington Heights, Inwood & Marble Hill",
+                                "Hamilton Heights, Manhattanville & West Harlem",
+                                "Central Harlem",
+                                "East Harlem",
+                                "Upper East Side",
+                                "Upper West Side & West Side",
+                                "Chelsea, Clinton & Midtown Business District",
+                                "Murray Hill, Gramercy & Stuyvesant Town",
+                                "Chinatown & Lower East Side",
+                                "Battery Park City, Greenwich Village & Soho",
+                                "Tottenville, Great Kills & Annadale",
+                                "New Springville & South Beach",
+                                "Port Richmond, Stapleton & Mariner's Harbor",
+                                "Greenpoint & Williamsburg",
+                                "Bushwick",
+                                "Bedford-Stuyvesant",
+                                "Brooklyn Heights & Fort Greene",
+                                "Park Slope, Carroll Gardens & Red Hook",
+                                "Crown Heights North & Prospect Heights",
+                                "Brownsville & Ocean Hill",
+                                "East New York & Starrett City",
+                                "Canarsie & Flatlands",
+                                "East Flatbush, Farragut & Rugby",
+                                "Crown Heights South, Prospect Lefferts & Wingate",
+                                "Sunset Park & Windsor Terrace",
+                                "Bay Ridge & Dyker Heights",
+                                "Borough Park, Kensington & Ocean Parkway",
+                                "Flatbush & Midwood",
+                                "Sheepshead Bay, Gerritsen Beach & Homecrest",
+                                "Bensonhurst & Bath Beach",
+                                "Brighton Beach & Coney Island",
+                                "Astoria & Long Island City",
+                                "Jackson Heights & North Corona",
+                                "Flushing, Murray Hill & Whitestone",
+                                "Bayside, Douglaston & Little Neck",
+                                "Queens Village, Cambria Heights & Rosedale",
+                                "Briarwood, Fresh Meadows & Hillcrest",
+                                "Elmhurst & South Corona",
+                                "Forest Hills & Rego Park",
+                                "Sunnyside & Woodside",
+                                "Ridgewood, Glendale & Middle Village",
+                                "Richmond Hill & Woodhaven",
+                                "Jamaica, Hollis & St. Albans",
+                                "Howard Beach & Ozone Park",
+                                "Far Rockaway, Breezy Point & Broad Channel)"
+                      ))
+      ) %>%
+  select(`borough`, `edu`, `race`, PUMA, income_total, Age) %>%
+  filter(borough != "Not NYC", income_total >= 0, Age >= 18) %>%
+  arrange(PUMA)
+
+
+
+pums.income_by_neighborhood <- pums.compact %>%
+  filter(borough != "Westchester" & borough != "Nassau") %>%
+  group_by(`borough`, PUMA) %>%
+  summarize(meanIncome = mean(income_total), 
+            q75.less.q25 = quantile(income_total, 0.75) - quantile(income_total, 0.25),
+            q10 = quantile(income_total, 0.10), 
+            q25 = quantile(income_total, 0.25), 
+            q75 = quantile(income_total, 0.75), 
+            q90 = quantile(income_total, 0.90),
+            sd = sd(income_total)
+            )
+
+
+ggplot(pums.income_by_neighborhood, aes(x = borough, y = "meanIncome")) +
+  geom_boxplot()
+
+```
+
+### Richest and poorest neighborhoods by borough
+
+#### Highest Mean Income
+```{r, echo=FALSE}
+pums.highest.income.by.borough <- pums.income_by_neighborhood %>%
+  top_n(n=1, meanIncome) %>%
+  select(borough, PUMA, meanIncome)
+
+pums.highest.income.by.borough
+```
+#### Lowest Mean Income
+```{r, echo=FALSE}
+pums.lowest_income_by_borough <- pums.income_by_neighborhood %>%
+  top_n(n=1, -meanIncome) %>%
+  select(borough, PUMA, meanIncome)
+  
+pums.lowest_income_by_borough
+```
+
+### Inequality by neighborhood
+
+#### Measured by 75 quartile minus 25 quartile.
+
+```{r, echo=FALSE}
+pums.most.unequal.by.iqr <- pums.income_by_neighborhood %>%
+  top_n(n=1, q75.less.q25) %>%
+  select(borough, PUMA, q75.less.q25)
+
+pums.most.unequal.by.iqr
+```
+______
+
+#### Measured by standard deviation
+```{r, echo=FALSE}
+
+pums.most.unequal.by.sd <- pums.income_by_neighborhood %>%
+  top_n(n=1, sd) %>%
+  select(borough, PUMA, sd)
+
+pums.most.unequal.by.sd
+
+```
+_______
+
+#### Compare differences between approaches
+
+```{r, echo=FALSE}
+top.by.sd <- pums.income_by_neighborhood %>%
+  filter(borough == "Manhattan") %>%
+  arrange(-sd) %>%
+  select(borough, PUMA, sd)
+
+top.by.iqr <- pums.income_by_neighborhood %>%
+  filter(borough == "Manhattan") %>%
+  arrange(-q75.less.q25) %>%
+  select(borough, PUMA, q75.less.q25)
+
+head(top.by.iqr)
+
+head(top.by.sd)
+```
+
+## Taxi Data
+Subsample of the taxi data:
+rides paid with credit cards - 193750 rides 
+rides paid with cash – 187694 rides
+
+The point estimate:
+Sample proportion = (rides paid in cash)/(sample size).
+Total number of ride $n = 381444$
+Sample proportion = 0.4921
+
+The margin of error: 
+
+$$
+c = 0.9 \\
+α = 1 - c = 0.1 \\
+z_{\frac{\alpha}{2}} =  z_{0.05} = 1.645 \\
+E = 0.0013
+$$
+
+Lower and Upper endpoint:
+Lower endpoint $= p\hat = 0.4907$
+Upper endpoint = 0.4934
+90% confidence interval for the fraction of rides paid in cash on the weekend: 
+$0.4907 < p < 0.4934$
+
+
+

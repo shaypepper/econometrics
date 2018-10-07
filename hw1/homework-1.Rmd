@@ -1,0 +1,163 @@
+---
+title: "Homework 1"
+author: "Shay Culpepper"
+date: "9/5/2018"
+output: 
+  html_document
+  
+references:
+- id: fenner2012a
+  title: One-click science marketing
+  author:
+  - family: Fenner
+    given: Martin
+  container-title: Nature Materials
+  volume: 11
+  URL: 'http://dx.doi.org/10.1038/nmat3283'
+  DOI: 10.1038/nmat3283
+  issue: 4
+  publisher: Nature Publishing Group
+  page: 261-263
+  type: article-journal
+  issued:
+    year: 2012
+    month: 3
+---
+
+---
+
+### Study Group
+* Kate
+* Lara
+* Lyzzy
+* Flaka
+
+### Pums Data
+```{r setup, include=FALSE}
+  setwd('/Users/shaypepper/Documents/school/econometrics')
+  rm(list = ls(all = TRUE)) # clear workspace
+
+  load("data/pums/pums_NY.RData")
+  attach(dat_pums_NY)
+  
+  library(plyr)
+```
+
+#### Education by Borough
+
+I need to work on tables. 
+```{r}
+  # dat_pums_NY$Borough <- 0
+  # i = 0
+  # 
+  # for (b in c(in_Bronx, 
+  #            in_Manhattan, 
+  #            in_StatenI, 
+  #            in_Brooklyn, 
+  #            in_Queens, 
+  #            in_Westchester)){
+  #     dat_pums_NY$Borough <- dat_pums_NY$Borough + dat_pums_NY[b]*i
+  #     i <- i + 1
+  # }
+  # table(Borough, row.names=c("Borough", "Education"))
+    
+```
+
+
+### SP 500
+This section is why my assignment is late. The good news that it has made me significantly more comfortable with R.
+
+I went through a few iterations of this before I landed on an efficient algorithm that could handle any file from the [historical S&P data](https://www.investing.com/indices/us-spx-500-historical-data). I decided to look at ten years worth of data (09/05/2008-09/05/2018). That means the crash is included.
+
+```{r}
+setwd('/Users/shaypepper/Documents/school/econometrics')
+rm(list = ls(all = TRUE)) # clear workspace
+SPData <- read.csv(
+  file="data/S&P500-tenyears.csv", 
+  header=TRUE, 
+  sep=",", 
+  dec=".", 
+  stringsAsFactors=FALSE)
+
+names(SPData)[7] <- "Change"
+N <- nrow(SPData)
+
+
+# Order by date
+SPData["Date"] <- as.Date(SPData$Date,
+                          format("%b %d, %Y"))
+attach(SPData)
+SPData <- SPData[order(Date),]
+
+# Convert Change string to numeric
+SPData["Change"] <- as.numeric(gsub("%", "", SPData$Change))
+```
+
+My random variable, $X$, is consecutive days where $c = 1$.
+
+$$ c_{n} = 
+\begin{cases} 
+  0,& \text{if } p_{n} \leq p_{n-1} \\
+  1,& \text{otherwise}
+\end{cases}
+$$
+$$ X = 
+\begin{cases} 
+  0,& \text{if } c_{n} =  0 \\
+  |\{c_{i}: c_{i} = c_{i+1} = \ldots = c_{n} \}|,& \text{otherwise}
+\end{cases}
+$$
+
+```{r}
+positive <- SPData$Change > 0
+streaks <- c(1:nrow(SPData))
+
+for (i in streaks){
+  tally <- 0
+  for (j in i:1) {
+    if (!positive[j]){
+      break
+    }
+    tally <- tally + 1
+  }
+  streaks[i] <- tally
+}
+SPData$PositiveChange <- positive
+SPData$NConsecutivePositives <- streaks
+
+CalcData <- data.frame()
+cumulative.total <- 0
+m <- max(SPData$NConsecutivePositives)
+
+# Loop backwards through all values of X
+for (i in m:0){
+  # Frequency of $X = i$
+  n <- count(SPData$NConsecutivePositives == i)
+  n <- n$freq[2]
+  
+  # Add n so smaller i's will be able to calculate proportions properly 
+  cumulative.total <- cumulative.total + n
+  
+  row.data <- c(i, n, cumulative.total, 1 - n/cumulative.total)
+  CalcData <- rbind(row.data, CalcData)
+}
+
+names(CalcData) <- c("X", "n", "cs", "p")
+```
+
+```{r echo=FALSE}
+library(knitr)
+kable(CalcData)
+```
+
+I honestly expected that this would show similar probabilities as $n$ got larger. It's probably just that cat study by [UK Observer](https://www.theguardian.com/money/2013/jan/13/investments-stock-picking). I got it in my head that stocks were mostly random. Instead, as n gets larger, the likelihood of another day of growth gets lower. I have a lot of questions about this, actually. I'll probably do some more diving into this at some point. Is there a similar effect for months? Hours? Does it work the opposite way as well after a series of losses? 
+
+I probably could find a good paper on market corrections if I hadn't focused so much on the code. Next time!
+
+Note: I don't remember whether or not you accept late homework, but even if you don't, I'd be interested in any comments on my code or method of tabulation that you may have. 
+
+
+
+
+
+

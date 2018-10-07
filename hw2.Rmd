@@ -1,0 +1,10 @@
+---
+title: "Homework 3"
+output:
+  html_document:
+    df_print: paged
+---
+
+$$
+t = \frac{(x_1 - x_2) - (\mu_1 - \mu_2)}{}
+$$ 

@@ -1,0 +1,699 @@
+---
+title: "Homework 3"
+author: Elizabeth Chung, Shay Diamond, Flaka Bajraktari, Ekaterina Marbot, and Lara
+  Adelaja
+date: "10/2/2018"
+output: html_document
+---
+
+```{r setup, include=TRUE, message=FALSE, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(class)
+
+setwd("/Users/shaypepper/Documents/school/econometrics")
+load("data/pums/pums_NY.RData")
+
+attach(dat_pums_NY)
+```
+
+## Ages by Borough from PUMS
+2a. (Kate) What is the average age of people in Brooklyn? In Queens? Is there a statisitcally signficant difference? 
+
+
+```{r echo= FALSE}
+x.bar.age.bk <- round(mean(Age[in_Brooklyn == 1]), 1)
+# [1] 37.89583
+
+x.bar.age.qn <- round(mean(Age[in_Queens == 1]), 1)
+#[1] 40.43508
+```
+The average age of people in Brooklyn is `r x.bar.age.bk` and in Queens is `r x.bar.age.qn`. Taking the difference between the sample means, the point estimate for the difference betweeen the population means is 
+
+$$
+\left|\bar{x}_{bk} - \bar{x}_{qn}\right| = 
+\left|`r x.bar.age.bk` - `r x.bar.age.qn`\right| =
+`r abs(x.bar.age.bk - x.bar.age.qn)`
+$$
+
+2b. (Kate) Let's create 99% confidence intervals for each.
+
+
+```{r include, echo=FALSE}
+sd.age.bk <- round(sd(Age[in_Brooklyn == 1]), 3) 
+# [1] 22.98986
+sd.age.qn <- round(sd(Age[in_Queens == 1]), 3) 
+# [1] 22.91347
+
+n.age.bk <- sum(in_Brooklyn ==1)
+# [1] 24614
+n.age.qn <- sum(in_Queens == 1)
+# [1] 21325
+```
+First, we'll caluclate standard deviations and the number of people that live in each borough:
+$$
+\begin{align*}
+  s_{bk} &= `r sd.age.bk` & s_{qn} &= `r sd.age.qn` \\
+  n_{bk} &= `r n.age.bk`  & n_{qn} &= `r n.age.qn` \\
+\end{align*}
+$$
+
+
+99% confidence interval for the population mean, age of people in_Brooklyn:
+```{r echo=FALSE}
+
+e.age.bk <- round(qnorm(0.995) * sd.age.bk / sqrt(n.age.bk), 2)
+
+left.limit.bk <- x.bar.age.bk - e.age.bk
+right.limit.bk <- x.bar.age.bk + e.age.bk
+
+```
+
+
+$$
+E_{bk} = z_{\alpha/2} \frac{`r sd.age.bk`}{\sqrt{`r n.age.bk`}} = `r e.age.bk` \implies
+ `r left.limit.bk` \leq μ_{bk} \leq `r right.limit.bk`
+$$
+```{r echo=FALSE}
+
+e.age.qn <- round(qnorm(0.995) * sd.age.qn / sqrt(n.age.qn), 2)
+
+left.limit.qn <- x.bar.age.qn - e.age.qn
+right.limit.qn <- x.bar.age.qn + e.age.qn
+
+```
+99% confidence interval for the population mean, age of people in_Queens:
+$$
+E_{qn} = z_{alpha/2} \frac{`r sd.age.qn`}{\sqrt{`r n.age.qn`}} = `r e.age.qn` \implies
+ `r left.limit.qn` \leq μ_{qn} \leq `r right.limit.qn`
+$$
+
+The point estimate for the difference= 2.53925.
+99% confidence interval for the difference between the population means in Queens and in_Brooklyn:
+$$
+E = 0.5532 \\
+1.9861  \leq μ_{bk} - μ_{qn} \leq 3.0924
+$$
+
+2c. *Did you snip off the top-coded people? Re-do the test without those people. How does the p-value change?*  If we snip off the top-coded people by using function "rm", p-value will decrease. It happened because we reduced spread of the value.
+
+### Normalized Ages
+We normalized all of the ages to the [0,1] interval, using the below function:
+
+```{r}
+norm_varb <- function(v) { 
+    m <- min(v, na.rm = TRUE)
+    M <- max(v, na.rm = TRUE)
+    (v - m)/abs(M - m)
+}
+```
+To test if there is a statistically significant difference, we set up the following hypothesis test: 
+$$
+H_0:\ μ_{bk} - μ_{qn} \ = \ 0 \\
+H_a:\ μ_{bk} - μ_{qn} \ \neq \ 0
+$$
+
+Then using the normalized variable function, we normalized the ages in Brooklyn and Queens and found our x-bars:
+
+```{r echo=FALSE}
+bk_norm_age <- norm_varb(Age[in_Brooklyn == 1])
+qn_norm_age <- norm_varb(Age[in_Queens == 1])
+
+bk_xbar <- mean(bk_norm_age)
+qn_xbar <- mean(qn_norm_age)
+```
+
+Then determined our test statistic with a confidence level of 99%:
+```{r}
+bk_var <- var(bk_norm_age)
+qn_var <- var(qn_norm_age)
+
+bk_n <- length(bk_norm_age)
+qn_n <- length(qn_norm_age)
+
+our_df <- min(bk_n, qn_n) - 1
+
+numerator <- bk_xbar - qn_xbar
+denominator <- sqrt(bk_var/bk_n + qn_var/qn_n)
+
+test_stat <- numerator/denominator
+
+# our t-value
+t.value <- pt(test_stat, our_df)
+# [1] 1.777656e-32
+
+# t-alpha
+t.alpha <- qt(0.005, our_df)
+# [1] -2.57606
+```
+Since our t-value is (significantly) less than the absolute value of t-alpha for our test, then we can reject the null hypothesis and say that it is statistically significant. 
+
+Now, to change our evaluation, we will eliminate the observations with top-coded ages. 
+```{r eval=FALSE}
+bk_norm_age <- norm_varb(Age[in_Brooklyn == 1 & Age < 90])
+qn_norm_age <- norm_varb(Age[in_Queens == 1 & Age < 90])
+
+bk_xbar <- mean(bk_norm_age)
+qn_xbar <- mean(qn_norm_age)
+
+bk_var <- var(bk_norm_age)
+qn_var <- var(qn_norm_age)
+
+bk_n <- length(bk_norm_age)
+qn_n <- length(qn_norm_age)
+
+our_df <- min(bk_n, qn_n) - 1
+
+numerator <- bk_xbar - qn_xbar
+denominator <- sqrt(bk_var/bk_n + qn_var/qn_n)
+
+test_stat <- numerator/denominator
+
+#our t-value
+t.val <- pt(test_stat, our_df)
+t.val
+#t-alpha
+t.alpha <- qt(0.005, our_df)
+t.alpha
+```
+
+
+### Analysis by age ranges
+Based on our knowledge of those boroughs, these results are not surprising as typically more young adults and families with several children live in Brooklyn than in Queens due to the religious populations that have larger families and the "hipster" vibe in Brooklyn compared to Queens. 
+
+We can test this by breaking out the differences using the particular age ranges of those under 18 ("children") and those 65 and older ("old") by conducting a hypothesis test for each category comapring the proportions of the population:
+
+$$
+H_0:\ p_1 - p_2 \ = \ 0 \\
+H_a:\ p_1 - p_2 \ \neq \ 0
+$$
+
+First, we compare the children.
+```{r}
+bk_children <- Age[in_Brooklyn == 1 & Age < 18]
+qn_children <- Age[in_Queens == 1 & Age < 18]
+
+bk_children_n <- length(bk_children)
+qn_children_n <- length(qn_children)
+
+p1_children <- mean(bk_children)
+p2_children <- mean(qn_children)
+
+numerator_pchild <- bk_children_n + qn_children_n
+denominator_pchild <- length(Age[in_Brooklyn == 1]) + length(Age[in_Queens == 1])
+pbar_children <- numerator_pchild/denominator_pchild
+
+numerator1 <- p1_children - p2_children
+denominator1 <- sqrt(pbar_children * (1 - pbar_children) 
+   * ((1 / bk_children_n) + (1 / qn_children_n)))
+
+z_value1 <- numerator1/denominator1
+pnorm(z_value1)
+```
+Since this p-value is significantly smaller than our alpha when the confidence level is still at 99%, so we reject the null hypothesis that the proportions of children in Brooklyn and Queens are the same.
+
+When running the same calculations for the "old" category under the same population proportion hypothesis test, we get the following z and p values:
+
+```{r}
+bk_old <- Age[in_Brooklyn == 1 & Age > 64]
+qn_old <- Age[in_Queens == 1 & Age > 64]
+
+bk_old_n <- length(bk_old)
+qn_old_n <- length(qn_old)
+
+p1_old <- mean(bk_old)
+p2_old <- mean(qn_old)
+
+numerator_pold <- bk_old_n + qn_old_n
+denominator_pold <- length(Age[in_Brooklyn == 1]) + length(Age[in_Queens == 1])
+pbar_old <- numerator_pold/denominator_pold
+
+numerator2 <- p1_old - p2_old
+denominator2 <- sqrt(pbar_old * (1 - pbar_old) 
+                     * ((1 / bk_old_n) + (1 / qn_old_n)))
+
+z_value2 <- numerator2/denominator2
+pnorm(z_value2)
+
+```
+And again, you can see that the p-value is significantly smaller than our alpha when at the confidence level 99%, so we can again reject the null hypothesis and state that it is statistically significant for the older age group.
+
+### Is it p-hacking?
+Going more granular, you can easily continue to compare each age group proportion from one borough to another using the same method as above and will likely still confirm there is a statistically significant difference between the two. This however can lead to p-hacking once multiple age groups are combined and compared between boroughs, suggesting that there is some correlation between certain combinations of age groups. This is over simplifying what may be considered correlating proportions of the populations and the results can become misleading. 
+
+### Graphically showing differences
+One way to show all of these differences graphically would be a stacked bar graphs with five main boroughs being on the x-axis and the proportions shown between all of the age groups on the y-axis. To show this, we can take first find the proportions of the age within each borough as follows:
+```{r echo=FALSE}
+#Brooklyn
+bk_old <- Age[in_Brooklyn == 1 & Age > 64]
+bk_fifties <- (Age[in_Brooklyn == 1 & Age < 65 & Age > 49])
+bk_fourties <- (Age[in_Brooklyn == 1 & Age < 49 & Age > 39])
+bk_thirties <- (Age[in_Brooklyn == 1 & Age < 39 & Age > 29])
+bk_twenties <- (Age[in_Brooklyn == 1 & Age < 29 & Age > 17])
+bk_child <- Age[in_Brooklyn == 1 & Age < 18]
+bk_total_n <- length(bk_old) + length(bk_fifties) + length(bk_fourties) + length(bk_thirties) + length(bk_twenties) + length(bk_child)
+
+bk_prop_old <- length(bk_old) / bk_total_n
+bk_prop_fifties <- length(bk_fifties) / bk_total_n
+bk_prop_fourties <- length(bk_fourties) / bk_total_n
+bk_prop_thirties <- length(bk_thirties) / bk_total_n
+bk_prop_twenties <- length(bk_twenties) / bk_total_n
+bk_prop_child <- length(bk_child) / bk_total_n
+
+#Bronx
+bx_old <- Age[in_Bronx == 1 & Age > 64]
+bx_fifties <- (Age[in_Bronx == 1 & Age < 65 & Age > 49])
+bx_fourties <- (Age[in_Bronx == 1 & Age < 49 & Age > 39])
+bx_thirties <- (Age[in_Bronx == 1 & Age < 39 & Age > 29])
+bx_twenties <- (Age[in_Bronx == 1 & Age < 29 & Age > 17])
+bx_child <- Age[in_Bronx == 1 & Age < 18]
+bx_total_n <- length(bx_old) + length(bx_fifties) + length(bx_fourties) + length(bx_thirties) + length(bx_twenties) + length(bx_child)
+
+bx_prop_old <- length(bx_old) / bx_total_n
+bx_prop_fifties <- length(bx_fifties) / bx_total_n
+bx_prop_fourties <- length(bx_fourties) / bx_total_n
+bx_prop_thirties <- length(bx_thirties) / bx_total_n
+bx_prop_twenties <- length(bx_twenties) / bx_total_n
+bx_prop_child <- length(bx_child) / bx_total_n
+
+#Queens
+qn_old <- Age[in_Queens == 1 & Age > 64]
+qn_fifties <- (Age[in_Queens == 1 & Age < 65 & Age > 49])
+qn_fourties <- (Age[in_Queens == 1 & Age < 49 & Age > 39])
+qn_thirties <- (Age[in_Queens == 1 & Age < 39 & Age > 29])
+qn_twenties <- (Age[in_Queens == 1 & Age < 29 & Age > 17])
+qn_child <- Age[in_Queens == 1 & Age < 18]
+qn_total_n <- length(qn_old) + length(qn_fifties) + length(qn_fourties) + length(qn_thirties) + length(qn_twenties) + length(qn_child)
+
+qn_prop_old <- length(qn_old) / qn_total_n
+qn_prop_fifties <- length(qn_fifties) / qn_total_n
+qn_prop_fourties <- length(qn_fourties) / qn_total_n
+qn_prop_thirties <- length(qn_thirties) / qn_total_n
+qn_prop_twenties <- length(qn_twenties) / qn_total_n
+qn_prop_child <- length(qn_child) / qn_total_n
+
+#Manhatten
+mn_old <- Age[in_Manhattan == 1 & Age > 64]
+mn_fifties <- (Age[in_Manhattan == 1 & Age < 65 & Age > 49])
+mn_fourties <- (Age[in_Manhattan == 1 & Age < 49 & Age > 39])
+mn_thirties <- (Age[in_Manhattan == 1 & Age < 39 & Age > 29])
+mn_twenties <- (Age[in_Manhattan == 1 & Age < 29 & Age > 17])
+mn_child <- Age[in_Manhattan == 1 & Age < 18]
+mn_total_n <- length(mn_old) + length(mn_fifties) + length(mn_fourties) + length(mn_thirties) + length(mn_twenties) + length(mn_child)
+
+mn_prop_old <- length(mn_old) / mn_total_n
+mn_prop_fifties <- length(mn_fifties) / mn_total_n
+mn_prop_fourties <- length(mn_fourties) / mn_total_n
+mn_prop_thirties <- length(mn_thirties) / mn_total_n
+mn_prop_twenties <- length(mn_twenties) / mn_total_n
+mn_prop_child <- length(mn_child) / mn_total_n
+
+#Staten Island
+si_old <- Age[in_StatenI == 1 & Age > 64]
+si_fifties <- (Age[in_StatenI == 1 & Age < 65 & Age > 49])
+si_fourties <- (Age[in_StatenI == 1 & Age < 49 & Age > 39])
+si_thirties <- (Age[in_StatenI == 1 & Age < 39 & Age > 29])
+si_twenties <- (Age[in_StatenI == 1 & Age < 29 & Age > 17])
+si_child <- Age[in_StatenI == 1 & Age < 18]
+si_total_n <- length(si_old) + length(si_fifties) + length(si_fourties) + length(si_thirties) + length(si_twenties) + length(si_child)
+
+si_prop_old <- length(si_old) / si_total_n
+si_prop_fifties <- length(si_fifties) / si_total_n
+si_prop_fourties <- length(si_fourties) / si_total_n
+si_prop_thirties <- length(si_thirties) / si_total_n
+si_prop_twenties <- length(si_twenties) / si_total_n
+si_prop_child <- length(si_child) / si_total_n
+```
+Once this is completed for each borough, we then create a matrix to hold all the data of the proportions of age by borough and use it to make a stacked bar plot:
+```{r echo=FALSE}
+prop_vector <- c(bk_prop_old, 
+                 bk_prop_fifties, 
+                 bk_prop_fourties, 
+                 bk_prop_thirties, 
+                 bk_prop_twenties, 
+                 bk_prop_child,
+                 
+                 bx_prop_old, 
+                 bx_prop_fifties, 
+                 bx_prop_fourties, 
+                 bx_prop_thirties, 
+                 bx_prop_twenties, 
+                 bx_prop_child,
+                 
+                 qn_prop_old, 
+                 qn_prop_fifties, 
+                 qn_prop_fourties, 
+                 qn_prop_thirties, 
+                 qn_prop_twenties, 
+                 qn_prop_child,
+                 
+                 mn_prop_old, 
+                 mn_prop_fifties, 
+                 mn_prop_fourties, 
+                 mn_prop_thirties, 
+                 mn_prop_twenties, 
+                 mn_prop_child,
+                 
+                 si_prop_old, 
+                 si_prop_fifties, 
+                 si_prop_fourties, 
+                 si_prop_thirties, 
+                 si_prop_twenties, 
+                 si_prop_child)
+
+age_data <- matrix(prop_vector, 
+                   nrow = 6, 
+                   ncol = 5, 
+                   byrow = FALSE, 
+                   dimnames = list(c("65 and older", 
+                                     "50-64", "40-49", "30-39", 
+                                     "18-29", "Under 18"),
+                                   c("Brooklyn", "Bronx", "Queens", 
+                                     "Manhatten", "Staten Island")))
+
+# Stacked Barplot
+barplot(age_data, 
+        col=colors()[c(23,89,12,62,30,95)] , 
+        legend.text = TRUE, 
+        args.legend = list(x = "topright", 
+                           bty= "n", 
+                           inset=-0.2, 
+                           xpd = TRUE),
+        border="white", 
+        space=0.04, 
+        font.axis=2, 
+        xlab="Borough", 
+        ylab= "age proportion")
+```
+
+Another type of bar graph that could also compare these proportions is a side-by-side bar chart where the proportions are next to eachother instead of stacked, however due to the 5 boroughs and 6 different age categories, this may become cumbersome and hard to read, so a stacked bar chart would be easiest to compare.
+
+## Commute and wage data
+I used the PUMS data to look at wages and commute type, getting this table for people in the City: (you can answer parts a-c without R)
+
+| w	                    | bus	| car	| subway
+|-----------------------|-------|-------|-------|
+| Wage below $25,000	| 1501	| 2394	| 3704
+| Wage above $75,000	| 385	| 1825	| 2194
+
+### Commute method conditioned on wages
+
+1. Given that someone takes the bus to work, what is the probability that they’re making wages above $75,000?
+Answer: $\frac{385}{1501+385}=0.2$
+2. Given that someone takes the subway to work, what is the probability that they make wages below $25,000?
+Answer: $\frac{3704}{3704+2194}=0.63$
+3. Given that someone has wage above $75,000, what is the probability that they drive a car to work?
+Answer: $\frac{1825}{385+1825+2194}=0.41$
+
+### The socioeconomics of transportation by borough
+Using the PUMS data, can you narrow this further - what are the socioeconomics of bus/subway in the various boroughs? What is the wealthiest PUMA area and how do the people living there tend to commute? Can you find interesting patterns?
+
+```{r echo = FALSE}
+pums.NYC <- dat_pums_NY %>%
+  filter(in_NYC == 1,
+         Age >= 18, 
+         Age < 66) %>%
+  mutate(borough = factor(
+           1 * in_Bronx + 
+             2 * in_Brooklyn + 
+             3 * in_Manhattan + 
+             4 * in_StatenI + 
+             5 * in_Queens + 
+             6 * in_Westchester + 
+             7 * in_Nassau, 
+           levels = 0:7,
+           labels = c("Not NYC", 
+                      "Bronx", 
+                      "Brooklyn", 
+                      "Manhattan", 
+                      "Staten Island", 
+                      "Queens", 
+                      "Westchester", 
+                      "Nassau")
+         ), 
+         commute = factor(
+           Commute_car + 
+             Commute_bus * 2 +
+             Commute_subway * 3 + 
+             Commute_rail * 4 + 
+             Commute_other * 5,
+           levels = c(1, 2, 3, 4, 5),
+           labels = c(
+             "car",
+             "bus",      
+             "subway",    
+             "rail",     
+             "other" ) 
+         ),
+         PUMA = factor(PUMA, 
+                       levels=c(03701, 03702, 03703, 03704, 03705, 03706, 
+                                03707, 03708, 03709, 03710, 03801,
+                                03802, 03803, 03804, 03805, 03806, 
+                                03807, 03808, 03809, 03810, 03901,
+                                03902, 03903, 04001, 04002, 04003, 
+                                04004, 04005, 04006, 04007, 04008,
+                                04009, 04010, 04011, 04012, 04013,
+                                04014, 04015, 04016, 04017, 04018, 
+                                04101, 04102, 04103, 04104, 04105, 
+                                04106, 04107, 04108, 04109, 04110,
+                                04111, 04112, 04113, 04114),
+                       labels= c("Riverdale, Fieldston & Kingsbridge",
+                                 "Wakefield, Williamsbridge & Woodlawn",
+                                 "Co-op City, Pelham Bay & Schuylerville",
+                                 "Pelham Parkway, Morris Park & Laconia",
+                                 "Belmont, Crotona Park East & East Tremont",
+                                 "Bedford Park, Fordham North & Norwood",
+                                 "Morris Heights, Fordham South & Mount Hope",
+                                 "Concourse, Highbridge & Mount Eden",
+                                 "Castle Hill, Clason Point & Parkchester",
+                                 "Hunts Point, Longwood & Melrose",
+                                 "Washington Heights, Inwood & Marble Hill",
+                                 "Hamilton Heights, Manhattanville & West Harlem",
+                                 "Central Harlem",
+                                 "East Harlem",
+                                 "Upper East Side",
+                                 "Upper West Side & West Side",
+                                 "Chelsea, Clinton & Midtown Business District",
+                                 "Murray Hill, Gramercy & Stuyvesant Town",
+                                 "Chinatown & Lower East Side",
+                                 "Battery Park City, Greenwich Village & Soho",
+                                 "Tottenville, Great Kills & Annadale",
+                                 "New Springville & South Beach",
+                                 "Port Richmond, Stapleton & Mariner's Harbor",
+                                 "Greenpoint & Williamsburg",
+                                 "Bushwick",
+                                 "Bedford-Stuyvesant",
+                                 "Brooklyn Heights & Fort Greene",
+                                 "Park Slope, Carroll Gardens & Red Hook",
+                                 "Crown Heights North & Prospect Heights",
+                                 "Brownsville & Ocean Hill",
+                                 "East New York & Starrett City",
+                                 "Canarsie & Flatlands",
+                                 "East Flatbush, Farragut & Rugby",
+                                 "Crown Heights South, Prospect Lefferts & Wingate",
+                                 "Sunset Park & Windsor Terrace",
+                                 "Bay Ridge & Dyker Heights",
+                                 "Borough Park, Kensington & Ocean Parkway",
+                                 "Flatbush & Midwood",
+                                 "Sheepshead Bay, Gerritsen Beach & Homecrest",
+                                 "Bensonhurst & Bath Beach",
+                                 "Brighton Beach & Coney Island",
+                                 "Astoria & Long Island City",
+                                 "Jackson Heights & North Corona",
+                                 "Flushing, Murray Hill & Whitestone",
+                                 "Bayside, Douglaston & Little Neck",
+                                 "Queens Village, Cambria Heights & Rosedale",
+                                 "Briarwood, Fresh Meadows & Hillcrest",
+                                 "Elmhurst & South Corona",
+                                 "Forest Hills & Rego Park",
+                                 "Sunnyside & Woodside",
+                                 "Ridgewood, Glendale & Middle Village",
+                                 "Richmond Hill & Woodhaven",
+                                 "Jamaica, Hollis & St. Albans",
+                                 "Howard Beach & Ozone Park",
+                                 "Far Rockaway, Breezy Point & Broad Channel)"
+                       ))
+  ) %>%
+  select(commute, borough, PUMA, income_total) %>%
+  na.omit()
+```
+
+This is a very broad question. First, we'll factor boroughs and commute methods and add neighborhood names to the PUMA values. We'll also select only the columns we need which are commute, borough, PUMA, income_total. We also omit any observations with NA values. 
+
+Next, we'll look at the breakdown of commutes by borough and income bracket. The data given to us used wages, but we're going to use income_total. 
+
+```{r message=FALSE, echo=FALSE}
+borough.data <- pums.NYC %>%
+  mutate(
+    under25k = income_total < 25000,
+    middle = income_total >= 25000 & income_total <= 75000,
+    over75k = income_total > 75000
+  ) %>%
+  mutate(
+    bracket = factor(under25k + middle * 2 + over75k * 3, 
+                     labels = c("<25k", "mid", ">75k"),
+                     levels = 1:3)
+  )
+
+borough.counts <- borough.data %>%
+  group_by(borough, bracket) %>%
+  summarize(borough.n = n())
+
+borough.summaries <- borough.data %>%
+  group_by(borough, commute, bracket) %>%
+  summarize(
+    p.car       = mean(commute == "car"),
+    p.bus       = mean(commute == "bus"),
+    p.subway    = mean(commute == "subway"),
+    p.rail      = mean(commute == "rail"),
+    p.other     = mean(commute == "other"),
+    mean.income = mean(income_total),
+    median.income = median(income_total),
+    n           = n()
+  ) %>%
+  arrange( desc(mean.income))
+
+
+data.with.boro.counts <- left_join(borough.summaries, borough.counts)
+
+ggplot(data.with.boro.counts, aes(x = bracket, 
+                                  y = n/borough.n, 
+                                  fill = commute)) + 
+  geom_col() +
+  facet_wrap(~borough) + 
+  labs(y = " ", x = "Income Bracket")
+```
+
+My biggest take away from these graphs is that more income means you are more likely to use a car for your commute. This difference is more obvious in the outer boroughs. The Bronx and Queens seem to have the biggest disparities between the lowest bracket and the highest. I'm very curious what falls into "other" considering there is such a large portion in Manhattan. Are those bikers? Walkers? Scooter...ers...? The fact that staten island has so few people that commute by subway and so many that use cars it makes me wonder if most people in Staten Island either work in Jersey or stay in Staten Island.
+
+### How the rich and fabulous commute
+Below are the neighborhoods with the highest mean total_income with percentages of each mode of transportation. The fact that the Upper West Side is so wealthy and so reliant on the subway props up one of my long held suspicions that the 1-2-3 line is the most reliable line in the city. I would like to do further research, of course. 
+
+
+```{r message = FALSE, echo = FALSE}
+p.by.puma <- pums.NYC %>%
+  group_by(PUMA) %>%
+  summarize(
+    p.car       = mean(commute == "car"),
+    p.bus       = mean(commute == "bus"),
+    p.subway    = mean(commute == "subway"),
+    p.rail      = mean(commute == "rail"),
+    p.other     = mean(commute == "other"),
+    mean.income = mean(income_total),
+    n           = n()
+  ) %>%
+  arrange( desc(mean.income))
+
+head(p.by.puma, 5)
+
+puma.counts <- pums.NYC %>%
+  group_by(PUMA) %>%
+  summarize(puma.n = n(), puma.income = mean(income_total)) %>%
+  arrange(puma.income)
+
+top.5 <- puma.counts %>%
+  top_n(5)
+
+gathered <- pums.NYC %>%
+  group_by(borough, PUMA, commute) %>%
+  summarize(
+    mean.income = mean(income_total),
+    median.income = median(income_total),
+    n        = n()
+  ) 
+
+data.with.puma.counts <- left_join(gathered, puma.counts) %>%
+  mutate(p = n/puma.n) %>%
+  arrange(mean.income) %>%
+  filter(PUMA %in% top.5$PUMA) 
+
+ggplot(data.with.puma.counts, aes(x = PUMA, 
+                                  y = p, 
+                                  fill = commute)) + 
+  geom_col() +
+  coord_flip() + 
+  labs(x=" ")
+
+```
+
+
+
+### kNN test to predict transportation method
+Try the machine learning K-nearest-neighbor algorithm on the PUMS data to get another view of the commuting pattern from above. How good of a classification of commute type can you get? Explain what you believe are important variables in this classification. You might explore the “caret” function.
+
+This was a little tricky. I tried a few different things-- income, gender, whether or not it was an immigrant (maybe less likely to have a drivers license?). Income alone ended up being my best predictor. It is correct 45% of the time which without calculating I know is statistically significantly higher than the expectation were the prediction random (20%). 
+```{r}
+
+# Clean the data, add columns where necessary (especially to factor), filter, and pull columns
+pums.compact <- dat_pums_NY %>%
+  filter(in_NYC == 1,
+#         Commute_rail == 0, 
+#         Commute_other == 0,
+         Age >= 18, 
+         Age < 66) %>%
+  mutate(income_total = norm_varb(income_total),
+         borough = factor(in_Bronx + 
+             2 * in_Brooklyn + 
+             3 * in_Manhattan + 
+             4 * in_StatenI + 
+             5 * in_Queens, 
+           levels = 1:5,
+           labels = c("Bronx", 
+                      "Brooklyn", 
+                      "Manhattan", 
+                      "Staten Island", 
+                      "Queens")
+         ), 
+         commute = factor(Commute_car + 
+             Commute_bus * 2 +
+             Commute_subway * 3 + 
+             Commute_rail * 4 + 
+             Commute_other * 5,
+           levels = c(1, 2, 3, 4, 5),
+           labels = c(
+             "Commute_car",
+             "Commute_bus",      
+             "Commute_subway",    
+             "Commute_rail",     
+             "Commute_other" ) 
+         )
+         ) %>%
+  select(commute, 
+         in_Bronx, 
+         in_Brooklyn, 
+         in_Manhattan, 
+         in_Queens, 
+         in_StatenI, 
+         income_total
+#         female
+#         immig,
+#         work_fullyr
+          )
+
+good.pums.obs <- complete.cases(pums.compact)
+pums.compact  <- subset(pums.compact, good.pums.obs)
+y.data <- pums.compact
+
+set.seed(12345)
+NN_obs <- sum(good.pums.obs)
+train.obs <- (runif(NN_obs) < 0.8)
+
+train.data <- subset(pums.compact, train.obs)
+test.data  <- subset(pums.compact, !train.obs)
+cl.data    <- y.data$commute[train.obs]
+true.data  <- y.data$commute[!train.obs]
+
+summary(cl.data)
+
+predicted.commute <- knn(train = train.data[-1], 
+                         test = test.data[-1], 
+                         cl = cl.data,
+                         k = 9)
+n.correctly.predicted <- sum(predicted.commute == true.data)
+correct.rate <- n.correctly.predicted / length(predicted.commute)
+print(correct.rate)
+
+```
