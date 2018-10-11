@@ -1,0 +1,310 @@
+---
+title: "Homework 4"
+author: Elizabeth Chung, Shay Diamond, Flaka Bajraktari, Ekaterina Marbot, and Om0lara
+  Adelaja
+date: "10/9/2018"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r message = FALSE, echo = FALSE}
+library(knitr)
+library(dplyr)
+library(ggplot2)
+library(class)
+
+opts_knit$set(root.dir ="/Users/shaypepper/Documents/2018-fall-ccny/econometrics")
+setwd("/Users/shaypepper/Documents/2018-fall-ccny/econometrics")
+load("data/CEXdata/cex_2012.RData")
+
+attach(data_cex)
+
+clean_data <- data_cex %>%
+  mutate(ent_prop = ENTERTPQ / TOTEXPPQ)
+
+clean_df <- clean_data
+```
+
+## 1. Money spent on entertainment
+
+### Descriptive Statistics
+We'll first start with the descriptive statistics for the entertainment/total expenditure ratio (ENTERTPQ/TOTEXPPQ) in it's entirety:
+```{r}
+entertainment_prop <- clean_data$ent_prop
+meanProp <- mean(entertainment_prop)
+# [1] 0.05189267
+
+ent_sd <- sd(entertainment_prop)
+# [1] 0.05735944
+
+n <- length(entertainment_prop)
+stdError <- qt(.025, df = n -1, lower.tail = FALSE) * sd(entertainment_prop) / sqrt(n)
+# [1] 0.00135977
+
+upperBound = meanProp + stdError
+# [1] 0.05325244
+
+lowerBound = meanProp - stdError
+# [1] 0.0505329
+```
+At a 95% confidence interval, this gives us range of (5.053%, 5.325%) with a mean of 5.189% and standard deviation of 0.0013 which at first glance seems like a relatively small range. So to understand how other factors play into the variation, we will first compare a sub-category that looks at how being a male or female factors into the proportion:
+
+
+```{r echo = FALSE}
+male_female_desc <- data_cex %>%
+  mutate(ent_prop = ENTERTPQ / TOTEXPPQ) %>%
+  select(ent_prop, female) %>%
+  group_by(female) %>%
+  summarize(
+    n = length(ent_prop),
+    meanProp = mean(ent_prop),
+    sdProp = sd(ent_prop),
+    stdError = qt(.025, df = n -1, lower.tail = FALSE) * sd(ent_prop) / sqrt(n),
+    lowerBound = meanProp - stdError,
+    upperBound = meanProp + stdError
+  ) 
+
+male_female_desc
+```
+Based on these results, the means slightly vary between the two; where females appear to have a slightly higher percentage spent on entertainment compared to males (5.31% to 5.06%), which leads to interest in running statistical significance tests later.
+
+The next sub-group we looked at was if the individual was from an urban or rural area:
+
+```{r echo = FALSE}
+urban_rural_desc <- data_cex %>%
+  mutate(ent_prop = ENTERTPQ / TOTEXPPQ) %>%
+  select(ent_prop, BLS_URBN) %>%
+  group_by(BLS_URBN) %>%
+  summarize(
+    n = length(ent_prop),
+    meanProp = mean(ent_prop),
+    sdProp = sd(ent_prop),
+    stdError = qt(.025, df = n -1, lower.tail = FALSE) * sd(ent_prop) / sqrt(n),
+    lowerBound = meanProp - stdError,
+    upperBound = meanProp + stdError
+  ) 
+
+urban_rural_desc
+```
+In this case, being from an urban area gives a factor of 1, rural being 2. At first glace we can see that the data set has significantly more observations from urban than rural with the mean from urban being lower than those from rural at 5.18% vs. 5.44%. This logically makes sense as those in rural areas have less access to affordable entertainment so they would have to spend more at the few entertainment options vs. the people in a urban area which have many options at varying levels of prices to pick from. Definitely a factor to consider for future statistical significance testing.
+
+The next sub-group tested was to look at the difference of the entertainment proportion based on education level:
+```{r echo = FALSE}
+edu_level_desc <- data_cex %>%
+  mutate(ent_prop = ENTERTPQ / TOTEXPPQ) %>%
+  select(ent_prop, EDUC_REF) %>%
+  group_by(EDUC_REF) %>%
+  summarize(
+    n = length(ent_prop),
+    meanProp = mean(ent_prop),
+    sdProp = sd(ent_prop),
+    stdError = qt(.025, df = n -1, lower.tail = FALSE) * sd(ent_prop) / sqrt(n),
+    lowerBound = meanProp - stdError,
+    upperBound = meanProp + stdError
+  ) 
+
+edu_level_desc
+```
+Based on these results, we can see that there were the most observations from those who graduated high school (factor 12), have some college (factor 13), and have a bachelors degree (factor 15), and that these groups also have higher means than most of the other categories. There is likely other factors at play that would explain the proportion spent on entertainment such as age or income level (and how that relates to education level) that could explain these variations. 
+
+
+### Plots
+
+First graph we will try is looking at a basic density plot for the entertainment proportion as a whole:
+```{r echo = FALSE}
+ggplot(clean_data, aes(x = ent_prop)) + geom_density()
+```
+This graph is not surprising based with the sharp slope around the mean based on the results we obtained previously with the limited variation and confidence interval we found previously
+
+Next we will try doing a histogram with the same entertainment proportion:
+
+```{r message=FALSE, echo = FALSE}
+ggplot(clean_data, aes(x = ent_prop)) + geom_histogram()
+```
+
+Again, the high levels indicated in the baskets immediately surrounding the mean are not surprising as it is reflective of the density graph previously used, but still a decent representation of the results found earlier.
+
+Based on our subgroups we chose earlier, we will now look at the different levels of entertainment proportion with respect to education level:
+
+```{r message=FALSE, echo = FALSE}
+ggplot(clean_data, aes(x = EDUC_REF, y = ent_prop)) + geom_col()
+```
+
+This is a great way to visualize a category that has multiple factors in it such as education level because you can potentially identify likely trends or factors of interest to do further statistical analysis on to determine their statistical significance.
+
+### OLS
+```{r echo = FALSE}
+model1 <- lm(ent_prop ~
+  BLS_URBN  + 
+  educ_nohs  + 
+  educ_hs    + 
+  educ_smcoll+ 
+  educ_as    + 
+  educ_bach  + 
+  educ_adv   + 
+  female + 
+  ALCBEVPQ +
+  AGE_REF
+  , clean_df)
+summary(model1)
+```
+The model we came up with measures many of the basic variables you'd expect. Education, gender, age. We added in the urban/rural variable and alcoholic beverage spending. Not totally sure that's kosher since we woul dbe comparing a proportion to a proportion with the same denominator. I was really surprised to see that rural areas had a higher coefficient than urban areas. There's so much to do in cities. I'm interested in exploring that further. 
+
+### kNN model for bottom quartile
+
+```{r}
+ent_prop_25 <- quantile(clean_df$ent_prop, 0.25, na.rm = TRUE)
+
+knn_data <- clean_df %>%
+  select(ent_prop, 
+           BLS_URBN,
+           female,
+           AGE_REF
+         ) %>%
+  mutate(bottom25 = ent_prop < ent_prop_25) %>%
+  select( -ent_prop)
+
+good.obs <- complete.cases(knn_data)
+knn_data  <- subset(knn_data, good.obs)
+
+y.data <- knn_data
+
+set.seed(1485)
+NN_obs <- sum(good.obs)
+train.obs <- (runif(NN_obs) < 0.8)
+
+train.data <- subset(y.data, train.obs)
+test.data  <- subset(y.data, !train.obs)
+cl.data    <- y.data$bottom25[train.obs]
+true.data  <- y.data$bottom25[!train.obs]
+
+predicted.ent <- knn(train = train.data[-1], 
+                     test = test.data[-1], 
+                     cl = cl.data,
+                     k = 3)
+n.correctly.predicted <- sum(predicted.ent == true.data)
+correct.rate <- n.correctly.predicted / length(predicted.ent)
+print(correct.rate)
+
+```
+Something must be wrong with this. The prediction rate is way too close to perfect. We tried several different variable combinations, and this was the strongest. Both education and alcohol expenditure reduced our rate of success in prediction, so we chose not to use them. We even played with values of k. Things got murkier as k got larger. Very open to your opinion on this! Are we missing something? 
+
+
+
+## 2. Expenditure on Apparel
+
+### Models for APPARPQ including education
+1. Again with the CEX data; estimate some models to explain APPARPQ, expenditure on apparel in the previous quarter (includes MENBOYPQ, WOMGRLPQ, and FOOTWRPQ - expenditure on apparel for Men and boys; Women and girl; footwear). How important is educational attainment on this expenditure category?
+```{r}
+model1 <- lm(APPARPQ ~ educ_adv + educ_as + educ_smcoll + educ_nohs + educ_hs)
+summary(model1)
+```
+
+
+```{r}
+educ_indx <-  educ_nohs + 
+              2*educ_hs + 
+              3*educ_smcoll + 
+              4*educ_as + 
+              5*educ_bach + 
+              6*educ_adv
+model2 <- lm(APPARPQ ~ educ_indx)
+summary(model2)
+```
+
+
+```{r}
+model3 <- lm(APPARPQ ~ FAM_SIZE + FINCATAX + HOUSPQ + Married + unmarried )
+summary(model3)
+```
+
+### Conditional Means by Education level
+2. What are conditional mean expenditure on apparel for different educational levels? What about conditional means for those who spent a non-zero amount?
+
+```{r}
+# &gt; mean(APPARPQ[as.logical(educ_adv)])
+# [1] 424.0147
+# &gt; mean(APPARPQ[as.logical(!educ_adv)])
+# [1] 269.3451
+# &gt; mean(APPARPQ[as.logical(educ_nohs)])
+# [1] 145.876
+# &gt; mean(APPARPQ[as.logical(!educ_nohs)])
+# [1] 295.2734
+# &gt; mean(APPARPQ[as.logical(educ_bach)])
+# [1] 427.8435
+# &gt; mean(APPARPQ[as.logical(!educ_bach)])
+# [1] 247.3224
+# &gt; mean(APPARPQ[as.logical(educ_as)])
+# [1] 302.4739
+# &gt; mean(APPARPQ[as.logical(!educ_as)])
+# [1] 280.3946
+# &gt; mean(APPARPQ[as.logical(educ_smcoll)])
+# [1] 232.6468
+# &gt; mean(APPARPQ[as.logical(!educ_smcoll)])
+# [1] 295.4017
+# &gt; mean(APPARPQ[as.logical(!educ_hs)])
+# [1] 309.4018
+# &gt; mean(APPARPQ[as.logical(educ_hs)])
+# [1] 201.7139
+```
+People with college degrees are more likely to spend on foods, footwear, than those who do not
+have college degrees.
+
+### OLS models
+As mentioned below we can analyse the relation between expenditure on apparel and educational attainment:
+```{r}
+ols1 <- lm(APPARCQ ~ educ_nohs + educ_hs + educ_smcoll + educ_as + educ_bach + educ_adv)
+summary(ols1)
+```
+
+```{r}
+educ_indx1 <- educ_nohs + 
+              2*educ_hs + 
+              3*educ_smcoll + 
+              4*educ_as + 
+              5*educ_bach + 
+              6*educ_adv
+plot(APPARPQ, educ_indx1)
+```
+
+We can see that people with Bachelor's degree have highest expenditure on apparel and their expenditure is more spread than the other. 
+
+However, from our data we can observe the obvious thing - how income affects expenditure on apparel:
+
+```{r}
+ols_INC_AP <- lm(APPARCQ ~ FINCATAX, data_cex)
+summary (ols_INC_AP)
+plot (ols_INC_AP, which = c(3))
+```
+
+
+### More Models
+
+Let's estimate the relation between age and expenduture on apparel.
+```{r}
+model_Age_Ap <- lm(APPARCQ ~ AGE_REF, data_cex)
+summary(model_Age_Ap)
+plot(model_Age_Ap)
+```
+
+
+Then we can also find, for example, relation between franction of income women spent on apparel and their age:
+```{r}
+woman_ap_franction <- WOMGRLCQ/FINCATAX
+woman_ap_franction [is.infinite(woman_ap_franction)] <- NA
+model_W_Ap_Age <- lm(woman_ap_franction ~ AGE_REF)
+summary (model_W_Ap_Age)
+```
+
+It is also interesting to see how expenditure on apparel are related with expenditure on housing and food:
+
+```{r}
+Ap_franction <- APPARCQ/FINCATAX
+Hous_Food_franction <- (HOUSPQ + FOODPQ)/FINCATAX
+Ap_franction[is.infinite(Ap_franction)] <- NA
+Hous_Food_franction[is.infinite(Hous_Food_franction)] <- NA
+model_A_HF <- lm(Ap_franction ~ Hous_Food_franction)
+summary (model_A_HF)
+plot(model_A_HF)
+```
