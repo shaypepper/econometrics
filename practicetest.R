@@ -1,27 +1,81 @@
-source("./hawkeshelp.R")
+# 4
+pnorm(0.05)
 
-# Question 1
-pbar <- 0.05
-phat1 <- 0.01
-phat2 <- 0.09
-sigma <- sqrt(0.05*(1-0.05)/216)
-z1 <- (phat1 - pbar)/sigma
-z2 <- (phat2 - pbar)/sigma
-GetAreaBetweenValues(z1, z2)
+# 5
+(74.2 - 70.7)/4.8
 
-# Question 3
-z1 <- (1417 - 1428)/(119/sqrt(49))
-z2 <- (1439 - 1428)/(119/sqrt(49))
-GetAreaBetweenValues(z1, z2)
+# 6
+E <- qt(0.1, df=8) / (7.52/sqrt(9))
+40.6 + E
+40.6 - E
 
-# Question 4
-E <- EstimateErrorForDifferenceInTwoMeans(n=c(10,14), c=0.90, s=c(14, 10), sd.assumed.equal = TRUE)
-print(E)
-GetConfidenceIntervalForComparisonBetweenMeans(mean=c(143, 164), n=c(10,14), c=0.90, s=c(14, 10), sd.assumed.equal = TRUE)
+# 7
+126 - 93
+E <- qt(0.025, df=7) * sqrt((15 ** 2)/8 + (31 ** 2)/11)
+33 + E
+33 - E
 
-# Question 5
-t <- GetTFromAlpha(0.90, 13)
-print(t)
-E <- t * (24.65 / sqrt(14))
-67.58 + E
-67.58 - E
+# 8
+z <- 23/(363/sqrt(335))
+pnorm(z) - pnorm(-z)
+
+# 9 SAMPLE VARIANCE
+x <- c(3,13,13,14,-13,-13,-13)
+xbar <- mean(x)
+sqrt(sum((x - xbar)**2)/(6))
+14 - (-13)
+
+# 10 
+(11*4 + 7*3 + 11*2)/29
+
+# 11
+qt(.005, df=10)
+pt(3.169273, df=10) - pt(-3.169273, df=10)
+E <- qt(.005, df=10) * (13.96/sqrt(11))
+82.43 + E
+82.43 - E
+
+# 12
+qt(0.1, df=30)
+a1 <- 16 * (5.4 ** 2)
+a2 <- 14 * (4.5 ** 2)
+
+d <- 17 + 15 -2
+(51 - 58.2)/ (sqrt((a1 + a2)/d) * sqrt(1/17 + 1/15))
+
+# 13
+pnorm(2.49) - pnorm(-0.16)
+
+# 14
+pnorm(134, lower.tail=FALSE, mean=145, sd=6)
+
+
+# 15
+d <- 11
+t <- qt(0.01, df=d)
+
+xbar1 <- 81.4
+s1 <- 8.4
+
+xbar2 <- 89.9
+s2 <- 6.4
+
+(xbar1 - xbar2)/sqrt(s1**2/12 + s2**2/17)
+
+# 16
+choose(12, 6)* 0.5**6 * 0.5**6
+
+
+# 18
+choose(12, 0)* 0.5**0 * 0.5**12 + 
+choose(12, 1)* 0.5**1 * 0.5**11 + 
+  choose(12, 2)* 0.5**2 * 0.5**10 + 
+  choose(12, 3)* 0.5**3 * 0.5**9 + 
+  choose(12, 4)* 0.5**4 * 0.5**8 + 
+  choose(12, 5)* 0.5**5 * 0.5**7 + 
+  choose(12, 6)* 0.5**6 * 0.5**6 
+
+
+
+
+

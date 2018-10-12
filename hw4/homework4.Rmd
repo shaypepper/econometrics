@@ -3,7 +3,13 @@ title: "Homework 4"
 author: Elizabeth Chung, Shay Diamond, Flaka Bajraktari, Ekaterina Marbot, and Om0lara
   Adelaja
 date: "10/9/2018"
+<<<<<<< HEAD
 output: html_document
+=======
+output:
+  pdf_document: default
+  html_document: default
+>>>>>>> 8f2fa05b0cda340f260da158d629e62fbb51b314
 ---
 
 ```{r message = FALSE, echo = FALSE}
@@ -12,8 +18,13 @@ library(dplyr)
 library(ggplot2)
 library(class)
 
+<<<<<<< HEAD
 opts_knit$set(root.dir ="/Users/shaypepper/Documents/school/econometrics")
 setwd("/Users/shaypepper/Documents/school/econometrics")
+=======
+opts_knit$set(root.dir ="/Users/shaypepper/Documents/2018-fall-ccny/econometrics")
+setwd("/Users/shaypepper/Documents/2018-fall-ccny/econometrics")
+>>>>>>> 8f2fa05b0cda340f260da158d629e62fbb51b314
 load("data/CEXdata/cex_2012.RData")
 
 attach(data_cex)
