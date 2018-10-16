@@ -1,0 +1,141 @@
+---
+title: "Homework 5"
+author: Elizabeth Chung, Shay Diamond, Flaka Bajraktari, Ekaterina Marbot, and Om0lara
+  Adelaja
+date: "10/16/2018"
+output:
+  pdf_document: default
+  beamer_presentation: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(stargazer)
+setwd("/Users/shaypepper/Documents/school/econometrics/")
+load("data/cps_mar2013/cps_mar2013.RData")
+
+attach(dat_CPSMar2013)
+```
+
+```{r results='asis'}
+x <- lm(WSAL_VAL ~ Age ** 2 + white)
+stargazer(x, title = "Regression 1")
+```
+
+## 3. Hypothesis Tests, Conditionals (20 points)
+
+#### a
+
+#####
+a. Testing whether the fraction of immigrants of people making less than 15 and hour vs the fraction of immigrants of people making more than 15 an hour
+    
+    ```{r}
+    n1 <- 14235 + 3113 + 3113 + 1824
+    x1 <- 3113 + 1824
+    phat1 <- x1 / n1
+    
+    n2 <- 33150 + 662 + 5296 + 567
+    x2 <- (5296 + 567) 
+    phat2 <- x2 / n2 
+      
+    pbar <- (x1 + x2) / (n1 + n2)
+    t.stat <- (phat1 - phat2) / sqrt( pbar * (1 - pbar) * (1/n1  + 1/n2))
+    critval <- pnorm(0.025)
+    p.val <- pnorm(-t.stat)
+    E <- critval * sqrt( phat1 * (1 - phat1) / n1 + phat2 * (1 - phat2 ) / n2)
+    point.est <- phat1 - phat2
+    ```
+
+\begin{align}
+\begin{split} \nonumber
+  z &= `r t.stat` \\
+  p \mathrm{-value} &= `r p.val` \\
+  E &= `r E` \\
+  `r point.est - E` & \leq p_1 - p_2 \leq `r point.est + E` 
+\end{split}
+\end{align}
+
+#####
+a. Of immigrants, the fraction who are making \$15/hr vs  who are making more than \$15/hr. In this case we'll test the proportion of immigrants making less than \$15/hr against  the null hypothesis being that the proportion equals .50.
+
+
+    ```{r}
+    n <- 3113 + 1824 + 5296 + 567
+    phat <- (3113 + 1824) / n
+    p <- 0.5
+
+    critval <- -pnorm(0.005)
+    point.est <- phat
+    se.phat <- sqrt( phat * (1 - phat) / n )
+    se.p <- sqrt( p * (1 - p) / n )
+    E <- critval * se.phat
+    t.stat <- point.est * se.p
+    p.val <- pnorm(abs(t.stat)) * 2
+```
+
+\begin{align}
+\begin{split} \nonumber
+  z &= `r t.stat` \\
+  p \mathrm{-value} &= `r p.val` \\
+  E &= `r E` \\
+  `r point.est - E` & \leq p \leq `r point.est + E` 
+\end{split}
+\end{align}
+
+b. 
+    ```{r chunk253}
+    n1 <- 14235 + 3113 + 1062 + 1824
+    x1 <- 1062 + 1824
+    phat1 <- x1 / n1
+    
+    n2 <- 33150 + 662 + 5296 + 567
+    x2 <- (662 + 567) 
+    phat2 <- x2 / n2 
+      
+    pbar <- (x1 + x2) / (n1 + n2)
+    t.stat <- (phat1 - phat2) / sqrt( pbar * (1 - pbar) * (1/n1  + 1/n2))
+    critval <- pnorm(0.025)
+    p.val <- pnorm(-t.stat)
+    E <- critval * sqrt( phat1 * (1 - phat1) / n1 + phat2 * (1 - phat2 ) / n2)
+    point.est <- phat1 - phat2
+    ```
+
+\begin{align}
+\begin{split} \nonumber
+  z &= `r t.stat` \\
+  p \mathrm{-value} &= `r p.val` \\
+  E &= `r E` \\
+  `r point.est - E` & \leq p_1 - p_2 \leq `r point.est + E` 
+\end{split}
+\end{align}
+
+b. 
+    ```{r chunk280}
+    n <- 1062 + 1824 + 662 + 567
+    phat <- (1062 + 1824) / n
+    p <- 0.5
+
+    critval <- -pnorm(0.005)
+    point.est <- phat
+    se.phat <- sqrt( phat * (1 - phat) / n )
+    se.p <- sqrt( p * (1 - p) / n )
+    E <- critval * se.phat
+    t.stat <- point.est * se.p
+    p.val <- pnorm(abs(t.stat)) * 2
+```
+
+\begin{align}
+\begin{split} \nonumber
+  z &= `r t.stat` \\
+  p \mathrm{-value} &= `r p.val` \\
+  E &= `r E` \\
+  `r point.est - E` & \leq p \leq `r point.est + E` 
+\end{split}
+\end{align}
+
+
+c. ``1824 / (14235 + 3113 + 1062 + 1824) ## 0.0901453``
+d. ``1824 / (3113 + 1824) ## 0.3694551`` 
+e. ``567 / (5296 + 567) ## 0.09670817``

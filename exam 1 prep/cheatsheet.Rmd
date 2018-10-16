@@ -6,9 +6,9 @@ date: "Fall 2018"
 fig_width: 4
 fig_height: 2 
 output:
-  html_document: default
   pdf_document: 
     toc: true
+  html_document: default
 ---
 ```{r echo = FALSE}
 library(ggplot2)
@@ -53,70 +53,57 @@ What will be helpful in this section: ``pnorm``, ``qnorm``, ``pt``, ``qt``, and 
 
 #### Population Mean
 These assume an unknown sigma
-$$
-\begin{align}
-  E = (t_{\alpha / 2}) \frac{s}{\sqrt{n}} 
-  &&
-  df = n - 1
-  &&
+\begin{align} \nonumber
+  E = (t_{\alpha / 2}) \frac{s}{\sqrt{n}} &&
+  df = n - 1 &&
   t = \frac{\bar{x} - \mu}{\frac{s}{\sqrt{n}}}
 \end{align}
-$$
+
 
 #### Population proportion
-$$
-\begin{align}
-  E &= z_{\alpha / 2} 
-       \sqrt{\frac{\hat{p}(1 - \hat{p}) }{n} }
-  &&
-  z = \frac{\hat{p} - p}{\sqrt{ \frac{p(1-p)}{n} }}
-  \\
-  n &=  p(1-p)\left( \frac{z_{\alpha / 2}}{E}  \right)^2
+
+\begin{align} \nonumber
+  E = z_{\alpha / 2}  \sqrt{\frac{\hat{p}(1 - \hat{p}) }{n} } &&
+  z = \frac{\hat{p} - p}{\sqrt{ \frac{p(1-p)}{n} }} &&
+  n =  p(1-p)\left( \frac{z_{\alpha / 2}}{E}  \right)^2
 \end{align}
-$$
+
 
 
 #### Difference in population means
 These assume variances are different and unknown
-$$
-\begin{align}
-  E &= 
+
+\begin{align} \nonumber
+  E = 
     t_{\alpha / 2}
     \sqrt{
       \frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}
-    }
-  &&
-  df = min(n_1, n_2) - 1 
-  \\
-  \\
-  t &= \frac{
+    } &&
+  df = min(n_1, n_2) - 1  &&
+  t = \frac{
       \left(\bar{x}_1 - \bar{x}_2 \right) - 
       \left(\mu_1 - \mu_2 \right)}
     {\sqrt{
       \frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}
     }}
 \end{align}
-$$
+
 
 #### Difference in population proportions
 
-$$
-\begin{align}
-  E &= z_{\alpha / 2} \sqrt { 
+\begin{align} \nonumber
+  E = z_{\alpha / 2} \sqrt { 
     \frac{ \hat{p}_1 (1 - \hat{p}_1) }{n_1} + \frac{ \hat{p}_2 (1 - \hat{p}_2)}{n_2} 
-    }
-  &&
-  \bar{p} = \frac{x_1 + x_2}{n_1 + n_2}
-  \\
-  \\
-  z &= \frac{
+    } &&
+  \bar{p} = \frac{x_1 + x_2}{n_1 + n_2} &&
+  z = \frac{
   \left(\hat{p}_1 - \hat{p}_2 \right) - 
   \left(p_1 - p_2 \right)}
   {\sqrt{
     \bar{p} \left( 1 - \bar{p}\right) \left( \frac{1}{n_1} + \frac{1}{n_2} \right)
   }}
 \end{align}
-$$
+
 
 ## Regression Analysis from given data (no datasets in R required)
 
