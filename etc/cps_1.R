@@ -7,10 +7,11 @@ require(stargazer)
 require(AER)
 
 rm(list = ls(all = TRUE))
-setwd("C:\\Users\\Kevin\\Documents\\CCNY\\data for classes\\CPS_Mar2013")
-load("cps_mar2013.RData")
+setwd("/Users/shaypepper/Documents/school/econometrics/")
+load("data/cps_mar2013/cps_mar2013.RData")
 
 attach(dat_CPSMar2013)
+
 # use prime-age,fulltime, yearround workers
 use_varb <- (Age >= 25) & (Age <= 55) & work_fullt & work_50wks
 dat_use <- subset(dat_CPSMar2013,use_varb) # 47,550 out of 202,634 obs

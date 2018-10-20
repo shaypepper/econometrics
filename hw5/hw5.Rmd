@@ -1,34 +1,138 @@
 ---
 title: "Homework 5"
-author: Elizabeth Chung, Shay Diamond, Flaka Bajraktari, Ekaterina Marbot, and Om0lara
+author: Elizabeth Chung, Shay Diamond, Flaka Bajraktari, Ekaterina Marbot, and Omolara
   Adelaja
 date: "10/16/2018"
+fig_width: 4
+fig_height: 2 
 output:
-  pdf_document: default
-  beamer_presentation: default
   html_document: default
+  beamer_presentation: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir ="/Users/shaypepper/Documents/school/econometrics")
 
 library(stargazer)
+library(lmtest)
+library(dplyr)
+library(ggplot2)
+
 setwd("/Users/shaypepper/Documents/school/econometrics/")
 load("data/cps_mar2013/cps_mar2013.RData")
 
 attach(dat_CPSMar2013)
 ```
 
-```{r results='asis'}
-x <- lm(WSAL_VAL ~ Age ** 2 + white)
-stargazer(x, title = "Regression 1")
+# HW 5
+
+stargazer(model name, title = "something", type = "html")
+
+## 1. Group Members
+Elizabeth Chung, Shay Diamond
+
+## 2. Regression on Wage and Salary
+
+Using the CPS data, we constructed interesting regressions on wage and salary with several variable subgroups: 
+
+### Education
+The first and most important subgroup we wanted to test was income level based on education as you expect the higher your education level, the higher income you can obtain. 
+```{r}
+wage_sal <- WSAL_VAL
+wage_sal[is.infinite(wage_sal)] <- NA
+wage_sal[wage_sal < 0] <- NA
+
+model1 <- lm(wage_sal ~ educ_hs + educ_smcoll + educ_as 
+             + educ_bach + educ_adv + educ_nohs)
+
+stargazer(model1)
+plot(model1)
+```
+From this output, we can see that with a base case of having no high school education, you could make around $2,300. Having a high school education that increases that by over $14,000, some college increases it by another $3,000, and associates by $8,000, a bachelor's degree by another $15,500, and an advanced degree by $23,000. Because of the incredibly small t-value, we can say at high confidence that this regression has high statistical significance.
+
+This falls in line with previous assumptions that as you increase your education level, that you can expect to increase your salary.
+
+### Sex and Education
+The next subgroup we chose was sex with education level included because of all the heated debate that comes up regarding the wage gap and weather or not accounting for education level would close the gap. 
+```{r}
+clean_dat <- mutate(dat_CPSMar2013, male = (female == 0)*1)
+model2 <- lm(wage_sal ~ male + female + educ_hs + educ_smcoll 
+             + educ_as + educ_bach + educ_adv + educ_nohs
+             , clean_dat)
+
+summary(model2)
+
+plot(model2)
+```
+This regression shows that starting as a female with no high school education, that being a male would already increase your pay by around $8,500! Seems pretty shocking considering we accounted for education level as well.
+
+### Ethnicity and Education
+The next subgoup we chose was based on ethnicity to see if having different ethnic backgrounds affected your ability to earn more or less again taking into account education level. 
+```{r}
+model3 <- lm(wage_sal ~ AfAm + Asian + Amindian + Hispanic + Mexican 
+             + PuertoRican + Cuban + race_oth + white + educ_hs + educ_smcoll 
+             + educ_as + educ_bach + educ_adv + educ_nohs)
+
+summary(model3)
+
+plot(model3)
+```
+Based on this regression, the only two variables that are even statistically significant outside of education level is being Cuban (decreased pay by ~$4,00) or being white (increased pay by $4,000) whereas the other ethinic makeups had too large of a t-value to say definitively. I was curious from here if being a first or second generation immigrant played a role in making some of the other variables statistically significant, so I ran one more model to include immigrant generational data:
+
+```{r}
+model4 <- lm(wage_sal ~ AfAm + Asian + Amindian + Hispanic + Mexican 
+             + PuertoRican + Cuban + race_oth + white + immigrant 
+             + immig2gen + educ_hs + educ_smcoll + educ_as + educ_bach 
+             + educ_adv + educ_nohs)
+
+summary(model4)
+plot(model4)
+```
+This regression showed an even higher level of confidence that being Cuban can decrease your salary but also indicated an interesting concept that having Mexican heritage can help increase your salary while being Hispanic can lower it. Another interesting finding was that being an immigrant actually increased your salary by $3,500 while being a second generation immigrant lowers it by $1,900! The only explanation I can think of for this phenominom is that first generation immigrants possibly have a different work ethic as they build a new life, different federal programs to help them find better work when they arrive, and possibly even the current government standards for receiving green cards/citizenship for those with degrees or skills in areas that already provide higher wages (doctors, scientists, etc). Whereas the children of these immigrants do not meet these same standards.
+
+
+## 3. Educational Level Averages vs OLS
+| Number | Mean | Regression Coef |
+|------|---|----|
+|No HS | 2355.221 | 2355.2|
+|High School | 19049.79 | 16694.6 |
+|Some College | 22041.65 | 19686.4 |
+|Assoc Deg | 29386.47 | 27031.2 |
+(build table to look at mean of group to regression estimate)
+```{r eval = FALSE}
+> mean(WSAL_VAL[educ_nohs == 1])
+[1] 2355.221
+# regression: 2355.2
+> mean(WSAL_VAL[educ_hs == 1])
+[1] 19049.79
+# regression: 16694.6
+> mean(WSAL_VAL[educ_smcoll == 1])
+[1] 22041.65
+# regression: 19686.4
+> mean(WSAL_VAL[educ_as == 1])
+[1] 29386.47
+# regression: 27031.2
+> mean(WSAL_VAL[educ_bach == 1])
+[1] 45027.83
+# regression: 42672.6
+> mean(WSAL_VAL[educ_adv == 1])
+[1] 68194.7
+# regression: 65839.5
 ```
 
-## 3. Hypothesis Tests, Conditionals (20 points)
+From this table (that I will build), you can see that other than with no high school education, every other education level was slightly higher when just taking the average of the group than when we ran the regression and found the estimates of the group. OLS is the maximum likihood estimator and is considered more accurate than just taking the mean, so in our case this means it takes into account more of the variations in the data to ensure the most accurate estimate of salary level if you have a certain level of education.
 
-#### a
+## 4. $15/hr in wage analysis
 
-#####
+| Number | (under $15) Native	| (under $15) Immigrant |	(over $15) Native |	(over $15) Immigrant |
+|------|---|----|----|-----|
+| Educ HS or more |	14235 |	3113 |	33150 | 5296
+| no HS diploma	| 1062 | 1824 | 662	| 567
+
+## 4. Hypothesis Tests, Conditionals
+
 a. Testing whether the fraction of immigrants of people making less than 15 and hour vs the fraction of immigrants of people making more than 15 an hour
     
     ```{r}
@@ -57,32 +161,7 @@ a. Testing whether the fraction of immigrants of people making less than 15 and 
 \end{split}
 \end{align}
 
-#####
-a. Of immigrants, the fraction who are making \$15/hr vs  who are making more than \$15/hr. In this case we'll test the proportion of immigrants making less than \$15/hr against  the null hypothesis being that the proportion equals .50.
-
-
-    ```{r}
-    n <- 3113 + 1824 + 5296 + 567
-    phat <- (3113 + 1824) / n
-    p <- 0.5
-
-    critval <- -pnorm(0.005)
-    point.est <- phat
-    se.phat <- sqrt( phat * (1 - phat) / n )
-    se.p <- sqrt( p * (1 - p) / n )
-    E <- critval * se.phat
-    t.stat <- point.est * se.p
-    p.val <- pnorm(abs(t.stat)) * 2
-```
-
-\begin{align}
-\begin{split} \nonumber
-  z &= `r t.stat` \\
-  p \mathrm{-value} &= `r p.val` \\
-  E &= `r E` \\
-  `r point.est - E` & \leq p \leq `r point.est + E` 
-\end{split}
-\end{align}
+With such a tiny p-value, the difference in these proportions is clearly statistically significant. 
 
 b. 
     ```{r chunk253}
@@ -110,31 +189,6 @@ b.
   `r point.est - E` & \leq p_1 - p_2 \leq `r point.est + E` 
 \end{split}
 \end{align}
-
-b. 
-    ```{r chunk280}
-    n <- 1062 + 1824 + 662 + 567
-    phat <- (1062 + 1824) / n
-    p <- 0.5
-
-    critval <- -pnorm(0.005)
-    point.est <- phat
-    se.phat <- sqrt( phat * (1 - phat) / n )
-    se.p <- sqrt( p * (1 - p) / n )
-    E <- critval * se.phat
-    t.stat <- point.est * se.p
-    p.val <- pnorm(abs(t.stat)) * 2
-```
-
-\begin{align}
-\begin{split} \nonumber
-  z &= `r t.stat` \\
-  p \mathrm{-value} &= `r p.val` \\
-  E &= `r E` \\
-  `r point.est - E` & \leq p \leq `r point.est + E` 
-\end{split}
-\end{align}
-
 
 c. ``1824 / (14235 + 3113 + 1062 + 1824) ## 0.0901453``
 d. ``1824 / (3113 + 1824) ## 0.3694551`` 
