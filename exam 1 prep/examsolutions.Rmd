@@ -180,11 +180,16 @@ Suppose that a particular medical treatment already improves patient outcomes by
 
 a. If there were 10 patients in the trial, what would be the t-statistic, p-value, and confidence interval - assuming the new treatment works as expected? Carefully explain the null hypothesis.
     ```{r}
-critval <- qnorm(0.025)
+    xbar <- 22
     
-pnorm(-test.stat)
+    critval <- qnorm(0.025)
+    t.stat <- 2 / (8/sqrt(10))
+      
+    pnorm(-test.stat) ## since sigma is known
 ```
-The null hypothesis is that the improvement from this treatment improves patient outcomes by 20.
+
+
+The null hypothesis is that the improvement from this treatment improves patient outcomes by 2.
 
 \begin{align}
 \begin{split} \nonumber
@@ -195,18 +200,17 @@ The null hypothesis is that the improvement from this treatment improves patient
 
 b. If there were 30 patients, what would be the t-stat, p-value, and confidence interval (again assuming the treatment works as expected)?
     ```{r}
-x.bar <- 30
-n <- 10
-critval <- qnorm(0.05)
-E <- critval * (8 / sqrt(30))
-test.stat <- 10 / (8 / sqrt(30))
-
-pnorm(-test.stat)
+    xbar <- 22
+    
+    critval <- qnorm(0.025)
+    t.stat <- 2 / (8/sqrt(30))
+      
+    pnorm(-test.stat) ## since sigma is known
 ```
 
 c. If the company wants a p-value of 5% or lower, how many patients should they plan to have in the trial? _What is the desired margin of error??_
     ```{r}
-(-pnorm(0.025) * 8) ** 2
+(pnorm(0.025) * 8 / 0.01) ** 2
 ```
 
 #### 3. Hypothesis Tests, Conditionals (20 points)
@@ -500,10 +504,7 @@ b. If the true mean were -10, what is the probability that we could observe a va
 
 #### 8. Confidence intervals, Hypothesis tests (15 points)
 
-I tracked down this reference from a sign on the bus, from Tobacco Free NY. A survey of 1681 adolescents (age 11-14) in
-California asked if they had tried smoking and how often they went to convenience, liquor, or small grocery stores. The study finds that
-452 kids rarely went to these stores and 81 had tried cigarettes; 458 kids visited these stores often (more than twice a week) and 133 had
-tried cigarettes. The authors assert that visiting these stores exposed the kids to more tobacco advertising.
+I tracked down this reference from a sign on the bus, from Tobacco Free NY. A survey of 1681 adolescents (age 11-14) in California asked if they had tried smoking and how often they went to convenience, liquor, or small grocery stores. The study finds that 452 kids rarely went to these stores and 81 had tried cigarettes; 458 kids visited these stores often (more than twice a week) and 133 had tried cigarettes. The authors assert that visiting these stores exposed the kids to more tobacco advertising.
 
 ```{r}
 
@@ -517,12 +518,15 @@ se2 <- sqrt(phat1 * (1-phat2) / n)
 
 pbar <- (133 + 81)/(452 + 458)
 
+phat1
+phat2
 ```
 
 a. What is the difference in means?
 
     ```{r}
 point.est <- phat1 - phat2
+point.est
 ```
 
 b. What is the standard error of the difference in means?
@@ -532,7 +536,7 @@ se <- sqrt(se1 ** 2 + se2 ** 2)
 
 c. Is this difference statistically significant? What is the p-value? Explain.
 ```{r}
-t.stat <- abs(point.est / sqrt(pbar * (1 - pbar) * (1/452 + 1/458)))
+t.stat <- abs(point.est / sqrt(pbar * (1 - pbar) * (1/n1 + 1/n2)))
 pval <- pnorm(t.stat, lower.tail = FALSE) * 2
 pval
 pval < 0.05
@@ -542,13 +546,138 @@ Yes, this point estimate for the difference between these means is statistically
 d. The kids were also asked if their grades were likely to be at the level of B or below; 52 of the rare-frequency kids had belowaverage grades, while 63 of the high-frequency visitors had below-average grades. Is this difference statistically significant?
 
 ```{r}
+phat1 <- 52 / n1
+phat2 <- 63 / n2
+
+n1 <- 452
+phat1 <- 81/452
+se1 <- sqrt(phat1 * (1-phat1) / n)
+
+n2 <- 458
+phat2 <- 133/458 
+se2 <- sqrt(phat1 * (1-phat2) / n)
+
+pbar <- (133 + 81)/(452 + 458)
+
+phat1
+phat2
+
+point.est <- phat1 - phat2
+point.est
+
+se <- sqrt(se1 ** 2 + se2 ** 2)
+
+t.stat <- abs(point.est / sqrt(pbar * (1 - pbar) * (1/n1 + 1/n2)))
+pval <- pnorm(t.stat, lower.tail = FALSE) * 2
+
+pval
+pval < 0.05
 ```
 
 e. When asked about how often they had seen tobacco advertising, low-frequency visitors reported a mean of 3.1 (with standard error of 0.8) on a scale of 1-4 where 4 means "often"; high-frequency visitors reported a mean of 3.4 (with standard error of 0.8). Is this difference statistically significant?
+
+```{r}
+xbar1 <- 3.1
+se1 <- 0.8
+
+xbar2 <- 4
+se2 <- 0.8
+
+test.stat <- (0.3) / sqrt(se1 ** 2 + se2 ** 2)
+pt(test.stat, df = min(n1, n2) - 1)
+
+```
+
 f. Discuss the study; what else might you add?
+A few other things come to mind: do their parents smoke? How close is the store to their house? 
+
 
  *Hendrick, L, N C Schleicher, E C Feighery, and S P Fortmann, (2010). "Longitudinal Study of Exposure to Retail Cigarette Advertising and
 Smoking Initiation," Pediatrics.*
+
+#### 9. Confidence Intervals, Hypothesis test (15 points) 
+You might have missed this in the news about Alice Munro winning the Nobel, but there was a study done, showing that reading literature such as Munro and Chekov tended to make people score higher on psychological tests of Affective Theory of Mind. Consider the difference between two groups of people: either they read from a selection of literary fiction or they read non-fiction articles about non-human subjects (e.g. potatoes). They were all given a test to determine how well they could identify emotion from a picture of a person's eyes. (I'm making up some of these numbers.) The Fiction group tests at 25.6 with standard deviation of 4.38; the Non-fiction group tests at 23.5 with standard deviation of 5.17. There were 41 people in the first group and 45 in the second group.
+
+a. What is the difference in means?
+```{r}
+point.est <- 25.6 - 23.5
+```
+b. What is the standard error of the difference in means?
+
+```{r}
+se1 <- 4.38 / sqrt(41)
+se2 <- 5.17 / sqrt(44)
+```
+
+c. Is this difference statistically significant? What is the p-value? Explain.
+d. In another test, people read either literary fiction (that had won awards) or pop fiction (ie good sales but no awards). The lit fiction group scored 26.1 with standard deviation of 5.43 while the pop fiction group scored 23.7 with standard deviation of 5.08. Is this difference statistically significant?
+e. Discuss the study, both in strengths and limitations.
+
+*Kidd, D C, and E Castano, (2013). "Reading Literary Fiction Improves Theory of Mind," Science.*
+
+
+#### 11. Hypothesis test, standard error (15 points)
+A (joking) study in the New England Journal of Medicine linked a country's per capita consumption of chocolate with the number of Nobel Prizes. It reported a regression coefficient but I got the data and did my own analysis. Five countries with the highest consumption of chocolate (UK, Belgium, Germany, Norway, Switzerland) had 19.02 Nobel Prizes per 10m people (std dev 9.0); the next five countries (USA, Finland, Denmark, Austria, Ireland) with lower chocolate consumption had 16.13 prizes (std dev 8.1).
+
+a. Construct a hypothesis test for whether there is no statistically significant difference between the most chocolate-consuming countries and the next group. What is the standard error of the difference? What is the test statistic? What is the p-value?
+
+```{r}
+xbar1 <- 19.02
+n1 <- 5
+s1 <- 9.0
+se1 <- s1 / sqrt(n1)
+
+xbar2 <- 16.13
+n2 <- 5
+s2 <- 8.1
+se2 <- s2 / sqrt(n2)
+
+test.stat <- (xbar1 - xbar2) / sqrt(se1 ** 2 + se2 ** 2)
+pt(test.stat, df=4)
+
+```
+
+b. Discuss the study. The countries that ate the most chocolate consumed 9.28 kg/person (std dev 0.54) while the next group ate merely 7.34 kg/person (std dev 1.52). Should you have eaten a chocolate bar before this exam?
+*F H Messerli (2012). "Chocolate Consumption, Cognitive Function, and Nobel Laureates" N Engl J Med 367: 1562-1564 October 18, 2012*
+
+
+#### 13. Hypothesis test (15 points)
+A survey from eFinancialCareers found that, despite predictions from NY State that the Wall St bonus pool would drop by about 35%, a full 48% of the 911 respondents believed that their own bonuses would rise.
+
+a. Test the null hypothesis that the fraction of respondents expecting a bigger bonus is different from 35%. What is the p-value?
+
+$H_0: p \leq 0.35$
+$H_a: p > 0.35$
+
+```{r}
+phat <- 0.48
+n <- 911
+p <- 0.35
+
+crit.val <- qnorm(0.975)
+test.stat <- (phat - p) / sqrt(p * (1-p) / 911)
+pnorm(test.stat, lower.tail = FALSE)
+```
+
+b. Create a 95% confidence interval for the fraction expecting a bigger bonus. What is the 90% confidence interval? The 99% interval?
+
+```{r}
+critval <- qnorm(0.025)
+E <- critval * sqrt(phat * (1 - phat) / n)
+c(phat - E, phat + E)
+
+critval <- qnorm(0.05)
+E <- critval * sqrt(phat * (1 - phat) / n)
+c(phat - E, phat + E)
+
+critval <- qnorm(0.005)
+E <- critval * sqrt(phat * (1 - phat) / n)
+c(phat - E, phat + E)
+```
+
+c. Discuss. What other survey question might help explain this difference?
+
+
 
 ## Regression Analysis from given data (no datasets in R required)
 
@@ -559,30 +688,72 @@ investigated is whether more religious societies tend to hold back women. I ran 
 as the dependent; Model 2 uses the ratio of girls to boys enrollment rates as the dependent. The results are below (standard errors in
 italics and parentheses below each coefficient):
 
-Find the t-stat by dividing the coefficient by the standard error. Find the p-value using the first coefficient in model 1 as an example `2 * pt(-137/18, df=101)`
+Find the t-stat by dividing the coefficient by the standard error. Find the p-value using the first coefficient in model 1 as an example `2 * pt(-137/18, df=99)`
 
-|                | Model 1   | t-stat | p-value |
-|----------------|-----------|-----|------|
-| Intercept      | 137       |  _`r round(137/18, 2)`_ | $`r 2 * pt(-137/18, df=101)`$ |
+|                | Model 1   | t-stat                    | p-value                      |
+|----------------|-----------|---------------------------|------------------------------|
+| Intercept      | 137       |  ``round(137/18, 2)`` | ``2 * pt(-137/18, df=101)`` |
 |                | (18)      | |  |
-| Religiosity    | -0.585    | $`r round(-0.585 /0.189, 3)`$ | $`r 2 * pt(-0.585 /0.189, df=101)`$ |
+| Religiosity    | -0.585    | ``round(-0.585 /0.189, 3)`` | ``2 * pt(-0.585 /0.189, df=99)`` |
 |                | (0.189)   |   |   |
-| GDP per capita | 0.00056   | $`r round(0.00056/0.00015, 2)`$ | $`r 2 * pt(-0.00056/0.00015, df=101)`$ |
+| GDP per capita | 0.00056   | ``round(0.00056/0.00015, 2)`` | ``2 * pt(-0.00056/0.00015, df=99)`` |
 |                | (0.00015) |  |   |
 
-|                | Model 2     | t-stat | p-value |
-|----------------|-------------|-----|------|
-| Intercept      | 1.12        | `r x <- round(1.12 / 0.09, 4)` $`r x`$ | $`r pt(-x, df=101)`$  |
+|                | Model 2     | t-stat                    | p-value                      |
+|----------------|-------------|---------------------------|------------------------------|
+| Intercept      | 1.12        | ``round(1.12 / 0.09, 4)``| ``pt(-1.12 / 0.09, df=99)``  |
 |                | (0.09)      | | |
-| Religiosity    | -0.0018     | `r x <- round(-0.0018 / 0.0009, 4)` $`r x`$ | $`r pt(x, df=101)`$  |
+| Religiosity    | -0.0018     | ``round(-0.0018 / 0.0009, 4)`` | ``pt(-0.0018 / 0.0009, df=99)``  |
 |                |  (0.0009)   | | |
-| GDP per capita | 0.0000016   | `r x <- round( 0.0000016/ 0.0000007, 4)` $`r x`$ | $`r pt(-x, df=101)`$  |
+| GDP per capita | 0.0000016   | `` round( 0.0000016/ 0.0000007, 4)`` | ``pt(- 0.0000016/ 0.0000007, df=99)``  |
 |                | (0.0000007) | | |
 
 a. Which coefficient estimates are statistically significant? What are the t-statistics and p-values for each?
 b. How would you interpret these results?
 c. Critique the regression model. How would you improve it?
 
+#### 2. Fill in p values (20 points)
+Peter Gordon, in his talk at CCNY, presented results from linear regressions to explain the growth of metropolitan areas. He begins with
+a simple model to explain population growth from 1990-2000:
+
+##### Log Population Growth 1990-2000
+
+|                      | Coefficient |  t-stat |  p-value                                  |
+|----------------------|-------------|---------|----------|
+| Constant term        | -0.0229     | -0.12   |      |  
+| Population in 1990 (log) | 0.0192 | 1.33 | ``pt(1.33, lower.tail = FALSE, df = 67) * 2`` |
+| Pop. Density in 1990 | -0.0504 | -1.65 | ``pt(-1.65,df = 67) * 2``
+| % in manufacturing  | -0.0028 | -1.63 | ``pt(-1.53, df = 67) * 2``
+| R2 0.57
+
+Where he also includes dummy variables for Census Regions (New England, Mid Atlantic, etc.). There are 79 observations and 67
+degrees of freedom.
+
+a. What are the p-values for the 3 coefficients? Are they significant?
+
+The averages and standard deviations are:
+
+|                          | Average | Standard deviation | 
+|--------------------------|---------|--------------------|
+| Population in 1990 (log) | 14.52 | 14.89 |
+| Pop. Density in 1990     |  1.80 | 1.02  |
+| % in manufacturing       | 18.69 | 7.75  |
+
+b. What is the predicted population growth for a metropolitan area that is exactly average?
+
+$$
+  pop\ growth = \beta_0 + \beta_1 \left( 1990\ pop \right) + \beta_2 \left( 1990\ pop\ density \right) + \beta_3 \left( \% \ manufacturing \right)
+$$
+    ```{r}
+-0.0229 + 0.0192 * 14.52 + -0.0504 * 1.80 + -0.0028 * 18.69
+```
+
+c. What is the predicted population growth for a metro area that is one standard deviation above average in 1990 population?
+```{r}
+-0.0229 + 0.0192 * (14.52 + 14.89) + -0.0504 * 1.80 + -0.0028 * 18.69
+```
+For a metro area one standard deviation above average in density? In manufacturing concentration?
+d. Give a careful explanation for why we would observe coefficients of these signs. 
 
 ## Statistics using Datasets (R required)
 

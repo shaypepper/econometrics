@@ -223,9 +223,7 @@ e. What is the conditional probability of finding an immigrant without a HS degr
 making more than $15/hr?
 
 #### 4. Confidence Intervals, Hypothesis Tests (20 points)
-We consider the co-movement of unemployment and industrial production, comparing the change in the unemployment
-rate (UR) for months when industrial production (IP) rose against the change in the unemployment rate when industrial production fell,
-for months since 1975. (Note that UR is measured in percentage points, so a change of .01 means UR went from 5% to 5.01%.)
+We consider the co-movement of unemployment and industrial production, comparing the change in the unemployment rate (UR) for months when industrial production (IP) rose against the change in the unemployment rate when industrial production fell, for months since 1975. (Note that UR is measured in percentage points, so a change of .01 means UR went from 5% to 5.01%.)
 
 |                     | mean change in UR  | std. dev. of UR change  | N    |
 |---------------------|--------------------|-------------------------|------|
@@ -317,10 +315,7 @@ b. If the true mean were -10, what is the probability that we could observe a va
 
 #### 8. Confidence intervals, Hypothesis tests (15 points)
 
-I tracked down this reference from a sign on the bus, from Tobacco Free NY. A survey of 1681 adolescents (age 11-14) in
-California asked if they had tried smoking and how often they went to convenience, liquor, or small grocery stores. The study finds that
-452 kids rarely went to these stores and 81 had tried cigarettes; 458 kids visited these stores often (more than twice a week) and 133 had
-tried cigarettes. The authors assert that visiting these stores exposed the kids to more tobacco advertising.
+I tracked down this reference from a sign on the bus, from Tobacco Free NY. A survey of 1681 adolescents (age 11-14) in California asked if they had tried smoking and how often they went to convenience, liquor, or small grocery stores. The study finds that 452 kids rarely went to these stores and 81 had tried cigarettes; 458 kids visited these stores often (more than twice a week) and 133 had tried cigarettes. The authors assert that visiting these stores exposed the kids to more tobacco advertising.
 
 a. What is the difference in means?
 b. What is the standard error of the difference in means?
@@ -335,12 +330,7 @@ Smoking Initiation," Pediatrics.*
 
 
 #### 9. Confidence Intervals, Hypothesis test (15 points) 
-You might have missed this in the news about Alice Munro winning the Nobel, but there was a study done, showing that
-reading literature such as Munro and Chekov tended to make people score higher on psychological tests of Affective Theory of Mind.
-Consider the difference between two groups of people: either they read from a selection of literary fiction or they read non-fiction
-articles about non-human subjects (e.g. potatoes). They were all given a test to determine how well they could identify emotion from a
-picture of a person's eyes. (I'm making up some of these numbers.) The Fiction group tests at 25.6 with standard deviation of 4.38; the
-Non-fiction group tests at 23.5 with standard deviation of 5.17. There were 41 people in the first group and 45 in the second group.
+You might have missed this in the news about Alice Munro winning the Nobel, but there was a study done, showing that reading literature such as Munro and Chekov tended to make people score higher on psychological tests of Affective Theory of Mind. Consider the difference between two groups of people: either they read from a selection of literary fiction or they read non-fiction articles about non-human subjects (e.g. potatoes). They were all given a test to determine how well they could identify emotion from a picture of a person's eyes. (I'm making up some of these numbers.) The Fiction group tests at 25.6 with standard deviation of 4.38; the Non-fiction group tests at 23.5 with standard deviation of 5.17. There were 41 people in the first group and 45 in the second group.
 
 a. What is the difference in means?
 b. What is the standard error of the difference in means?
@@ -367,12 +357,10 @@ j. Would changing X values change the estimate for the difference in means? Expl
 
 
 #### 11. Hypothesis test, standard error (15 points)
-A (joking) study in the New England Journal of Medicine linked a country's per capita consumption of chocolate with the
-number of Nobel Prizes. It reported a regression coefficient but I got the data and did my own analysis. Five countries with the highest
-consumption of chocolate (UK, Belgium, Germany, Norway, Switzerland) had 19.02 Nobel Prizes per 10m people (std dev 9.0); the next
-five countries (USA, Finland, Denmark, Austria, Ireland) with lower chocolate consumption had 16.13 prizes (std dev 8.1).
+A (joking) study in the New England Journal of Medicine linked a country's per capita consumption of chocolate with the number of Nobel Prizes. It reported a regression coefficient but I got the data and did my own analysis. Five countries with the highest consumption of chocolate (UK, Belgium, Germany, Norway, Switzerland) had 19.02 Nobel Prizes per 10m people (std dev 9.0); the next five countries (USA, Finland, Denmark, Austria, Ireland) with lower chocolate consumption had 16.13 prizes (std dev 8.1).
 
 a. Construct a hypothesis test for whether there is no statistically significant difference between the most chocolate-consuming countries and the next group. What is the standard error of the difference? What is the test statistic? What is the p-value?
+
 b. Discuss the study. The countries that ate the most chocolate consumed 9.28 kg/person (std dev 0.54) while the next group ate merely 7.34 kg/person (std dev 1.52). Should you have eaten a chocolate bar before this exam?
 *F H Messerli (2012). "Chocolate Consumption, Cognitive Function, and Nobel Laureates" N Engl J Med 367: 1562-1564 October 18, 2012*
 
@@ -380,8 +368,7 @@ b. Discuss the study. The countries that ate the most chocolate consumed 9.28 kg
 A (not joking) report from Morgan Stanley reported that the bank's positions were 23% safer because the bank chose to measure risk with the standard deviation of stock returns from the past one year rather than more years as it had done previously. Over the past one year, the average daily returns on the S&P500 (expressed at monthly rate) were 1.7% with a standard deviation of 3.6% (252 observations). For the four years before, the average return was -0.6% with a standard deviation of 6.5% (1008 observations). Test the null hypothesis that the returns for the past year are the same as the returns for the previous four years. What is the standard error of the difference? What is the test statistic? What is the p-value? Discuss. Why might Morgan Stanley have chosen that particular data? (Note that riskiness is a cost so reduces profits.) *The Excel file with this data is on Blackboard although you do not need to use it.*
 
 #### 13. Hypothesis test (15 points)
-A survey from eFinancialCareers found that, despite predictions from NY State that the Wall St bonus pool would drop by
-about 35%, a full 48% of the 911 respondents believed that their own bonuses would rise.
+A survey from eFinancialCareers found that, despite predictions from NY State that the Wall St bonus pool would drop by about 35%, a full 48% of the 911 respondents believed that their own bonuses would rise.
 
 a. Test the null hypothesis that the fraction of respondents expecting a bigger bonus is different from 35%. What is the p-value?
 b. Create a 95% confidence interval for the fraction expecting a bigger bonus. What is the 90% confidence interval? The 99%
@@ -546,11 +533,12 @@ c. Critique the regression model. How would you improve it?
 #### 2. Fill in p values (20 points)
 Peter Gordon, in his talk at CCNY, presented results from linear regressions to explain the growth of metropolitan areas. He begins with
 a simple model to explain population growth from 1990-2000:
-##### Log Population Growth 1990-2000
+
+###### Log Population Growth 1990-2000
 
 |                      | Coefficient |  t-stat |  p-value |
 |----------------------|-------------|---------|----------|
-| Constant term        | -0.0229     | -0.12   | ___     |  
+| Constant term        | -0.0229     | -0.12   |      |  
 | Population in 1990 (log) | 0.0192 | 1.33 | ___ |
 | Pop. Density in 1990 | -0.0504 | -1.65 | ___
 | % in manufacturing  | -0.0028 | -1.63 | ___
@@ -560,6 +548,7 @@ Where he also includes dummy variables for Census Regions (New England, Mid Atla
 degrees of freedom.
 
 a. What are the p-values for the 3 coefficients? Are they significant?
+
 The averages and standard deviations are:
 
 | | Average | Standard deviation |
@@ -627,7 +616,7 @@ shows the relationship of these two variables:
 
 ![](KevinNeedsMoney.png)
 
-a. I run a univariate OLS regression, $Ret_t + \beta_0 + \beta_1 Mkt_t + u_t$. Approximately what value would be estimated for the intercept term, $\beta_0$? For the slope term, $\beta_1$?
+a. I run a univariate OLS regression, $Ret_t = \beta_0 + \beta_1 Mkt_t + u_t$. Approximately what value would be estimated for the intercept term, $\beta_0$? For the slope term, $\beta_1$?
 b. How would you describe this fund's performance, in non-technical language - for instance if you were advising a retail investor
 without much finance background?
 
