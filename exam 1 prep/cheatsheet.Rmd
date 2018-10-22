@@ -1,7 +1,7 @@
 ---
-title: "Exam 1 Practice Solutions"
+title: "Exam 1 Cheatsheet"
 subtitle: "Econ B2000, MA Econometrics"
-author: "Kevin R Foster, CCNY"
+author: "Shay Culpepper, CCNY"
 date: "Fall 2018"
 fig_width: 4
 fig_height: 2 
