@@ -37,13 +37,16 @@ density_plot <- function(lb, ub, mean = 0, sd = 1, dist.type = "normal", df = FA
      + geom_line(data.frame(x = x, y = y),
                  mapping = aes(x = x, y = y))
      + geom_ribbon(data = area, mapping = aes(x = x, ymin = ymin, ymax = ymax))
-     + scale_x_continuous(limits = limits)
+     + scale_x_continuous(limits = limits, breaks = c(lb, ub, mean))
      + theme(axis.title.x=element_blank(),
-             axis.title.y=element_blank()))
+             axis.title.y=element_blank(),
+             axis.ticks.y=element_blank(),
+             axis.text.y = element_blank()
+             ))
 }
 ```
 
-```{r echo = FALSE, fig.height = 2, fig.width = 4}
+```{r echo = FALSE, fig.height = 0.75, fig.width = 3}
 density_plot(-Inf, 2, dist.type = "t", df = 1)
 ```
 
@@ -54,16 +57,29 @@ What will be helpful in this section: ``pnorm``, ``qnorm``, ``pt``, ``qt``, and 
 
 #### Example set 1
 a. ``pnorm(20.84, mean = 11, sd = 8.2, lower.tail = FALSE) ## 0.1150697``
+
+```{r echo = FALSE, fig.height = 0.75, fig.width = 3}
+density_plot(20.84, Inf, mean = 11, sd = 8.2, dist.type = "normal")
+```
+
 b. ``pnorm(-6.6, mean = -5, sd = 4) ## 0.3445783``
+
+```{r echo = FALSE, fig.height = 0.75, fig.width = 3}
+density_plot(-Inf, -6.6, mean = -5, sd = 4, dist.type = "normal")
+```
+
 c. ``pnorm(3.45, mean = 12, sd = 4.5) ## 0.02871656``
+
+
+
 d. ``pnorm(-28.82, mean = -14, sd = 7.8, lower.tail = FALSE) ## 0.9712834``
 e. ``pnorm(-3.7, mean = 8, sd = 9) ## 0.09680048`` 
 f. ``2 * pnorm(-14.96, mean = -10, sd = 6.8) ## 0.4657498`` 
-g. ``2 * pnorm(-6 - 12.72 + -6, mean = -6, sd = 4.2) ## 1.361375e-05`` 
+g. ``2 * pnorm(-6 - 12.72S, mean = -6, sd = 4.2) ## 1.361375e-05`` 
 h. ``2 * pnorm(10 - 2.8, mean = 10, sd = 6.4) ## 0.6617488``
-i. ``c( qnorm(0.118 / 2, mean = -6, sd = 3.5), -qnorm(0.118 / 2, mean = -6, sd = 3.5)) ## -11.47128  11.47128`` 
-j. ``c( qnorm(0.024 / 2, mean = -4, sd = 0.1), -qnorm(0.024 / 2, mean = -4, sd = 0.1)) ## -4.225713  4.225713``
-k. ``2 * pt(-4.32 / 2.7, df = 12) ## 0.1355805``
+i. ``c( qnorm(0.118 / 2, mean = -6, sd = 3.5), qnorm(0.118 / 2, mean = -6, sd = 3.5, lower.tail = FALSE)) ## -11.47128  -0.5287172`` 
+j. ``c( qnorm(0.024 / 2, mean = -4, sd = 0.1), qnorm(0.024 / 2, mean = -4, sd = 0.1, lower.tail = FALSE)) ## -4.225713 -3.774287``
+k. ``2 * pt(4.32 / 2.7, df = 12, lower.tail=FALSE) ## 0.1355805``
 l. ``2 * pt(-19.11 / 9.1, df = 40) ## 0.04208202``
 m. ``2 * pt(-21.16 / 9, df = 29) ## 0.02572611``
 
@@ -108,7 +124,7 @@ d. ``c(qnorm(.05),  qnorm(.95))   ## -1.644854  1.644854`` & ``c(qnorm(.025), qn
 #### Example set 13
 a. ``pnorm(7,  mean = 3, sd = 4) - pnorm(3, mean = 3, sd = 4) ## 0.3413447`` 
 b. ``pnorm(11, mean = 3, sd = 4) - pnorm(7, mean = 3, sd = 4) ## 0.1359051`` 
-c. ``2 * pnorm(-7,  mean = 3, sd = 4)  ## 0.01241933`` 
+c. ``2 * pnorm(-4,  mean = 3, sd = 4)  ## 0.08011831`` 
 
 
 
@@ -117,7 +133,7 @@ c. ``2 * pnorm(-7,  mean = 3, sd = 4)  ## 0.01241933``
 #### 1. *** Confidence Intervals, Hypothesis Tests
 a.
     ```{r}
-      phat <- 0.54
+      phat <- 0.54 ## Our point estimate 
       n <- 200
       critval <- -qnorm(.05)
       E <- critval * sqrt( phat * (1 - phat) / n )
@@ -149,10 +165,13 @@ c.
       
       c(critval, test.stat)
       
+      pnorm(test.stat, lower.tail = FALSE)
+      
       abs(test.stat) > abs(critval)
     ```
 
 d. Candidate X must win 2 particular states in order to win the election; the forecast says she has a 60% chance of winning each state individually. Your friend, a wannabe statistician, explains that a 0.6 chance of winning one state and a 0.6 chance of winning the other means only a 0.6*0.6= 0.36 chance of winning both - so the "favorite" is actually not the favorite! Explain why your friend is wrong. 
+
 ** I have questions on this. Does 60% mean that the polls are at 60%, or does it mean that the likelihood that the support for X is >= 0.51 is 60% based on their polling results? 
 
 
@@ -161,12 +180,8 @@ Suppose that a particular medical treatment already improves patient outcomes by
 
 a. If there were 10 patients in the trial, what would be the t-statistic, p-value, and confidence interval - assuming the new treatment works as expected? Carefully explain the null hypothesis.
     ```{r}
-x.bar <- 30
-n <- 10
-critval <- -qnorm(0.05)
-E <- critval * (8 / sqrt(10))
-test.stat <- 10 / (8 / sqrt(10))
-
+critval <- qnorm(0.025)
+    
 pnorm(-test.stat)
 ```
 The null hypothesis is that the improvement from this treatment improves patient outcomes by 20.
@@ -469,6 +484,71 @@ Grooming,"" Labour, 25(2), pp 228-251.*
 
 
 
+
+
+#### 7. Confidence Intervals. (30 points)
+You know that a random variable has a normal distribution with standard deviation of 16. After 10 draws, the average is -12.
+
+a. What is the standard error of the average estimate? ``r 16/sqrt(10) ## 5.059644``
+b. If the true mean were -11, what is the probability that we could observe a value between -10.5 and -11.5? ``r pnorm(-10.5, mean = -11, sd = 16) - pnorm(-11.5, mean = -11, sd = 16) ## 0.02492983``
+
+You know that a random variable has a normal distribution with standard deviation of 25. After 10 draws, the average is -10.
+
+a. What is the standard error of the average estimate? ``r 25/sqrt(10) ## 7.905694``
+b. If the true mean were -10, what is the probability that we could observe a value between -10.5 and -9.5 ``r pnorm(-9.5, mean=-10, sd=25) - pnorm(-10.5, mean=-10, sd=25) ## 0.01595663``
+
+
+#### 8. Confidence intervals, Hypothesis tests (15 points)
+
+I tracked down this reference from a sign on the bus, from Tobacco Free NY. A survey of 1681 adolescents (age 11-14) in
+California asked if they had tried smoking and how often they went to convenience, liquor, or small grocery stores. The study finds that
+452 kids rarely went to these stores and 81 had tried cigarettes; 458 kids visited these stores often (more than twice a week) and 133 had
+tried cigarettes. The authors assert that visiting these stores exposed the kids to more tobacco advertising.
+
+```{r}
+
+n1 <- 452
+phat1 <- 81/452
+se1 <- sqrt(phat1 * (1-phat1) / n)
+
+n2 <- 458
+phat2 <- 133/458 
+se2 <- sqrt(phat1 * (1-phat2) / n)
+
+pbar <- (133 + 81)/(452 + 458)
+
+```
+
+a. What is the difference in means?
+
+    ```{r}
+point.est <- phat1 - phat2
+```
+
+b. What is the standard error of the difference in means?
+```{r}
+se <- sqrt(se1 ** 2 + se2 ** 2)
+```
+
+c. Is this difference statistically significant? What is the p-value? Explain.
+```{r}
+t.stat <- abs(point.est / sqrt(pbar * (1 - pbar) * (1/452 + 1/458)))
+pval <- pnorm(t.stat, lower.tail = FALSE) * 2
+pval
+pval < 0.05
+```
+Yes, this point estimate for the difference between these means is statistically significant. Our null hypothesis is that the difference would be 0. We have sufficient evidence to reject that hypothesis. 
+
+d. The kids were also asked if their grades were likely to be at the level of B or below; 52 of the rare-frequency kids had belowaverage grades, while 63 of the high-frequency visitors had below-average grades. Is this difference statistically significant?
+
+```{r}
+```
+
+e. When asked about how often they had seen tobacco advertising, low-frequency visitors reported a mean of 3.1 (with standard error of 0.8) on a scale of 1-4 where 4 means "often"; high-frequency visitors reported a mean of 3.4 (with standard error of 0.8). Is this difference statistically significant?
+f. Discuss the study; what else might you add?
+
+ *Hendrick, L, N C Schleicher, E C Feighery, and S P Fortmann, (2010). "Longitudinal Study of Exposure to Retail Cigarette Advertising and
+Smoking Initiation," Pediatrics.*
 
 ## Regression Analysis from given data (no datasets in R required)
 
