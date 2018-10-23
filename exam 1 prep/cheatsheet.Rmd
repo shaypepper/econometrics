@@ -162,11 +162,13 @@ These assume variances are different and unknown
 To caluclate p-value, use student's t if you have n or are given the degrees of freedom explicitly. Generally, your degrees of freedom for a beta coefficient should be $n - p$ with n being your sample size, and p being the number of parameters being predicted including the constant coefficient. If you haven't been given degrees of freedom or the sample size, you are probably safe to assume that using the normal would be sufficient. 
 
 #### Regularize data
-```{r}
-M <- max(x,na.rm = TRUE)
-m <- min(x,na.rm = TRUE)
-
-norm_varb <- function(x) { (x-m)/abs(M-m) }
+```{r eval = FALSE}
+function(x) {
+  M <- max(x,na.rm = TRUE)
+  m <- min(x,na.rm = TRUE)
+  
+  norm_varb <-  (x-m)/abs(M-m) 
+}
 ```
 
 ## Statistics using Datasets (R required)
