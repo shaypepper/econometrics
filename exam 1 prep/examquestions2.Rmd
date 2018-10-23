@@ -769,43 +769,8 @@ d. For the most recent data (first quarter of 2012), GDP growth was 0.93 while U
 
 ## Statistics using Datasets (R required)
 
-#### 1. Taxi data OLS, kNN, HT, CI (30 points)
 
-Using a subsample of the taxi data, I find that on weekends there were 193750 rides paid with credit cards and 187694 rides
-paid with cash.
-
-a. Find a 90% confidence interval for the fraction of rides paid in cash.
-b. On weekdays there were 582335 rides paid with a card and 509798 paid in cash. What is a 90% confidence interval for the fraction paid in cash now?
-c. Are these proportions statistically significantly different? Explain and calculate t-stat and p-value.
-d. What are some possible explanations? What data would you want to consider additionally? I'm not (yet) asking for data just an explanation of your thought process.
-e. Using that data (the smaller sample is on Blackboard) can you construct a knn estimate of which fares are likely to tip more than 15%? OLS estimates of tip amount?
-
-#### 2. ATUS data using CI, OLS, kNN (30 points)
-ATUS records the numbers of minutes in a typical day that people spend on various activities. ACT_WORK is the number of
-minutes spent working; I'll define more than 420 minutes (7 hours) as fulltime.
-
-| number | Fulltime | Parttime
-|----------------- | -------- | ---------
-| Educ HS diploma | 8219 | 11879
-| Educ some college | 6412 | 9989
-| Educ Bachelor | 8065 | 12521
-
-a. Conditional on the individual having a HS diploma, what fraction are working fulltime? What is a 95% Confidence Interval?
-b. Conditional on the individual working part-time, what fraction have a Bachelor's degree? What is the 95% Confidence
-Interval?
-c. Using the data on Blackboard, which is a subset of the ATUS data that selects people who are employed, can you find
-additional important factors in explaining the time spent at work? Explain with some OLS models and/or knn.
-
-
-#### 3. CEX data using OLS, tables (30 points)
-Consider the CEX data; estimate some models to explain APPARPQ, expenditure on apparel in the previous quarter (includes MENBOYPQ, WOMGRLPQ, and FOOTWRPQ - expenditure on apparel for Men and boys; Women and girl; footwear). How   important iseducational attainment on this expenditure category?
-
-a. What are conditional mean expenditure on apparel for different educational levels? What about conditional means for those who spent a non-zero amount?
-b. Can you estimate some interesting OLS models and discuss the important variables in explaining apparel expenditure? Explain.
-c. Can you estimate further useful models? Explain
- 
-  
-#### 4. PUMS data using hypothesis tests (20 points)
+#### 1. PUMS data using hypothesis tests (20 points)
 Consider the PUMS data for people in NY, that we've been using in class. For now restrict attention to just working
 people (explain how you might define that).
 
@@ -823,7 +788,7 @@ normalize <- function(X_in) {
 ]. Would the statistical test come out the same? Why or why not?
 
 
-#### 5. PUMS using proportions, tables (25 points)
+#### 2. PUMS using proportions, tables (25 points)
 I used the PUMS data to look at wages and commute type, getting this table for people in the City: (you can answer parts a-c without R)
 
 | | bus | Car | Subway |
@@ -837,24 +802,11 @@ c. Given that someone has wage above $75,000, what is the probability that they 
 d. Using the PUMS data, can you narrow this further - what are the socioeconomics of bus/subway in the various boroughs? What is the wealthiest PUMA area and how do the people living there tend to commute?
 
 
-#### 6. CEX data using plots, tables, OLS kNN (25 points)
-Use the CEX data that I provided and consider the fraction spent on entertainment, ENTERTPQ/TOTEXPPQ.
 
-a. Find some descriptive statistics about this fraction, for some subgroups. Tell me something interesting about this data. Are there sub-categories that explain some of the variation?
-b. Create a histogram and/or density plot. What do these reveal?
-c. Estimate a linear regression and discuss what this shows.
-d. Estimate a k-nn classification to predict which households are in the lowest 25% in terms of entertainment spending. Discuss what variables are important in classifying.
-
-#### 7. ATUS data. 25pts using kNN, OLS, HT
-Using the ATUS data, describe the time spent working (ACT_WORK). Do people with more education work more or less
-hours than people with less education? What other factors are important? You should choose a variety of methods (perhaps including
-comparison of means, linear regression, nearest neighbor) that demonstrate your econometric virtuosity. Carefully specify the
-statistical tests that you perform, including the null hypothesis and test statistics including t-stat and p-value.
-
-#### 8. ATUS dataset crosstabs, marginal probabilities
+#### 3. ATUS dataset crosstabs, marginal probabilities
 For the ATUS dataset, use "Analyze \ Descriptive Statistics \ Crosstabs" to create a joint probability table showing the fractions of males/females about the amount of time spent on the computer vs watching TV (if either or both are above average). Find and interpret the joint probabilities and marginal probabilities. Do this for age groups as well.
 
-#### 9. CEX data using conditionals, analysis (20 points)
+#### 4. CEX data using conditionals, analysis (20 points)
 I used the CEX data to look at the fraction of spending going to health insurance. I get the following table, grouped by
 education of the reference person:
 
@@ -876,7 +828,7 @@ f. What problems might there be, with the classification and analysis here? Can 
 
 
 
-#### 10. Some data? using hypothesis tests (25 points) 
+#### 5. Some data? using hypothesis tests (25 points) 
 
 After the Nobel Prize awards to Fama, Hansen, and Shiller, we look at predictability of stock returns, using data on stocks in
 the S&P500. There are some days where many of these company's shares have negative returns; other days where many have positive.
@@ -890,11 +842,11 @@ b. (2 pts) What is the standard error of the difference in means?
 c. (2 pts) Is this difference statistically significant? What is the p-value? Explain.
 d. (20 pts) Using the data given on Blackboard, specify more hypotheses about stock behavior and test these.
 
-#### 11. MENA data using conditionals, hypothesis tests  (30 points) 
+#### 6. MENA data using conditionals, hypothesis tests  (30 points) 
 With the NSA spying revelations, we return to questions of whether there is wage discrimination against people with ancestry from the Middle East or North Africa (MENA). I've created program in SPSS syntax and R that you can run, which will define MENA_ANC if the person's ancestry is from MENA (except Israel) or MENA_BPL if the person's birthplace is MENA. You should consider whether there are differences in wages and incomes between people from the MENA or others; of course one decision to make is who is a relevant comparison group. Calculate averages between groups, considering also things like education; which are statistically significant? Explain in detail.
 
 
-#### 12. ATUS data, conditionals (20 points) 
+#### 7. ATUS data, conditionals (20 points) 
 Use the ATUS data (available from Blackboard) on the time that people spend in different activities.
 
 a. Among households with kids, what is the average time spent on activities related to kids?
@@ -904,7 +856,7 @@ set).
 
 
 
-#### 13. ATUS data using conditional means, cofidence intervals, hypothesis tests
+#### 8. ATUS data using conditional means, cofidence intervals, hypothesis tests
 Using the ATUS dataset that we've been using in class, form a comparison of the mean amount of TV time watched by two groups of people (you can define your own groups, based on any of race, ethnicity, gender, age, education, income, or other of your choice).
 
 a. What are the means for each group? What is the average difference?
@@ -913,7 +865,7 @@ c. What is a 95% confidence interval for each mean?
 d. Is the difference statistically significant?
 
 
-#### 14. Fed SCF 2010 data (20 points)
+#### 9. Fed SCF 2010 data (20 points)
 Use the Fed SCF 2010 data (available from Blackboard). This is the Survey of Consumer Finances, which is not representative (without using the weights, which you need not do for now) - it intentionally oversamples rich people to find out about their finances. Concentrate for now on the variable "SAVING" (about the 100th variable in the list) which is the amount that people have in their savings accounts.
 
 a. Test the null hypothesis that there is no difference between people who are older or younger than 65. What is the p-value for
@@ -971,3 +923,56 @@ d. Can you find some other interesting results from the data given? Explain.
 #### 6. CPS data
 Use the CPS dataset (available from Blackboard) to do a regression. Explain why your dependent variable might be caused by your independent variable(s). What additional variables (that are in the dataset) might be included? Why did you exclude those? Next examine the regression coefficients. Which ones are significant? Do the signs match what would be predicted by theory? Are the magnitudes reasonable? (Note your answer should be a well-written few paragraphs, not just terse answers to the above questions. No SPSS output dumps either!)
 
+
+
+
+
+#### 7. Taxi data OLS, kNN, HT, CI (30 points)
+
+Using a subsample of the taxi data, I find that on weekends there were 193750 rides paid with credit cards and 187694 rides
+paid with cash.
+
+a. Find a 90% confidence interval for the fraction of rides paid in cash.
+b. On weekdays there were 582335 rides paid with a card and 509798 paid in cash. What is a 90% confidence interval for the fraction paid in cash now?
+c. Are these proportions statistically significantly different? Explain and calculate t-stat and p-value.
+d. What are some possible explanations? What data would you want to consider additionally? I'm not (yet) asking for data just an explanation of your thought process.
+e. Using that data (the smaller sample is on Blackboard) can you construct a knn estimate of which fares are likely to tip more than 15%? OLS estimates of tip amount?
+
+#### 8. ATUS data using CI, OLS, kNN (30 points)
+ATUS records the numbers of minutes in a typical day that people spend on various activities. ACT_WORK is the number of
+minutes spent working; I'll define more than 420 minutes (7 hours) as fulltime.
+
+| number | Fulltime | Parttime
+|----------------- | -------- | ---------
+| Educ HS diploma | 8219 | 11879
+| Educ some college | 6412 | 9989
+| Educ Bachelor | 8065 | 12521
+
+a. Conditional on the individual having a HS diploma, what fraction are working fulltime? What is a 95% Confidence Interval?
+b. Conditional on the individual working part-time, what fraction have a Bachelor's degree? What is the 95% Confidence
+Interval?
+c. Using the data on Blackboard, which is a subset of the ATUS data that selects people who are employed, can you find
+additional important factors in explaining the time spent at work? Explain with some OLS models and/or knn.
+
+
+#### 9. CEX data using OLS, tables (30 points)
+Consider the CEX data; estimate some models to explain APPARPQ, expenditure on apparel in the previous quarter (includes MENBOYPQ, WOMGRLPQ, and FOOTWRPQ - expenditure on apparel for Men and boys; Women and girl; footwear). How   important iseducational attainment on this expenditure category?
+
+a. What are conditional mean expenditure on apparel for different educational levels? What about conditional means for those who spent a non-zero amount?
+b. Can you estimate some interesting OLS models and discuss the important variables in explaining apparel expenditure? Explain.
+c. Can you estimate further useful models? Explain
+ 
+  
+#### 10. CEX data using plots, tables, OLS kNN (25 points)
+Use the CEX data that I provided and consider the fraction spent on entertainment, ENTERTPQ/TOTEXPPQ.
+
+a. Find some descriptive statistics about this fraction, for some subgroups. Tell me something interesting about this data. Are there sub-categories that explain some of the variation?
+b. Create a histogram and/or density plot. What do these reveal?
+c. Estimate a linear regression and discuss what this shows.
+d. Estimate a k-nn classification to predict which households are in the lowest 25% in terms of entertainment spending. Discuss what variables are important in classifying.
+
+#### 11. ATUS data. 25pts using kNN, OLS, HT
+Using the ATUS data, describe the time spent working (ACT_WORK). Do people with more education work more or less
+hours than people with less education? What other factors are important? You should choose a variety of methods (perhaps including
+comparison of means, linear regression, nearest neighbor) that demonstrate your econometric virtuosity. Carefully specify the
+statistical tests that you perform, including the null hypothesis and test statistics including t-stat and p-value.

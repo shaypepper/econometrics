@@ -6,8 +6,7 @@ date: "Fall 2018"
 fig_width: 4
 fig_height: 2 
 output:
-  pdf_document: 
-    toc: true
+  pdf_document: default
   html_document: default
 ---
 ```{r echo = FALSE}
@@ -35,50 +34,80 @@ density_plot <- function(lb, ub, mean = 0, sd = 1, dist.type = "normal", df = FA
      + geom_line(data.frame(x = x, y = y),
                  mapping = aes(x = x, y = y))
      + geom_ribbon(data = area, mapping = aes(x = x, ymin = ymin, ymax = ymax))
-     + scale_x_continuous(limits = limits)
+     + scale_x_continuous(limits = limits, breaks = c(lb, ub, mean))
      + theme(axis.title.x=element_blank(),
-             axis.title.y=element_blank()))
+             axis.title.y=element_blank(),
+             axis.ticks.y=element_blank(),
+             axis.text.y = element_blank()
+             ))
 }
 ```
 
-```{r echo = FALSE, fig.height = 2, fig.width = 4}
-density_plot(-Inf, 2, dist.type = "t", df = 1)
-```
+
 
 ## Using the Normal and Student's T to find p-values
 What will be helpful in this section: ``pnorm``, ``qnorm``, ``pt``, ``qt``, and a normal distribution / students t distribution graph to visualize. 2 ways to do it. 1) You can calculate the z score. $z = \frac{\bar{x} - \mu}{\sigma}$, or specify mean and sd in the function itself. pnorm and pt default to the lower tail. 
 
 
+``pt(2, df = 10)`` gives you the area of the shaded region in the figure below.
+
+```{r echo = FALSE, fig.height = 0.75, fig.width = 3}
+density_plot(-Inf, 2, dist.type = "t", df = 10)
+```
+
+``pt(2, df = 10, lower.tail = FALSE)`` gives you the area of the shaded region in the figure below.
+
+```{r echo = FALSE, fig.height = 0.75, fig.width = 3}
+density_plot(2, Inf, dist.type = "t", df = 10)
+```
+
+``pnorm(0.5)`` gives you the area of the shaded region in the figure below.
+
+```{r echo = FALSE, fig.height = 0.75, fig.width = 3}
+density_plot(-Inf, 0.5, dist.type = "normal")
+```
+
+``pnorm(0.5, mean = 0.6, sd = 0.1)`` gives you the area of the shaded region in the figure below.
+
+```{r echo = FALSE, fig.height = 0.75, fig.width = 3}
+density_plot(-Inf, 0.5, mean = 0.6, sd = 0.1, dist.type = "normal")
+```
+
+``pnorm(1.67, lower.tail = FALSE)`` gives you the area of the shaded region in the figure below.
+
+```{r echo = FALSE, fig.height = 0.75, fig.width = 3}
+density_plot(1.67, Inf, dist.type = "normal")
+```
+
+
+``pnorm(2) - pnorm(-2)`` gives you the area of the shaded region in the figure below.
+
+```{r echo = FALSE, fig.height = 0.75, fig.width = 3}
+density_plot(-2, 2, dist.type = "normal")
+```
+
+\newpage
+
 ## Statistics from given numbers (no datasets in R required)
 
-#### Population Mean
+#### Means
 These assume an unknown sigma
 \begin{align} \nonumber
   E = (t_{\alpha / 2}) \frac{s}{\sqrt{n}} &&
   df = n - 1 &&
-  t = \frac{\bar{x} - \mu}{\frac{s}{\sqrt{n}}}
+  t = \frac{\bar{x} - \mu}{\frac{s}{\sqrt{n}}} &&
+  n = \left( \frac{ z_{\alpha / 2} s }{E} \right)^2 &&
+  SE = \frac{s}{\sqrt{n}}
 \end{align}
 
 
-#### Population proportion
-
-\begin{align} \nonumber
-  E = z_{\alpha / 2}  \sqrt{\frac{\hat{p}(1 - \hat{p}) }{n} } &&
-  z = \frac{\hat{p} - p}{\sqrt{ \frac{p(1-p)}{n} }} &&
-  n =  p(1-p)\left( \frac{z_{\alpha / 2}}{E}  \right)^2
-\end{align}
-
-
-
-#### Difference in population means
+##### Difference in means
 These assume variances are different and unknown
 
 \begin{align} \nonumber
+  SE = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}} && 
   E = 
-    t_{\alpha / 2}
-    \sqrt{
-      \frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}
-    } &&
+    t_{\alpha / 2} SE &&
   df = min(n_1, n_2) - 1  &&
   t = \frac{
       \left(\bar{x}_1 - \bar{x}_2 \right) - 
@@ -88,24 +117,57 @@ These assume variances are different and unknown
     }}
 \end{align}
 
-
-#### Difference in population proportions
+#### Population proportion
 
 \begin{align} \nonumber
-  E = z_{\alpha / 2} \sqrt { 
+ SE = \sqrt{\frac{\hat{p}(1 - \hat{p}) }{n} } &&
+  E = z_{\alpha / 2} SE &&
+  z = \frac{\hat{p} - p}{\sqrt{ \frac{p(1-p)}{n} }} &&
+  n =  p(1-p)\left( \frac{z_{\alpha / 2}}{E}  \right)^2
+\end{align}
+
+#### Difference in proportions
+
+\begin{align} \nonumber
+  SE = \sqrt { 
     \frac{ \hat{p}_1 (1 - \hat{p}_1) }{n_1} + \frac{ \hat{p}_2 (1 - \hat{p}_2)}{n_2} 
     } &&
+  E = z_{\alpha / 2} SE &&
   \bar{p} = \frac{x_1 + x_2}{n_1 + n_2} &&
   z = \frac{
   \left(\hat{p}_1 - \hat{p}_2 \right) - 
   \left(p_1 - p_2 \right)}
   {\sqrt{
     \bar{p} \left( 1 - \bar{p}\right) \left( \frac{1}{n_1} + \frac{1}{n_2} \right)
-  }}
+  }} 
 \end{align}
 
+#### Hypothesis Test
+
+\begin{align} 
+\nonumber H_0         && H_a         && Test        && Reject\ H_0 if...          \\
+\nonumber \mu \geq a  && \mu < a     && left-tail   && test\ stat < -Z_{\alpha}   && or\ p < \alpha \\
+\nonumber \mu \leq a  && \mu > a     && right-tail  && test\ stat >  Z_{\alpha}   && or\ p < \alpha \\
+\nonumber \mu = a     && \mu \neq a  && two-tail    && |test\ stat| > Z_{\alpha / 2} && or\ p < \alpha
+\end{align}
 
 ## Regression Analysis from given data (no datasets in R required)
+
+\begin{align}
+  test\ stat = \frac{\beta_i}{SE_i} &&
+  SE_i = \frac{\beta_i}{test\ stat} &&
+  \beta_i = (test\ stat) SE
+\end{align}
+
+To caluclate p-value, use student's t if you have n or are given the degrees of freedom explicitly. Generally, your degrees of freedom for a beta coefficient should be $n - p$ with n being your sample size, and p being the number of parameters being predicted including the constant coefficient. If you haven't been given degrees of freedom or the sample size, you are probably safe to assume that using the normal would be sufficient. 
+
+#### Regularize data
+```{r}
+M <- max(x,na.rm = TRUE)
+m <- min(x,na.rm = TRUE)
+
+norm_varb <- function(x) { (x-m)/abs(M-m) }
+```
 
 ## Statistics using Datasets (R required)
 
