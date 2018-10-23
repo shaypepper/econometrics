@@ -18,13 +18,9 @@ library(dplyr)
 library(ggplot2)
 library(class)
 
-<<<<<<< HEAD
 opts_knit$set(root.dir ="/Users/shaypepper/Documents/school/econometrics")
 setwd("/Users/shaypepper/Documents/school/econometrics")
-=======
-opts_knit$set(root.dir ="/Users/shaypepper/Documents/2018-fall-ccny/econometrics")
-setwd("/Users/shaypepper/Documents/2018-fall-ccny/econometrics")
->>>>>>> 8f2fa05b0cda340f260da158d629e62fbb51b314
+
 load("data/CEXdata/cex_2012.RData")
 
 attach(data_cex)
@@ -163,23 +159,24 @@ The model we came up with measures many of the basic variables you'd expect. Edu
 ### kNN model for bottom quartile
 
 ```{r}
+# Calculate 25% quantile
 ent_prop_25 <- quantile(clean_df$ent_prop, 0.25, na.rm = TRUE)
 
+# Create tibble to work with
 knn_data <- clean_df %>%
-  select(ent_prop, 
+  mutate(bottom25 = ent_prop < ent_prop_25) %>%
+  select(bottom25, 
            BLS_URBN,
            female,
            AGE_REF
-         ) %>%
-  mutate(bottom25 = ent_prop < ent_prop_25) %>%
-  select( -ent_prop)
+         ) 
 
 good.obs <- complete.cases(knn_data)
-knn_data  <- subset(knn_data, good.obs)
+y.dataa  <- subset(knn_data, good.obs)
 
 y.data <- knn_data
 
-set.seed(1485)
+set.seed(17)
 NN_obs <- sum(good.obs)
 train.obs <- (runif(NN_obs) < 0.8)
 

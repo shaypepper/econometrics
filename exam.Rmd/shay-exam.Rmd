@@ -1,0 +1,105 @@
+---
+title: "Exam 1"
+author: "Shay Culpepper"
+date: "10/23/2018"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir ="/Users/shaypepper/Documents/school/econometrics/data/")
+
+
+library(stargazer)
+library(lmtest)
+library(dplyr)
+library(ggplot2)
+library(class)
+library(knitr)
+```
+
+#### Hypothesis tests
+
+#### 
+
+#### KNN
+```{r, messages=FALSE}
+rm(list = ls(all = TRUE))
+setwd("CEXData")
+load("cex_2012.RData")
+attach(data_cex)
+
+clean_df <- data_cex %>%
+  mutate(ent_prop = ENTERTPQ / TOTEXPPQ)
+
+# Calculate 25% quantile
+ent_prop_25 <- quantile(clean_df$ent_prop, 0.25, na.rm = TRUE)
+
+# Create tibble to work with
+knn_data <- clean_df %>%
+  mutate(bottom25 = ent_prop < ent_prop_25) %>%
+  select(bottom25, 
+           BLS_URBN,
+           female,
+           AGE_REF
+         ) 
+cl.column <- knn_data$bottom25
+
+good.obs <- complete.cases(knn_data)
+NN_obs <- sum(good.obs)
+
+# select only rows with complete cases
+y.data  <- subset(knn_data, good.obs)
+
+## Pick random rows for training data
+set.seed(17)
+
+train.obs <- (runif(NN_obs) < 0.8)
+
+train.data <- subset(y.data, train.obs)
+test.data  <- subset(y.data, !train.obs)
+cl.data    <- cl.column[train.obs]
+true.data  <- cl.column[!train.obs]
+
+predicted.ent <- knn(train = train.data[-1], 
+                     test = test.data[-1], 
+                     cl = cl.data,
+                     k = 3)
+n.correctly.predicted <- sum(predicted.ent == true.data)
+correct.rate <- n.correctly.predicted / length(predicted.ent)
+print(correct.rate)
+
+detach(data_cex)
+```
+
+#### OLS
+```{r messages=FALSE, results="asis"}
+rm(list = ls(all = TRUE))
+setwd("CEXData")
+load("cex_2012.RData")
+attach(data_cex)
+
+clean_df <- data_cex %>%
+  mutate(ent_prop = ENTERTPQ / TOTEXPPQ) %>%
+  data.frame()
+
+model1 <- lm(ent_prop ~
+  BLS_URBN  + 
+  educ_nohs  + 
+  educ_hs    + 
+  educ_smcoll+ 
+  educ_as    + 
+  educ_bach  + 
+  educ_adv   + 
+  female + 
+  ALCBEVPQ +
+  AGE_REF
+  , clean_df)
+
+stargazer(model1, type = "latex")
+detach(data_cex)
+```
+
