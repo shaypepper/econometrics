@@ -1,0 +1,448 @@
+---
+title: "Practice for Exam 2"
+subtitle: "Econ B2000, MA Econometrics"
+author: "Kevin R Foster, CCNY"
+date: Fall 2018
+output:
+  pdf_document: 
+    toc: true
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Area under the curve, p-values
+## Questions
+### 1. (25 points) Please answer the following; you might find it useful to make a sketch.
+  a. For a Normal Distribution that has mean -7 and standard deviation 7.1, what is the area to the right of 6.49?
+  b. For a Normal Distribution that has mean 11 and standard deviation 4.1, what is the area to the right of 6.08?
+  c. For a Normal Distribution that has mean 5 and standard deviation 3, what is the area to the left of 3.5?
+  d. For a Normal Distribution that has mean -7 and standard deviation 3.8, what is the area to the left of 1.74?
+  e. For a Normal Distribution that has mean -10 and standard deviation 5.1, what is the area to the left of -18.67?
+  f. For a Normal Distribution that has mean -10 and standard deviation 3.4, what is the area in both tails farther from the mean than -12.04?
+  g. For a Normal Distribution that has mean 8 and standard deviation 8.6, what is the area in both tails farther from the mean than -5.76?
+  h. For a Normal Distribution that has mean 12 and standard deviation 2.2 , what is the area in both tails farther from the mean than 10.02 ?
+  i. For a Normal Distribution that has mean -5 and standard deviation 1.3 what values leave probability 0.15 in both tails?
+  j. For a Normal Distribution that has mean 11 and standard deviation 7.6 what values leave probability 0.782 in both tails?
+  k. For a Normal Distribution that has mean 9 and standard deviation 3.1 what values leave probability 0.077 in both tails?
+  l. A regression coefficient is estimated to be equal to 6.09 with standard error 8.7; there are 40 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero?
+  m. A regression coefficient is estimated to be equal to -20.16 with standard error 8.4; there are 34 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero?
+  n. A regression coefficient is estimated to be equal to 8.8 with standard error 4.4; there are 5 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero?
+  o. A regression coefficient is estimated to be equal to -17.64 with standard error 9.8; there are 11 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero?
+
+
+
+### 2. (20 points) Please answer the following; you might find it useful to make a sketch.
+a. For a Normal Distribution that has mean -11 and standard deviation 6.6, what is the area to the right of -15.62?
+b. For a Normal Distribution that has mean -5 and standard deviation 2.8, what is the area to the right of -9.48?
+c. For a Normal Distribution that has mean 12 and standard deviation 4.7, what is the area to the left of 6.83?
+d. For a Normal Distribution that has mean -1 and standard deviation 6.5, what is the area to the left of 4.85?
+e. For a Normal Distribution that has mean 3 and standard deviation 8.6, what is the area in both tails farther from the mean than -9.9?
+f. For a Normal Distribution that has mean 7 and standard deviation 0.6, what is the area in both tails farther from the mean than 6.04?
+g. For a Normal Distribution that has mean -5 and standard deviation 9.8, what is the area in both tails farther from the mean than -5?
+h. For a Normal Distribution that has mean 13 and standard deviation 9 what values leave probability 0.16 in both tails?
+i. For a Normal Distribution that has mean -13 and standard deviation 7 what values leave probability 0.486 in both tails?
+j. A regression coefficient is estimated to be equal to 2.6 with standard error 5.2; there are 33 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero?
+k. A regression coefficient is estimated to be equal to 20.47 with standard error 8.9; there are 9 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero?
+
+
+
+### 3. (20 points) Consider the following simple distribution questions.  Your answer can be as detailed as necessary.  You might sketch each case.
+a. For a Normal Distribution with mean -1 and standard deviation 5.2, what is area to the right of -9.32?
+b. For a Normal Distribution with mean -6 and standard deviation 7.2, what is area to the right of 2.64?
+c. For a Normal Distribution with mean 15 and standard deviation 8, what is area to the left of -3.4?
+d. For a Normal Distribution with mean -3 and standard deviation 0.5, what is area to the left of -2.1?
+e. For a Normal Distribution with mean 11 and standard deviation 5.8, what is area in both tails farther from the mean than 19.12?
+f. For a Normal Distribution with mean -9 and standard deviation 5.1, what is area in both tails farther from the mean than -1.86?
+g. For a Normal Distribution with mean 11 and standard deviation 6.1 what values leave probability 0.357 in both tails?
+h. For a Normal Distribution with mean 13 and standard deviation 4.3, what values leave probability 0.035 in both tails?
+i. A regression coefficient is estimated to be equal to -5.25 with standard error 2.1; there are 12 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero?
+j. A regression coefficient is estimated to be equal to 5.88 with standard error 8.4; there are 13 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero?
+k. A regression coefficient is estimated to be equal to -4.5 with standard error 9; there are 3 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero?
+
+### 4. Consider the following simple distribution questions.  Your answer can be as detailed as necessary.  You might sketch each case.
+a. For a Normal Distribution with mean 4 and standard deviation 3.6, what is area to the right of 1.48?
+b. For a Normal Distribution with mean -1 and standard deviation 3.2, what is area to the left of 4.12?
+c. For a Normal Distribution with mean -14 and standard deviation 6.2, what is area in both tails farther from the mean than -4.08?
+d. For a Normal Distribution with mean 10 and standard deviation 0.6, what is area in both tails farther from the mean than 10.18?
+e. For a Normal Distribution with mean -12 and standard deviation 3.3, what is area in both tails farther from the mean than -5.73?
+f. For a Normal Distribution with mean -1 and standard deviation 6.3, what values leave probability 0.058 in both tails?
+g. For a Normal Distribution with mean -1 and standard deviation 5.3, what values leave probability 0.225 in both tails?
+
+
+### 5. You might find it useful to sketch the distributions.
+a. If a variable has a Normal Distribution with mean 9 and standard deviation 9, what is area to the right of -8.3?
+b. For a Normal Distribution with mean 5 and standard deviation 0.4, what is area to the left of 4.7?
+c. For a Normal Distribution with mean 6 and standard deviation 0.3, what is area in both tails farther from the mean than 5.7?
+d. For a Normal Distribution with mean -2 and standard deviation 3.8, what is area in both tails farther from the mean than 2.9?
+e. For a Normal Distribution with mean 6 and standard deviation 7.5, what is area in both tails farther from the mean than -2.3?
+f. For a Normal Distribution with mean 14 and standard deviation 3.4, what values leave probability 0.292 in both tails?
+g. For a Normal Distribution with mean 8 and standard deviation 2.6, what values leave probability 0.253 in both tails?
+h. For a Normal Distribution with mean -11 and standard deviation 2.6, what values leave probability 0.420 in both tails?
+i. For a Normal Distribution with mean 2 and standard deviation 4.7, what values leave probability 0.007 in both tails?
+j. For a Normal Distribution with mean -10 and standard deviation 7.9, what values leave probability 0.156 in both tails?
+ 
+k. A regression coefficient is estimated to be equal to 1.902 with standard error 1.5; there are 26 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero?
+l. A regression coefficient is estimated to be equal to 12.942 with standard error 9.6; there are 8 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero?
+m. A regression coefficient is estimated to be equal to 3.647 with standard error 2.6; there are 15 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero?
+n. A regression coefficient is estimated to be equal to -5.130 with standard error 3.5; there are 17 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero?
+o. A regression coefficient has standard error 2.40; there are 14 degrees of freedom.  The t-statistic is 2.5994.  What is the coefficient?
+p. A regression coefficient has standard error 3.40; there are 28 degrees of freedom.  The t-statistic is -1.4877.  What is the coefficient?
+q. A regression coefficient has standard error 2.30; there are 12 degrees of freedom.  The t-statistic is -1.0175.  What is the coefficient?
+r. A regression coefficient is estimated to be equal to 11.219; there are  7 degrees of freedom.  The t-statistic is 1.6259.  What is the standard error?
+
+### 6. You might find it useful to make a sketch.
+a. For a Normal Distribution with mean  1 and standard deviation 1.7, what is area in both tails farther from the mean than 1.9? A. 0.4013 B. 0.6915 C. 0.2630 D. 0.6171
+b. For a Normal Distribution with mean  3 and standard deviation 4.7, what is area in both tails farther from the mean than -0.3? A. 0.7384 B. 0.9679 C. 0.2616 D. 0.4839
+c. For a Normal Distribution with mean -7 and standard deviation 8.1, what is area in both tails farther from the mean than -17.5? A. 0. 2551 B. 0.1936 C. 0.7422 D. 0.3872
+d. For a Normal Distribution with mean -4 and standard deviation 5.7, what is area in both tails farther from the mean than -16.0? A. 0.9821 B. 0.1587 C. 0.7586 D. 0.0357
+e. For a Normal Distribution with mean -11 and standard deviation 5.7, what is area in both tails farther from the mean than -12.1? A. 0.5398 B. 0.8415 C. 0.5793 D. 0.9732
+f. For a Normal Distribution with mean -10 and standard deviation 8.3, what is area in both tails farther from the mean than -8.3? A. 0.1141 B. 0.5793 C. 0.8859 D. 0.8415
+g. For a Normal Distribution with mean 11 and standard deviation 0.8, what is area in both tails farther from the mean than 10.6? A. 0.4314 B. 0.1587 C. 0.6171 D. 0.5987
+h. For a Normal Distribution with mean -3 and standard deviation 0.8, what is area in both tails farther from the mean than -4.0? A. 0.7422 B. 0.9032 C. 0.0001 D. 0.1936
+i. For a Normal Distribution with mean -3 and standard deviation 1.0, what is area in both tails farther from the mean than -4.8? A. 0.9641 B. 0.1437 C. 0.8159 D. 0.0719
+j. For a Normal Distribution with mean -15 and standard deviation 0.4, what is area in both tails farther from the mean than -15.7? A. 0.7317 B. 0.1783 C. 0.0891 D. 0.8023
+k. For a Normal Distribution with mean  8 and standard deviation 0.8, what is area in both tails farther from the mean than 9.7? A. 0.7757 B. 0.1587 C. 0.1469 D. 0.0357
+l. For a Normal Distribution with mean  1 and standard deviation 3.5, what values leave probability 0.469 in both tails? A. (-1.5344    3.5344) B. (0.7278    1.2722)  C. (6.3837   -4.3837)  D. (-0.4384    1.0098)
+m. For a Normal Distribution with mean -8 and standard deviation 1.7, what values leave probability 0.114 in both tails? A. (-8.0494   -5.9506) B. (-10.6868   -5.3132) C. (-9.2673   -6.7327) D. (-6.2863   -3.1254)
+n. For a Normal Distribution with mean -9 and standard deviation 9.0, what values leave probability 0.489 in both tails?  A. (-9.2482   -8.7518) B. (-15.2271   -2.7729) C. (-0.6919    0.6919)  D. (9.1268  -27.1268)
+o. For a Normal Distribution with mean  3 and standard deviation 2.6, what values leave probability 0.301 in both tails?  A. (1.6554    4.3446)  B. (0.3108    5.6892)  C. (3.6722    2.3278)  D. (-1.0343    1.0343)
+p. For a Normal Distribution with mean -5 and standard deviation 4.2, what values leave probability 0.254 in both tails? A. (-9.7909   -0.2091) B. (-1.1407    1.1407)  C. (-4.9158   -5.0842)  D. (-7.3954   -2.6046)
+q. For a Normal Distribution with mean 13 and standard deviation 7.3, what values leave probability 0.244 in both tails?  A. (-2.0048   15.0048)  B. (12.7804   13.2196) C. (7.9375   18.0625)   D. (4.4952   21.5048)
+r. For a Normal Distribution with mean  1 and standard deviation 5.2, what values leave probability 0.116 in both tails?  A. (-5.2152    7.2152)  B. (-7.1733    9.1733) C. (-7.6733    8.6733) D. (-3.0866    5.0866)
+s. For a Normal Distribution with mean -4 and standard deviation 9.9, what values leave probability 0.020 in both tails? A. (-2.3263    2.3263) B. (-21.3318   13.3318) C. (-27.0308   19.0308) D. (-24.3321   16.3321)
+t. For a Normal Distribution with mean -11 and standard deviation 7.2, what values leave probability 0.054 in both tails? A. (-19.3732    8.3732) B. (-22.5722    0.5722) C. (-24.8732    2.8732) D. (-17.9366   -4.0634)
+u. For a Normal Distribution with mean 12 and standard deviation 8.9, what values leave probability 0.167 in both tails? A. (5.8505   18.1495) B. (8.1828   15.8172) C. (-0.2990   24.2990) D. (-1.3819    1.3819)
+v. For a Normal Distribution with mean 12 and standard deviation 0.3, what values leave probability 0.245 in both tails? A. (11.9925   12.0075) B. (38.8374   41.1626) C. (11.6512   12.3488) D. (14.8256   18.1744)
+
+### 7. You might find it useful to make a sketch.
+a. A regression coefficient is estimated to be equal to -5.968 with standard error 4.7; there are  4 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 1.7958 B. 0.5540 C. 0.2730 D. 0.7270
+b. A regression coefficient is estimated to be equal to -9.880 with standard error 9.7; there are 21 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.6830 B. 0.3200 C. 0.8694 D. 0.6500
+c. A regression coefficient is estimated to be equal to -10.781 with standard error 6.6; there are 20 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.1180 B. 0.0003 C. 0.2390 D. 0.9700
+d. A regression coefficient is estimated to be equal to 4.456 with standard error 4.9; there are 12 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.0060 B. 0.2346 C. 0.6190 D. 0.3810
+e. A regression coefficient is estimated to be equal to 6.696 with standard error 4.2; there are 31 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.1210 B. 1.8891 C. 0.8790 D. 0.6609
+f. A regression coefficient is estimated to be equal to 32.530 with standard error 10.0; there are  7 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.9860 B. 0.0140 C. 0.0017 D. 0.6991
+g. A regression coefficient is estimated to be equal to -6.463 with standard error 4.8; there are  5 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.0089 B. 1.8218 C. 0.2360 D. 0.8581
+h. A regression coefficient is estimated to be equal to 7.335 with standard error 3.4; there are 19 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.5060 B. 0.0440 C. 0.9560 D. 0.1750
+i. A regression coefficient is estimated to be equal to -6.564 with standard error 3.1; there are  7 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.0720 B. 0.9239 C. 0.9280 D. 0.1386
+j. A regression coefficient is estimated to be equal to -8.619 with standard error 6.1; there are 25 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.1493 B. 0.1700 C. 0.9500 D. 0.8300
+k. A regression coefficient is estimated to be equal to 7.966 with standard error 8.8; there are 17 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.3780 B. 0.6347 C. 0.8510 D. 0.2575
+l. A regression coefficient is estimated to be equal to 10.254 with standard error 6.7; there are 26 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.1380 B. 0.8620 C. 0.0965 D. 0.9352
+m. A regression coefficient has standard error 4.60; there are 14 degrees of freedom.  The t-statistic is 1.3942.  What is the coefficient? A. 0.1376 B. 0.3357 C. 6.4132 D. 0.4581
+n. A regression coefficient has standard error 4.70; there are  6 degrees of freedom.  The t-statistic is 1.7159.  What is the coefficient? A. 0.3849 B. 6.8630 C. 8.0647 D. 1.9138
+o. A regression coefficient has standard error 4.30; there are 21 degrees of freedom.  The t-statistic is 1.1602.  What is the coefficient? A. 0.3331 B. 4.9887 C. 8.7410 D. 0.1866
+p. A regression coefficient has standard error 6.60; there are 24 degrees of freedom.  The t-statistic is 1.5223.  What is the coefficient? A. 1.8721 B. 0.4186 C. 10.0472 D. 7.8590
+q. A regression coefficient has standard error 5.40; there are 27 degrees of freedom.  The t-statistic is -1.6674.  What is the coefficient? A. -9.0038 B. 0.0954 C. 0.8930 D. 1.0433
+r. A regression coefficient has standard error 1.10; there are  5 degrees of freedom.  The t-statistic is -3.1285.  What is the coefficient? A. -3.4414 B. -2.0018 C. 0.9740 D. 0.6120
+s. A regression coefficient is estimated to be equal to 16.483; there are 10 degrees of freedom.  The t-statistic is 2.7937.  What is the standard error? A. 0.0102 B. 5.9000 C. 46.0716 D. 1.6483
+t. A regression coefficient is estimated to be equal to -2.806; there are  8 degrees of freedom.  The t-statistic is -1.0394.  What is the standard error? A. 0.2986 B. 0.7436 C. -0.3508 D. 2.7000
+u. A regression coefficient is estimated to be equal to -11.059; there are 11 degrees of freedom.  The t-statistic is -1.1641.  What is the standard error? A. 12.9570 B. -1.0054 C. 9.5000 D. 0.8512
+v. A regression coefficient is estimated to be equal to 13.066; there are 25 degrees of freedom.  The t-statistic is 1.5743.  What is the standard error? A. 8.3000 B. 20.5795 C. 1.8846 D. 0.0831
+w. A regression coefficient is estimated to be equal to 15.167; there are  6 degrees of freedom.  The t-statistic is 3.0333.  What is the standard error? A. 5.0000 B. 0.9770 C. 0.0076 D. 1.9976
+x. A regression coefficient is estimated to be equal to 6.136; there are 28 degrees of freedom.  The t-statistic is 1.2271.  What is the standard error? A. 0.2191 B. 0.7700 C. 5.0000 D. 7.6024
+
+### 8.  You might find it useful to sketch the distributions.
+a. For a Normal Distribution with mean 1 and standard deviation 9.6, what is area in both tails farther from the mean than 23.1? A. 0.1251 B. 0.0214 C. 0.4585 D. 0.9893
+b. For a Normal Distribution with mean 5 and standard deviation 7.6, what is area in both tails farther from the mean than 14.1? A. 0.2743 B. 0.1587 C. 0.2301 D. 0.4603
+c. For a Normal Distribution with mean -2 and standard deviation 3.8, what is area in both tails farther from the mean than 2.9? A. 0.7007 B. 0.1936 C. 0.3872 D. 0.2578
+d. For a Normal Distribution with mean -7 and standard deviation 5.1, what is area in both tails farther from the mean than -1.9? A. 0.3173 B. 0.0849 C. 0.6346 D. 0.9151
+e. For a Normal Distribution with mean 13 and standard deviation 3.5, what is area in both tails farther from the mean than 7.8? A. 0.2672 B. 0.1336 C. 0.1587 D. 0.7734
+f. For a Normal Distribution with mean -12 and standard deviation 9.6, what values leave probability 0.003 in both tails? A. (-2.9677, 2.9677) B. (-38.3787, 14.3787) C. (-36.1166, 12.1166) D. (-40.4903, 16.4903)
+g. For a Normal Distribution with mean -2 and standard deviation 9.1, what values leave probability 0.092 in both tails? A. (-1.6849, 1.6849) B. (-17.3330, 13.3330) C. (-1.9047, 1.4652) D. (-16.3950, 14.3950)
+h. For a Normal Distribution with mean  0 and standard deviation 4.0, what values leave probability 0.039 in both tails? A. (-5.6746, 5.6746) B. (-7.0496, 7.0496) C. (-2.0642, 2.0642) D. (-8.2567, 8.2567)
+i. A regression coefficient is estimated to be equal to -12.684 with standard error 9.4; there are 16 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.1960 B. 0.4810 C. 1.8228 D. 0.9323
+j. A regression coefficient is estimated to be equal to 10.030 with standard error 4.0; there are  5 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.2030 B. 0.3354 C. 0.0300 D. 0.0540
+k. A regression coefficient is estimated to be equal to 0.559 with standard error 0.2; there are  3 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.6797 B. 0.9320 C. 0.0680 D. 0.7121
+l. A regression coefficient is estimated to be equal to -3.564 with standard error 1.9; there are 22 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.2100 B. 0.0740 C. 0.8950 D. 0.9393
+
+
+### 9. You might find it useful to sketch these.
+a. For a Normal Distribution with mean  1 and standard deviation 9.6, what is area to the right of 23.1? A. 0.1251 B. 0.0107 C. 0.4585 D. 0.9893
+b. For a Normal Distribution with mean  8 and standard deviation 4.9, what is area to the left of 6.5? A. 0.5596 B. 0.7642 C. 0.3821 D. 0.1587
+c. For a Normal Distribution with mean  4 and standard deviation 7.1, what is area in both tails farther from the mean than 13.2? A. 0.1936 B. 0.3872 C. 0.2866 D. 0.1587
+d. For a Normal Distribution with mean -11 and standard deviation 5.0, what is area in both tails farther from the mean than 0.5? A. 0.1251 B. 0.1587 C. 0.0429 D. 0.0214
+e. For a Normal Distribution with mean 13 and standard deviation 3.5, what value leaves probability 0.197 in the left tail? A. 12.0588 B. 10.0166 C. 0.8030 D. 15.9834
+f. For a Normal Distribution with mean -10 and standard deviation 2.6, what values leave probability 0.146 in both tails? A. (-1.4538, 1.4538) B. (-5.3000, -2.3923) C. (-13.7799, -6.2201) D. (-8.7799, -1.2201)
+g. For a Normal Distribution with mean 12 and standard deviation 9.8, what values leave probability 0.220 in both tails? A. (-1.2265, 1.2265) B. (10.5205, 13.4795) C. (-0.0200, 24.0200) D. (4.4325, 19.5675)
+h. A regression coefficient is estimated to be equal to -5.941 with standard error 3.9; there are  9 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.1620 B. 0.8491 C. 0.1080 D. 0.3380
+i. A regression coefficient is estimated to be equal to -10.249 with standard error 3.5; there are 26 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.0966 B. 0.9930 C. 0.0070 D. 0.9999
+j. A regression coefficient is estimated to be equal to 5.563 with standard error 3.0; there are 24 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.9240 B. 0.0363 C. 0.1710 D. 0.0760
+
+### 10. Answer  each question; you might find it useful to make a sketch.
+a. A regression coefficient is estimated to be equal to -1.417 with standard error 1.6; there are 30 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.9249 B. 0.7998 C. 0.6240 D. 0.3830
+b. A regression coefficient is estimated to be equal to -15.901 with standard error 7.1; there are  3 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.1110 B. 0.9749 C. 0.0001 D. 0.9065
+c. A regression coefficient is estimated to be equal to -16.558 with standard error 7.1; there are  8 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.9520 B. 0.1280 C. 0.0002 D. 0.0480
+d. A regression coefficient is estimated to be equal to -0.322 with standard error 0.3; there are 29 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 1.0000 B. 0.8378 C. 0.2920 D. 0.7080
+e. A regression coefficient has standard error 7.50; there are  9 degrees of freedom.  The t-statistic is 1.3730.  What is the coefficient? A. 1.8302 B. 10.2972 C. 1.1441 D. 0.8282
+f. A regression coefficient has standard error 2.00; there are  9 degrees of freedom.  The t-statistic is -1.2381.  What is the coefficient? A. -2.4762 B. 0.7321 C. 0.7530 D. -0.5836
+g. A regression coefficient has standard error 3.40; there are 22 degrees of freedom.  The t-statistic is 2.0265.  What is the coefficient? A. 1.9573 B. 0.3132 C. 6.8903 D. 0.6075
+h. A regression coefficient is estimated to be equal to -14.943; there are  4 degrees of freedom.  The t-statistic is -1.7176.  What is the standard error? A. 0.0411 B. 0.8390 C. 8.7000 D. 0.9358
+i. A regression coefficient is estimated to be equal to -8.636; there are  4 degrees of freedom.  The t-statistic is -2.1590.  What is the standard error? A. 0.9473 B. 18.6638 C. 0.0150 D. 4.0000
+j. A regression coefficient is estimated to be equal to 7.693; there are 16 degrees of freedom.  The t-statistic is 1.5699.  What is the standard error? A. 1.8836 B. 4.9000 C. 0.1057 D. 0.4808
+
+### 11. Answer each question.  It might help to make sketches.
+a. For a Normal Distribution with mean 9 and standard deviation 9.1, what is area in both tails farther from the mean than -8.3? A. 0.8387 B. 0.0574 C. 0.1587 D. 0.9713
+b. For a Normal Distribution with mean 1 and standard deviation 9.6, what is area in both tails farther from the mean than 23.1? A. 0.1251 B. 0.0214 C. 0.4585 D. 0.9893
+c. For a Normal Distribution with mean 5 and standard deviation 7.6, what is area in both tails farther from the mean than 14.1? A. 0.2743 B. 0.1587 C. 0.2301 D. 0.4603
+d. For a Normal Distribution with mean -14 and standard deviation 2.8, what is area in both tails farther from the mean than -20.4? A. 0.0214 B. 0.8235 C. 0.0429 D. 0.0971
+e. For a Normal Distribution with mean -2 and standard deviation 3.8, what values leave probability 0.382 in both tails? A. (-3.6610, -0.3390) B. (-5.3220, 1.3220) C. (0.7331, -4.7331) D. (-3.1409, -0.8591)
+f.For a Normal Distribution with mean 13 and standard deviation 3.5, what values leave probability 0.099 in both tails? A. (10.0292, 15.9708) B. (7.2260, 18.7740)C. (0.5785, 12.2990) D. (8.4946, 17.5054)
+
+### 12. Please answer the following questions.
+a. A regression coefficient is estimated to be equal to 10.527 with standard error 8.3; there are 19 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.2200 B. 1.7953 C. 0.1323 D. 0.7800
+b. A regression coefficient is estimated to be equal to 0.521 with standard error 0.5; there are 17 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.6380 B. 1.7026 C. 0.3120 D. 0.6988
+c. A regression coefficient is estimated to be equal to 2.885 with standard error 1.7; there are 19 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.2423 B. 0.2810 C. 0.9980 D. 0.1060
+d. A regression coefficient is estimated to be equal to 1.902 with standard error 1.5; there are 26 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.4410 B. 0.3363 C. 0.9714 D. 0.2160
+e. A regression coefficient is estimated to be equal to -7.981 with standard error 4.3; there are 28 degrees of freedom.  What is the p-value (from the t-statistic) against the null hypothesis of zero? A. 0.2131 B. 0.1630 C. 0.9547 D. 0.9260
+f. A regression coefficient has standard error 5.10; there are 14 degrees of freedom.  The t-statistic is -2.3978.  What is the coefficient? A. -0.8735 B. 0.9730 C. -0.4571 D. -12.2287
+g. A regression coefficient has standard error 9.40; there are 16 degrees of freedom.  The t-statistic is -1.3494.  What is the coefficient? A. -12.6842 B. -0.0543 C. 0.1772 D. 0.8861
+h. A regression coefficient is estimated to be equal to 4.873; there are 12 degrees of freedom.  The t-statistic is 0.9093.  What is the standard error? A. 5.3588 B. 0.2279 C. 0.4061 D. 0.7702
+i. A regression coefficient is estimated to be equal to -4.488; there are  7 degrees of freedom.  The t-statistic is -1.8992.  What is the standard error? A. 0.8650 B. -0.6411 C. 0.0232 D. 2.3631
+
+### 13. You might sketch a picture.
+a. For a  Normal Distribution with mean 4 and standard deviation of 1, what is the area to the left of 3.3?	0.484	0.758	0.242	0.363
+b. For a  Normal Distribution with mean -13 and standard deviation of 7, what is the area to the left of -3.2?	0.162	0.081	0.919	0.758
+c. For a  Normal Distribution with mean 1 and standard deviation of 4, what is the area to the right of -6.6?	0.829	0.029	0.971	0.057
+d. For a  Normal Distribution with mean -6 and standard deviation of 2, what is the area to the right of -9.8?	0.057	0.829	0.029	0.971
+e. For a  Normal Distribution with mean -3 and standard deviation of 5, what is the area to the right of -8?	0.691	0.317	0.841	0.159
+f. For a  Normal Distribution with mean -12 and standard deviation of 5, what is the area in both tails farther from the mean (in absolute value) than -21.5?   	  0.057     0.029 	  0.971	  0.351
+g. For a  Normal Distribution with mean -9 and standard deviation of 5, what is the area in both tails farther from the mean (in absolute value) than -10?    	  0.579	  0.421   	  0.841	  0.087
+h. For a  Normal Distribution with mean -13 and standard deviation of 8 what value leaves 0.22 in the right tail?	-3.188	-3.607	-8.303	-11.792	
+i. For a  Normal Distribution with mean -7 and standard deviation of 5 what value leaves 0.24 in the right tail?	-4.026	-6.749	-1.052	-1.125	
+j. For a  Normal Distribution with mean 12 and standard deviation of 2 what value leaves 0.03 in the right tail?	15.110	16.340	13.024	14.048	
+
+### 14. You might sketch a picture.
+a. For a  t Distribution with sample average of 1.43, standard error of 1.22, and 11 observations, what is the area in both tails, for a null hypothesis of zero mean?    	  0.133   	  0.181	  0.412   	  0.266   
+b. For a  t Distribution with sample average of 2.9, standard error of 1.82, and 13 observations, what is the area in both tails, for a null hypothesis of zero mean?      0.068   	  0.541   	  0.012  	  0.135   
+c. For a  t Distribution with sample average of 3.31, standard error of 2.16, and 9 observations, what is the area in both tails, for a null hypothesis of zero mean? 	  0.009	  0.160   	  0.530  	  0.080   
+d. For a  t Distribution with sample average of 1.47, standard error of 1.47, and 16 observations, what is the area in both tails, for a null hypothesis of zero mean?   	  0.332     0.166   	  0.332   	  0.161
+e. For a  t Distribution with 20 observations and standard error of 2.53, what sample mean leaves 0.08 in the two tails, when testing a null hypothesis of zero?   	  0.922   	  1.844   	  3.689	  4.666   
+f. For a  t Distribution with 5 observations and standard error of 2.78, what sample mean leaves 0.2 in the two tails, when testing a null hypothesis of zero?    	  0.738  	  1.476   	  4.103   	  2.952
+g. For a  t Distribution with 20 observations and standard error of 0.53, what sample mean leaves 0.24 in the two tails, when testing a null hypothesis of zero?   	  1.211   	  0.606  	  0.642   	  2.422
+h. Sample A has mean 4.28, standard error of 0.21, and 4 observations.  Sample B has mean 4.99, standard deviation of 0.33, and 23 observations.  Test the null hypothesis of no difference.   	  0.005   	  0.002   	  0.906	  0.517   
+i. Sample A has mean 1.6, standard error of 0.68, and 9 observations.  Sample B has mean 4.83, standard deviation of 2.81, and 9 observations.  Test the null hypothesis of no difference.    	  0.360	  0.009    	  0.010   	  0.004  
+
+### 15. You might sketch a picture.
+a. For a Normal Distribution with mean  9 and standard deviation 9.1, what is area to the right of -8.3? A. 0.8387 B. 0.9713 C. 0.1587 D. 0.0287
+b. For a Normal Distribution with mean  1 and standard deviation 9.6, what is area to the right of 23.1? A. 0.1251 B. 0.0107 C. 0.4585 D. 0.9893
+c. For a Normal Distribution with mean 12 and standard deviation 7.9, what is area to the right of 30.2? A. 0.1587 B. 0.9893 C. 0.9356 D. 0.0107
+d. For a Normal Distribution with mean  5 and standard deviation 7.6, what is area to the right of 14.1? A. 0.2743 B. 0.1587 C. 0.1151 D. 0.2301
+e. For a Normal Distribution with mean -14 and standard deviation 2.8, what is area to the left of -20.4? A. 0.0107 B. 0.8235 C. 0.0214 D. 0.0971
+f. For a Normal Distribution with mean -2 and standard deviation 3.8, what is area to the left of 2.9? A. 0.7007 B. 0.9032 C. 0.1936 D. 0.2578
+g. For a Normal Distribution with mean  4 and standard deviation 7.1, what is area to the left of 13.2? A. 0.9032 B. 0.1936 C. 0.2866 D. 0.1587
+h. For a Normal Distribution with mean -11 and standard deviation 5.0, what is area to the left of 0.5? A. 0.1251 B. 0.1587 C. 0.0214 D. 0.9893
+i. For a Normal Distribution with mean -7 and standard deviation 5.1, what is area in both tails farther from the mean than -1.9? A. 0.3173 B. 0.0849 C. 0.6346 D. 0.9151
+j. For a Normal Distribution with mean 13 and standard deviation 3.5, what is area in both tails farther from the mean than 7.8? A. 0.2672 B. 0.1336 C. 0.1587 D. 0.7734
+k. For a Normal Distribution with mean 10 and standard deviation 5.9, what is area in both tails farther from the mean than 11.2? A. 0.8415 B. 0.4602 C. 0.1587 D. 0.5793
+l. For a Normal Distribution with mean  1 and standard deviation 7.8, what is area in both tails farther from the mean than 18.2? A. 0.0278 B. 0.9861 C. 0.1587 D. 0.1357
+m. For a Normal Distribution with mean -5 and standard deviation 1.6, what value leaves probability 0.794 in the left tail? A. NaN B. 0.2060 C. -3.6874 D. 0.8204
+n. For a Normal Distribution with mean -7 and standard deviation 6.5, what value leaves probability 0.689 in the left tail? A. -3.7954 B. -5.3977 C. -10.2046 D. 0.4930
+o. For a Normal Distribution with mean 12 and standard deviation 1.5, what value leaves probability 0.825 in the left tail? A. 0.1750 B. 13.4019 C. 8.9346 D. 0.9346
+p. For a Normal Distribution with mean -12 and standard deviation 9.6, what value leaves probability 0.006 in the left tail? A. -2.5121 B. 12.1166 C. -33.6684 D. -36.1166
+q. For a Normal Distribution with mean -2 and standard deviation 9.1, what value leaves probability 0.182 in the right tail? A. 0.9078 B. 6.2607 C. -1.1275 D. 0.8180
+r. For a Normal Distribution with mean  0 and standard deviation 4.0, what value leaves probability 0.077 in the right tail? A. -4.0777 B. -5.7022 C. 1.4255 D. 5.7022
+s. For a Normal Distribution with mean 13 and standard deviation 4.9, what value leaves probability 0.489 in the right tail? A. 13.1351 B. 0.0276 C. 12.9324 D. 12.8649
+t. For a Normal Distribution with mean -3 and standard deviation 1.0, what value leaves probability 0.133 in the right tail? A. 1.1123 B. -3.6250 C. -4.1123 D. -1.8877
+
+
+
+
+
+
+# Data analysis from given data
+
+### 1. Correlations, Hypothesis Tests (20 points)
+A recent research paper, looking at how much attractiveness and personal grooming affects wages, used data from The
+National Longitudinal Study of Adolescent Health in 2001-2.
+
+a. Are there gender differences? Among the 6074 people (48.4% female), 38.8% of the males were rated as being well groomed
+or very well groomed; 50.6% of the females were rated that way. Is this a statistically significant difference?
+b. The study considers interrelations between physical attractiveness and grooming. People were ranked on a 4-point scale
+(where 1 is below average, 2 is average, 3 is above average, and 4 is very much above average) for each attribute. The full
+details are:
+
+##### Physically
+
+|                               | 4 Very Attractive | 3 Attractive | 2 Average | 1 Less Attractive |
+|-------------------------------|-------------------|--------------|-----------|-------------------|
+| 4 Very well groomed           | 297               | 199          | 57        | 30
+| 3 Well groomed                | 290               | 1169         | 607       | 54
+| 2 Average grooming            | 75                | 788          | 2013      | 167
+| 1 Less than average grooming  | 1                 | 25           | 164       | 138
+
+c. Conditional on a person being ranked physically 3 or 4 in attractiveness (above average), what is the chance that they are above average (3 or 4) in grooming as well. Conditional on being above average physically, what is the chance that they are average or below average (1 or 2) in grooming? Are these statistically significantly different?
+The study also considers the attractiveness of someone's personality (charisma), with the same 4-point scale. These data are:
+
+##### Personality
+
+|                               | 4 Very Attractive | 3 Attractive | 2 Average | 1 Less Attractive |
+|-------------------------------|-------------------|--------------|-----------|-------------------|
+| 4 Very well groomed           | 326               | 171          | 60        | 26
+| 3 Well groomed                | 416               | 1186         | 467       | 51
+| 2 Average grooming            | 212               | 966          | 1729      | 136
+| 1 Less than average grooming  | 11                | 49           | 184       | 84
+         
+d. Conditional on having an above-average personality, what is the chance that someone has above-average grooming? Conditional on having an above-average personality, what is the chance that their grooming is at or below average? Is there a statistically significant difference?
+e. Comment on the study. If overall attractiveness is a combination of these 3 factors, is there evidence that they are gross substitutes or complements in production?
+
+*PK Robins, JF Homer, MT French (2011). "Beauty and the Labor Market: Accounting for the Additional Effects of Personality and
+Grooming,"" Labour, 25(2), pp 228-251.*
+
+
+
+### 2. Fill in the blank regression summary
+Consider the following table of regression coefficients explaining wage and salary as a function of the given variables with heteroskedasticity-consistent Eicker-Huber-White standard errors.  Fill in the blanks.  There are 47,528 degrees of freedom with this data from CPS. (I used a random subset so don't try to re-estimate.)
+
+|               | Estimate   | Std. Error | t value	| Pr(>| t|) |
+|---------------|------------|------------|---------|-----------|
+| (Intercept)	  | -60367     | _____	    | -6.45	  | <0.01     |
+| female	      | 27009	     | 11333	    | _____   |	_____     |
+| Age	          | _____	     | 503	      | 7.99	  | <0.01     |
+| Age2	        | -38        | 	6	        | _____   | _____     |
+| female*Age	  | -1949	     | _____	    | -3.19   | _____     |
+| female*Age2   |	_____	     | 8	        | 2.4     | 1	        |
+| AfAm	        | -8953	     | 676	      | _____   | _____     |
+| Asian	        | -1740	     | _____	    | -1.26   | 0.21      |
+| Amindian      |	_____	     | 3835	      | 0.23    | 0.82      |
+| race_oth	    | -3882	     | 1611	      | _____   | _____     |
+| Hispanic	    | -7042	     | _____	    | -7.01	  | <0.01     |
+| married	      | 5322	     | 635	      | 8.39	  | <0.01     |
+| divwidsep	    | 150	       | 889	      | _____   | _____     |
+| union_m	      | -2052	     | 1701	      | _____   | _____     |
+| veteran	      | -1063	     | 1325 	    | _____   | _____     |
+| immigrant	    | -5829	     | _____	    | -4.31	  | <0.01     |
+| immig2gen	    | _____	     | 1293	      | 4.00	  | <0.01     |
+| educ_hs	      | 9408	     | 855	      | 11.01	  | <0.01     |
+| educ_smcoll   |	18135	     | 979	      | 18.52	  | <0.01     |
+| educ_as	      | 19349	     | 996	      | 19.43	  | <0.01     |
+| educ_bach	    | 39289	     | 1013	      | 38.77	  | <0.01     |
+| educ_adv	    | 66908	     | 1575	      | 42.49	  | <0.01     |
+
+
+### 3. Farber
+A paper by Farber examined the choices of how many hours a taxidriver would work, depending on a number of variables. His output is:
+"Driver Effects" are fixed effects for the 21 different drivers.
+
+![](farber.png)
+
+a. What is the estimated elasticity of hours with respect to the wage?
+b. Is there a significant change in hours on rainy days? On snowy days?
+
+
+### 3. 
+# Data analysis from datasets (R Required)
+## Questions
+### Age differences in couples from ACS data
+Since there has been a great deal of recent news about age differences in couples, I used the ACS data to look at ages of spouses.
+
+The data are arranged in a particular way: each household answers the survey and picks a person to be "head" then the other (if applicable) as "spouse".  There is no presumption of gender for either role.  In the way I've arranged the data, the line for the person who is labeled "spouse" has some demographics about the household head (all that data is prefixed with h_) so for example here are the first few lines of data:
+
+AGE | h_age | age_diff | SEX    | h_sex  | RELATE
+--- | ----- | -------- | ------ | ------ | ------
+61  | 56    | 5        | Female | Male   | Spouse
+53  | 53    | 0        | Female | Male   | Spouse
+61  | 63    | -2       | Female | Male   | Spouse
+37  | 35    | 2        | Male   | Female | Spouse
+51  | 57    | -6       | Male   | Female | Spouse
+34  | 32    | 2        | Male   | Female | Spouse
+
+In the first case the male took role of "head" and female took role of "spouse" so her line of data includes her own age (61) and her husband's age (56) so the "age_diff" is +5. In later lines the female took role of "head" and male took role of "spouse".
+
+You might consider statistics like ``summary(age_diff[(SEX == "Female")&(h_sex == "Male")])``, 
+``summary(age_diff[(SEX == "Male")&(h_sex == "Female")])``, ``summary(age_diff[(SEX == "Male")&(h_sex == "Male")])``, and ``summary(age_diff[(SEX == "Female")&(h_sex == "Female")])``.
+
+For each question below, carefully specify the statistical tests that you perform, including the null hypothesis and test statistics such as t-stat and p-value.
+
+1. (10 points) Find some basic summary statistics about the age gap for married people.  How common is a big age gap (you can define "big")?  Can you find some interesting correlates -- is geography a factor? Education? Working status?  Test if the average gap for people over 50 is significantly different from the average gap for people under 50.  Explain what you initially expected to find (before you ran the numbers) and how/if the results shift that view.
+
+2. (15 points) Estimate an OLS model of the age difference.  What are some important variables to include in the regression? Discuss and explain the results; which coefficients are significant? Discuss issues of endogeneity.
+
+3. (20 points) Add your choice of polynomial Age terms along with interactions with dummy variables to the OLS model.  Explain these interaction effects.  Explain the variation with age. Are the interaction coefficients jointly significant - does adding the interaction significantly help in prediction? 
+
+4. (10 points) For a particular subset, I estimate these coefficients for a logit estimation of whether the age difference is especially large.
+
+Varb        | Coeff  | Std Err
+----------- | ------ | ---------
+educ_hs     | -0.327 | 0.010                   
+educ_smcoll | -0.403 | 0.011                   
+educ_coll   | -0.615 | 0.011                     
+educ_adv    | -0.611 | 0.012   
+SEXFemale   | -0.086 | 0.032                  
+h_sexFemale | -0.096 | 0.032                
+Constant    | -0.369 | 0.033
+
+Explain what these coefficients mean. Should we include education levels of the head as well as the spouse?  Calculate the estimated probability that a spouse with some college, who is male and the head of household is female, has a large age difference.  What is the change in estimated probability if the spouse is female and head of household is male?  What is the change in estimated probability if, instead, the spouse gets an advanced degree?
+
+5. (20 points) Next estimate a logit or probit model, where the dependent variable is now whether the age difference is more than a few years (explain your choice of "a few" and why).  Explain what variables ought to be included or excluded. Discuss the results of the model and hypothesis tests.  Calculate some predicted probabilities for representative people.
+
+6. (20 points) Next estimate another model or several (of your choice) to the age difference.  Explain and discuss - impress me with your econometric virtuosity.  Can you improve some of the predictions of previous models?
+
+
+
+### ATUS data
+The next questions use the dataset provided, ATUS_for_exam2.RData, (details in file ATUS_for_exam2.R) of just working people (who are coded as "Employed - at work").  You should consider the relevant factors for how much time people spend on social fun activities, ACT_SOCIAL.  This gives minutes of a typical day spent socializing, relaxing, and doing other leisure activities (games, TV, hobbies).   For each question below, carefully specify the statistical tests that you perform, including the null hypothesis and test statistics such as t-stat and p-value.
+To get from the ATUS data that I had given in class to this exam data, I ran these simple lines,
+
+```{r eval = FALSE}
+load("ATUS_2003_2013_a.RData")
+use_varb <- (dat2$EMPSTAT == 'Employed - at work')
+dat_use <- subset(dat2,use_varb)
+is.na(dat_use$EARNWEEK) <- which((dat_use$EARNWEEK == 9999999))
+dat_use$EARNWEEK <- dat_use$EARNWEEK/100
+dat_use$lots_social <- (dat_use$ACT_SOCIAL > 180)
+```
+
+1. (10 points) Start with some basic statistics: how does the time spent on social activities vary among educational groups? Are these differences statistically significant? Discuss.  (Perhaps relate to opportunity cost.) What other explanatory variables might be relevant?
+2. (10 points) There are data items that give the amount of time spent on other activities (time spent working, sleeping, etc) - might there be worries about endogeneity? Explain.  Are there particular correlations that are significant?
+3. (15 points) Next estimate a linear OLS model for the dependent variable, time spent on social activities.  Explain what variables you believe are important to include.  Discuss the results.
+4. (15 points) The ATUS includes a great number of dummy variables including the state the person lives in (STATEFIP), the metro area (if they are in a metro area, METAREA), their occupation (OCC) and industry (IND).  Add one or more of these factors to your OLS model and discuss how this changes the other estimated coefficients.  Are the dummy variable coefficients jointly significant - does adding the factor significantly help in prediction? 
+5. (15 points) Next estimate a logit or probit model, where the dependent variable is now whether the person spends a lot of time (more than 180, so more than 3 hours per day) on social activities.  Explain what variables ought to be included or excluded. Discuss the results of the model and hypothesis tests.
+6. (35 points) Next estimate another model or several (of your choice) to predict time spent on social activities.  Explain and discuss - impress me with your econometric virtuosity.  Can you improve some of the predictions of previous models?  
+
+7. (15 points) Using a subset of BRFSS data (so don't bother trying to replicate), I estimated a regression for BMI with the following quadratic terms on age (including an interaction with gender).  [BMI is a person's weight in kg divided by their squared height in m, so a number over 25 is interpreted as overweight.]
+
+
+
+### BRFSS Data
+1. (15 points) Using a subset of BRFSS data (so don't bother trying to replicate), I estimated a regression for BMI with the following quadratic terms on age (including an interaction with gender).  [BMI is a person's weight in kg divided by their squared height in m, so a number over 25 is interpreted as overweight.]
+
+|                    | Coefficient | Std. Error |
+|--------------------|-------------|------------|
+| Constant           | 18.968	     | 1.023
+| Age	               | 0.523	     | 0.022
+| Age2	             | -0.006	     | 0.0003
+| Female	           | 1.723	     | 0.605
+| Age*Female         | -0.122	     | 0.030
+| Age2*Female	       | 0.001	     | 0.0004
+
+  a. Are these coefficient estimates each statistically significant?  Calculate t-statistics and p-values for each (there are 105409 df).
+  b. What is the predicted BMI for a 35-year-old male? For a female of the same age? At what age are men predicted to have BMI over 30?  At what age are women predicted to have BMI over 30? 
+  c. At what age does male BMI peak?  Female? At what levels for each?
+  d. Does this model seem reasonable? Discuss.
+  
+2. (15 points) Continuing with the BMI data from BRFSS, I estimate a logit model where the dependent variable is whether the person's BMI would classify them as "overweight" or "obese" but again estimate a quadratic in age with gender interaction.  These results are:
+
+|                    | Coefficient | Std. Error |
+|--------------------|-------------|------------|
+| Constant           | -2.355	     | 0.430
+| Age	               | 0.197	     | 0.008
+| Age2	             | -0.0020     | 0.0001
+| Female	           | 1.360	     | 0.206
+| Age*Female         | -0.100	     | 0.010
+| Age2*Female	       | 0.0011	     | 0.0001
+
+a. Are these coefficient estimates each statistically significant?  Calculate t-statistics and p-values for each (there are again 105409 df).
+b. What is the predicted probability of being overweight for a 35-year-old male? For a female of the same age? 
+c. At what age does male probability of being overweight peak?  Female? At what levels for each?
+d. Does this model seem reasonable? Discuss.
+
+The next questions use the dataset provided, BRFSS2013_forexam.RData, (details in file brfss_for_exam2.R).  You should make a further examination of factors important in determining whether a person is overweight or obese.  You can decide the best measurement: the data includes a continuous variable (BMI_measure), a 0/1 dummy for overweight (d_overweight), and/or a 4-category classification (X_BMI5CAT).  For each case, carefully specify the statistical tests that you perform, including the null hypothesis and test statistics such as t-stat and p-value.
+3. (10 points) Start with some basic statistics: how does the tendency to overweight vary among educational groups? Are these differences statistically significant? Discuss.
+4. (10 points) Next estimate a linear model, something like the one in Q 2 above (more extensive of course!).  Explain what variables are important to include?  Discuss the results.
+5. (15 points) Next estimate a logit or probit model, something like Q 3 above (more extensive of course!).  Explain what variables ought to be included or excluded. Discuss the results of the model.
+6. (35 points) Next estimate another model or several (of your choice) to predict BMI.  Explain and discuss – impress me with your econometric virtuosity.
+
+
+
