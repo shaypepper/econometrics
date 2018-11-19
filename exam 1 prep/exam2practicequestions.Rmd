@@ -538,6 +538,180 @@ b. If a student guesses randomly, what is the standard error of the fraction gue
 c. What is a 95% confidence interval for scores of students who guess randomly?
 d. If a student scores 27 points, what is the probability that the student was guessing randomly?
 
+### 15. Fill in the blank
+A study of Quantitative Easing in Japan (Kobayashi, Spiegel, and Yamori 2006) looked at the stock prices of particularly indebted firms to see if they were disproportionately impacted by the Bank of Japan's easy money policy. They report the following (49 Observations and R2=0.08):
+
+| 	          | Estimate  |	 T-Statistic  |	 P-Value  |
+|-------------|-----------|---------------|-----------|
+| Capital  	  | -0.03  	  |  -1.879  	    |           |
+| Liquidity  	| -0.51  	  |  -0.929  	    |           |
+| Bad Loan  	| -0.00  	  |  -0.066  	    |           |
+
+Where the "Capital" is the capital-asset ratio of the firm's main bank; "Liquidity" is its main bank's ratio of cash, reserves, and loan balances to assets; and "Bad Loan" is the ratio of nonperforming loans to total assets.
+What are the p-values for each T-statistic?
+Which regressors are statistically significant?
+What does this imply?
+
+### 16. 
+Peter Gordon, in his talk at CCNY, presented results from linear regressions to explain the growth of metropolitan areas.  He begins with a simple model to explain population growth from 1990-2000:
+
+#### Log Population Growth 1990-2000		
+| 	                         | Coefficient	| t-stat	| p-value   |
+|----------------------------|--------------|---------|-----------|
+| Constant term	             | -0.0229    	| -0.12	  | 
+| Population in 1990 (log)	 | 0.0192	      | 1.33	  | 
+| Pop. Density in 1990	     | -0.0504    	| -1.65	  | 
+| % in manufacturing	       | -0.0028	    | -1.63	  | 
+| $R^2$                      |	0.57		    |         |
+
+Where he also includes dummy variables for Census Regions (New England, Mid Atlantic, etc.).  There are 79 observations and 67 degrees of freedom.
+a. What are the p-values for the 3 coefficients?  Are they significant?
+b. The averages and standard deviations are:
+
+
+|                           |	Average	| Standard deviation |
+|---------------------------|---------|--------------------|
+| Population in 1990 (log)	| 14.52	  | 14.89              |
+| Pop. Density in 1990	    | 1.80	  | 1.02               |
+| % in manufacturing	      | 18.69	  | 7.75               |
+
+c. What is the predicted population growth for a metropolitan area that is exactly average?
+d. What is the predicted population growth for a metro area that is one standard deviation above average in 1990 population?  For a metro area one standard deviation above average in density?  In manufacturing concentration?
+e. Give a careful explanation for why we would observe coefficients of these signs.  
+
+
+
+
+
+### 17. 
+
+You are given the following data on the number of people in the PUMS sample who live in each of the five boroughs of NYC and who commute in each specified manner (where 'other' includes walking, working from home, taking a taxi or ferry or rail).
+
+| 	      | Bronx |	Manhattan	| Staten Is	| Brooklyn | Queens |
+|---------|-------|-----------|-----------|----------|--------|
+| car   	| 5788	| 2692	    | 5526	    | 10990	   | 16905
+| bus	    | 3132	| 2789	    | 1871	    | 4731	   | 4636
+| subway	| 6481	| 13260	    | 279	      | 18951	   | 14025
+| other	  | 2748	| 10327	    | 900	      | 6587	   | 4877
+
+a. Find the Joint Probability for drawing, from this sample, a person from Queens who commutes by bus.  b. Find the Joint Probability of a person from the Bronx who commutes by subway.
+c. Find the Marginal Probability of drawing, from among the people who commute by subway, someone who lives in Brooklyn.  Find the Marginal Probability, of people who commute by bus, someone who lives in the Bronx.
+d. Find the Marginal Probability of drawing, from among the people who live in Staten Island, someone who drives a car to work.  Find the Marginal Probability, of people in Brooklyn, who commute by subway.
+e. Are these two choices (which borough to live in, how to commute) independent?  Explain using the definition of statistical independence.
+
+### 18. Religion and income per capita 
+To investigate an hypothesis proposed by a student, I got data, for 102 of the world's major countries, on the fraction of the population who are religious as well as the income per capita and the enrollment rate of boys and girls in primary school.  The hypothesis to be investigated is whether more religious societies tend to hold back women.  I ran two separate models: Model 1 uses girls enrollment rate as the dependent; Model 2 uses the ratio of girls to boys enrollment rates as the dependent.  The results are below (standard errors in italics and parentheses below each coefficient):
+
+| 	                |  Model 1	| Model 2	    | t-stat |	p-value
+|-------------------|-----------|-------------|--------|-----------|
+| Intercept	        |  137    	| 1.12		    |        |
+| 	                | (18)	    | (0.09)	    | 	     |
+| Religiosity	      | -0.585	  | -0.0018	    |        |	
+| 	                | (0.189)	  | (0.0009)		|        |
+| GDP per capita	  | 0.00056	  | 0.0000016		|        |
+| 	                | (0.00015)	| (0.0000007)	|        |	
+
+a. Which coefficient estimates are statistically significant?  What are the t-statistics and p-values for each?
+b. How would you interpret these results?
+c. Critique the regression model.  How would you improve it?
+
+### 19. Fill in the blanks on regression
+Using the CPS 2010 data (on Blackboard, although you don't need to download it for this), restricting attention to only those reporting a non-zero wage and salary, the following regression output is obtained for a regression (including industry, occupation, and state fixed effects) with wage and salary as the dependent variable.  
+ Fill in the missing values in the table.
+The dummy variables for veterans have been split into various time periods to distinguish recent veterans from those who served decades ago.  If you knew that the draft ended at about the same time as the Vietnam war, how would that affect your interpretation of the coefficient estimates?
+Critique the regression: how would you improve the estimates (using the same dataset)?
+
+#### ANOVA
+
+| Model		    | Sum of Squares	| df	     | Mean Square | 	F	      | Sig.  |
+|-------------|-----------------|----------|-------------|----------|-------|
+|	Regression	| 8.201E+13	      | 152	     | 5.395E+11	 |  324.098	| .000  |
+| Residual	  | 1.639E+14	      | 98479	   | 1.665E+09	 |          |       |
+| Total	      | 2.460E+14	      | 98631	   |             |          |       |
+	
+#### Coefficients
+
+Model		Unstandardized Coefficients		Standardized Coefficients	t	Sig.
+|		                                            | B	          | Std. Error | Beta		| t        | Sig.
+|-----------------------------------------------|-------------|------------|--------|----------|------|
+| (Constant)	                                  | 12970.923	  | 2290.740	 |  	    | 5.662	   | .000
+| Demographics, Age	                            | 2210.038  	| 62.066	   | .605	  | ____	   | ____
+| Age squared	                                  | -21.527	    | .693	     | -.504	| ____	   | ____
+| Female	                                      | -14892.950	| ____	     | -.149	| -47.872	 | .000
+| African American	                            | -3488.065	  | ____	     | -.022	| -7.809	 | .000
+| Asian	                                        | -2700.032  	| ____	     | -.012	| -2.782	 | .005
+| Native American Indian or Alaskan or Hawaiian	| ____	      | 824.886	   | -.009	| -3.442	 | .001
+| Hispanic	                                    | ____	      | 483.313	   | -.024	| -6.847	 | .000
+| Immigrant	                                    | ____	      | 632.573	   | -.032	| -6.728	 | .000
+| 1 or more parents were immigrants	            | 989.451	    | 541.866	   | .008	  | ____	   |  ____
+| immig_india	                                  | -456.482	  | 1675.840	 | -.001	| ____	   |  ____
+| immig_SEAsia                                	| 821.730	    | 1252.853	 | .003	  | ____	   |  ____
+| immig_MidE	                                  | -599.852	  | 2335.868	 | -.001	| ____	   |  ____
+| immig_China	                                  | 3425.017	  | 1821.204	 | .006	  | ____	   |  ____
+| Education: High School Diploma	              | 2786.569	  | 492.533	   | .025	  | 5.658	   |  .000
+| Education: Some College but no degree	        | 5243.544	  | 528.563	   | .042	  | 9.920	   |  .000
+| Education: Associate in vocational	          | 6530.542	  | 762.525	   | .028	  | 8.564	   |  .000
+| Education: Associate in academic	            | 7205.474	  | 736.838	   | .032	  | 9.779	   |  .000
+| Education: 4-yr degree	                      | 17766.941	  | 576.905	   | .143	  | 30.797	 |  .000
+| Education: Advanced Degree	                  | 36755.485	  | 703.658	   | .227	  | 52.235	 |  .000
+| Married	                                      | 4203.602	  | 414.288	   | .042	  | 10.147	 |  .000
+| Divorced or Widowed or Separated	            | 830.032	    | 501.026	   | .006	  | 1.657	   |  .098
+| kids_under18	                                | 3562.643	  | 327.103	   | .036	  | 10.891	 |  .000
+| kids_under6	                                  | -721.123	  | 404.818	   | -.006	| -1.781	 |  .075
+| Union member	                                | 4868.240	  | 976.338	   | .013	  | 4.986	   |  .000
+| Veteran since Sept 2001	                      | 2081.909	  | 4336.647	 | .001	  | .480	   |  .631
+| Veteran Aug 1990 - Aug 2001	                  | -1200.688	  | 1788.034	 | -.002	| -.672	   |  .502
+| Veteran May 1975-July 1990	                  | -1078.953	  | 1895.197	 | -.001	| -.569	   |  .569
+| Veteran August 1964-April 1975	              | -6377.461	  | 3195.784	 | -.005	| -1.996	 |  .046
+| Veteran Feb 1955-July 1964                   	| -7836.420	  | 4904.511	 | -.004	| -1.598	 |  .110
+| Veteran July 1950-Jan 1955	                  | -19976.382	| 10570.869	 | -.005	| -1.890	 |  .059
+| Veteran before 1950	                          | -15822.026	| 12943.766	 | -.003	| -1.222	 |  .222
+
+
+
+### 20.  
+You are given the following output from a logit regression using ATUS data.  The dependent variable is whether the person spent any time cleaning in the kitchen and the independent variables are the usual list of race/ethnicity (African-American, Asian, Native American, Hispanic), female, educational attainment (high school diploma, some college, a 4-year degree, or an advanced degree), weekly earnings, the number of kids in the household, dummies if the person is in the labor force, has multiple jobs, works part-time, or is in school now, as well as age and age-squared.  We include a dummy if there is a spouse or partner present and then an interaction term for if the person is male AND there is a spouse in the household.  There are only adults in the sample.  Descriptive statistics show that approximately 5% of men clean in the kitchen while 20% of women do.  The SPSS output for the logit regression is:
+
+| 	                         | B	           | S.E.	    | Wald	   | df	| Sig.	 | Exp(B)
+|----------------------------|---------------|----------|----------|----|--------|---------|
+| female	                   | 0.9458	       | 0.0860	  | 120.945	 | 1	| 0.000	 | 2.5749
+| African-American           | -0.6113	     | 0.0789	  | 60.079	 | 1	| 0.000	 | 0.5427
+| Hispanic	                 | -0.2286	     | 0.0765	  | 8.926	   | 1	| 0.003	 | 0.7956
+| Asian	                     | 0.0053	       | 0.1360	  | 0.001	   | 1	| 0.969	 | 1.0053
+| Native American	           | -0.0940	     | 0.1618	  | 0.338	   | 1	| 0.561	 | 0.9103
+| Education: high school	   | 0.0082	       | 0.0789	  | 0.011	   | 1	| 0.917	 | 1.0082
+| Education: some college	   | 0.0057	       | 0.0813	  | 0.005	   | 1	| 0.944	 | 1.0057
+| Education: college degree	 | 0.0893	       | 0.0887	  | 1.013	   | 1	| 0.314	 | 1.0934
+| Education: advanced degree | 0.0874	       | 0.1009	  | 0.751	   | 1	| 0.386	 | 1.0914
+| Weekly Earnings	           | 0.0000007	   | 0.0000005	| 1.943	 | 1	| 0.163	 | 1.0000
+| Num. Kids in Household	   | 0.2586	       | 0.0226	  | 131.473	 | 1	| 0.000	 | 1.2952
+| person in the labor force	 | -0.5194	     | 0.0694	  | 55.967	 | 1	| 0.000	 | 0.5949
+| works multiple jobs	       |  -0.2307	     | 0.1009	  | 5.223	   | 1	| 0.022	 | 0.7940
+| works part-time	           |  0.1814	     | 0.0733	  | 6.130	   | 1	| 0.013	 | 1.1989
+| person is in school        |  -0.1842	     | 0.1130	  | 2.658	   | 1	| 0.103	 | 0.8318
+| Age	                       |  0.0551	     | 0.0088	  | 38.893	 | 1	| 0.000	 | 1.0567
+| Age-squared	               |  -0.0004	     | 0.0001	  | 22.107	 | 1	| 0.000	 | 0.9996
+| spouse is present	         |  0.5027	     | 0.0569	  | 78.074	 | 1	| 0.000	 | 1.6531
+| Male * spouse is present	 | -0.6562	     | 0.1087	  | 36.462	 | 1	| 0.000	 | 0.5188
+| Constant	                 | -3.3772	     | 0.2317	  | 212.434	 | 1	| 0.000	 | 0.0341
+
+a. Which variables from the logit are statistically significant at the 5% level?  At the 1% level?
+How would you interpret the coefficient on the Male * spouse-present interaction term?  What is the age b. when a person hits the peak probability of cleaning?
+
+### 21. 
+A study by Mehran and Tracy examined the relationship between stock option grants and measures of the company's performance.  They estimated the following specification:
+$Options = \beta_0+\beta_1(Return\ on\ Assets)+\beta_2(Employment)+\beta_3(Assets)+\beta_4(Loss)+u$
+where the variable (Loss) is a dummy variable for whether the firm had negative profits.  They estimated the following coefficients:
+
+| 	                | Coefficient	| Standard Error
+|-------------------|-------------|-----------------|
+| Return on Assets	| -34.4	      | 4.7
+| Employment	      | 3.3	        | 15.5
+| Assets	          | 343.1	      | 221.8
+| Loss Dummy	      | 24.2	      | 5.0
+
+Which estimate has the highest t-statistic (in absolute value)?  Which has the lowest p-value?  Show your calculations.  How would you explain the estimate on the "Loss" dummy variable?
+
 ## Solutions
 
 # Data analysis from datasets (R Required)
@@ -674,6 +848,7 @@ Using the CPS data, run at least 4 interesting regressions to model the wages ea
 
 ### 7. Final Project
 He won't ask all of these, but here are examples of what he might ask. 
+
 #### Example Question 1
 Explain the topic of your final project.  Carefully explain one regression that you are going to estimate (or have already estimated).  Tell the dependent variable and list the independent variables.  What hypothesis tests are you particularly interested in?  What problems might arise in the estimation?  Is there likely to be heteroskedasticity?  Is it clear that the X-variables cause the Y-variable and not vice versa?  Explain.  [Note: these answers should be given in the form of well-written paragraphs not a series of bullet items answering my questions!]
 #### Example Question 2
@@ -684,6 +859,7 @@ c. What other variables are important, but are not measured and available in you
 
 #### Example Question 3 
 Explain in greater detail your topic for the final project.  Include details about the dataset which you will use and the regressions that you will estimate.  Cite at least one previous study which has been done on that topic (published in a refereed journal).
+
 
 ### 8. ATUS Data
 Use the SPSS dataset, atus_tv from Blackboard, which is a subset of the American Time Use survey.  This time we want to find out which factors are important in explaining whether people spend time watching TV.  There are a wide number of possible factors that influence this choice.
@@ -727,6 +903,7 @@ I’ve combined the dataset on beer consumption and taxes with data* from Prof N
 
 #### Example Question 1
 Using the PUMS data for people in NYC, people are classified if they report that they speak English well or very well versus those who do not speak it well or at all.  Among the 38,740 households who speak English well, 18.29% have children under 6 years old; for the 14,688 that do not speak English well, 14.46% have children under 6.  Also, 38.72% of those who speak English well have children under 17; 35.27% of those who do not speak English well have children under 17.  
+
 1. Are these differences statistically significant?  
 2. What is the p-value for each difference in means?
 3. Why do you think we might see this difference?
@@ -743,38 +920,124 @@ Since several groups decided that they wanted to look at changing patterns of in
 
 ### 14. Wages from CPS
 Use the data on Blackboard, CPS_finalexam.  We want to compare the acquisition of wage income, as a function of education, between native-born and immigrant workers.  Examine a regression with wage as the dependent variable, and with age, age-squared, educational attainment dummies (choose which are appropriate), and other reasonable independent variables (as many as you think are appropriate).  
-1. Estimate two such regressions: one for natives and one for immigrants (explain what subgroup you're examining – all people, workers, fulltime workers?).  
-2. What are the effects of a college degree for the two groups?  (Carefully explain the null hypothesis, t-stat, and p-values before explaining the results of the hypothesis test.)  
-3. Compare the age-wage profiles for natives and immigrants.  
-4. If you were to estimate two additional regressions but with the logarithm of wages as dependent variable, how would your conclusions change?  Explain the hypothesis tests.
-5. How would industry/occupation dummy variables change these results?  
-6. What other models can you estimate that could be informative – explain.
+
+a. Estimate two such regressions: one for natives and one for immigrants (explain what subgroup you're examining – all people, workers, fulltime workers?).  
+b. What are the effects of a college degree for the two groups?  (Carefully explain the null hypothesis, t-stat, and p-values before explaining the results of the hypothesis test.)  
+c. Compare the age-wage profiles for natives and immigrants.  
+d. If you were to estimate two additional regressions but with the logarithm of wages as dependent variable, how would your conclusions change?  Explain the hypothesis tests.
+e. How would industry/occupation dummy variables change these results?  
+f. What other models can you estimate that could be informative – explain.
 
 ### 15. PUMA data
 Download the data, "PUMA_nyc_for_exam" from Blackboard, which gives PUMA data on people living in the 5 boroughs.  Run a regression that models the variable, "GRPIP," "Gross Rent as Percent of Income," which tells how burdensome are housing costs for different people.  
-1. What are the mean, median, 25th, and 75th percentiles for Rent as a fraction of income?  Does this seem reasonable?  
-2. What is the fraction spent on rent by households in Brooklyn?  In Queens?  Is the difference statistically significant?  Between Brooklyn and the Bronx?
-3. What variables might be important in explaining this ratio? Find summary statistics for these variables.
-4. Run a regression and interpret the output.  Which variables are statistically significant?  How do you interpret their coefficients?  Are these reasonable? 
-5. What variables are omitted?  How could the regression be improved (using actual real data)?  Can you estimate a better model (with squared terms, interaction terms, etc)?
+
+a. What are the mean, median, 25th, and 75th percentiles for Rent as a fraction of income?  Does this seem reasonable?  
+b. What is the fraction spent on rent by households in Brooklyn?  In Queens?  Is the difference statistically significant?  Between Brooklyn and the Bronx?
+c. What variables might be important in explaining this ratio? Find summary statistics for these variables.
+d. Run a regression and interpret the output.  Which variables are statistically significant?  How do you interpret their coefficients?  Are these reasonable? 
+e. What variables are omitted?  How could the regression be improved (using actual real data)?  Can you estimate a better model (with squared terms, interaction terms, etc)?
 
 ### 16. NASDAQ
 I provide a dataset online (stock_indexes.sav on InYourClass) with the S&P 500 stock index and its daily returns as well as the NASDAQ index and its returns, from January 1, 1980 to December 9, 2010.
+
 a. What is the mean and standard deviation?
 b. If the stock index returns were distributed normally, what value of return is low enough, that 95% of the days are better?
 c. What is the 5% value of the actual returns (the fifth percentile, use "Analyze \\ Descriptive Statistics \\ Explore" and check "Percentiles" in "Options")?  Is this different from your previous answer?  What does that imply?  Explain.
 
 ### 17. Medicaid
  Using the CPS 2010 data online, examine whether children are covered by Medicaid or other insurance plan.  Run a crosstab on "CH_HI" whether a child has health insurance, and "CH_MC" if a child is covered by Medicaid.  
-What fraction of children are covered by Medicaid?  What fraction of children are not covered by any policy?
-What is the average family income of children who are covered by Medicaid?  Of children who are not?  What is the t-statistic and p-value for a statistical test of whether the means are equal?
+ 
+a. What fraction of children are covered by Medicaid?  What fraction of children are not covered by any policy?
+b. What is the average family income of children who are covered by Medicaid?  Of children who are not? What is the t-statistic and p-value for a statistical test of whether the means are equal?
 
 ### 18. Advance prep
-[this question was given in advance for students to prepare with their group} Download (from Blackboard) and prepare the dataset on the 2004 Survey of Consumer Finances from the Federal Reserve.  Estimate the probability that each head of household (restrict to only heads of household!) has at least one credit card.  Write up a report that explains your results (you might compare different specifications, you might consider different sets of socioeconomic variables, different interactions, different polynomials, different sets of fixed effects, etc.).
+[this question was given in advance for students to prepare with their group] Download (from Blackboard) and prepare the dataset on the 2004 Survey of Consumer Finances from the Federal Reserve.  Estimate the probability that each head of household (restrict to only heads of household!) has at least one credit card.  Write up a report that explains your results (you might compare different specifications, you might consider different sets of socioeconomic variables, different interactions, different polynomials, different sets of fixed effects, etc.).
 
 ### 19. S&P 500
 Estimate the following regression:: S&P100 returns = b0 + b1(lag S&P100 returns) + b2(lag interest rates) + $\epsilon$ using the dataset, financials.sav.  Explain which coefficients (if any) are significant and interpret them.
 
+### 20. CPS Data
+Consider a model, based on CPS data using only fulltime workers with four-year degrees, estimating coefficients on Age and Age-squared, interacted with gender (there are other explanatory variables as well, don't worry about those for now). 
+
+|             |  Estimate	| Std. Error
+|-------------|-----------|------------|
+| (Intercept)	| -62851	  | 18405
+| Age	        | 5809.56	  | 994.97
+| Age2	      | -54.46	  | 12.79
+| female	    | 37523	    | 22090
+| female*Age	| -2216.21  | 1192.02
+| female*Age2	| 16.98	    | 15.39
+
+What is the predicted wage for a 40-year-old female?  For a 40-year-old male?  What is the estimated peak age for earnings for each gender?
+Which coefficient estimates are statistically significantly different from zero?  Discuss.
+Can you estimate other models (e.g. quantile, loess, nonparametric) that would cast more light on the question of relative earnings by gender, age, and/or other factors  Discuss.
 
 
+
+### 21. BRFSS Data 
+Consider the BRFSS dataset, the Behavioral Risk Factor Surveillance Study.  There are many observations on a wide variety of risky behaviors: smoking, drinking, poor eating, flu shots, whether household has a 3-day supply of food and water...  For now concentrate on BMI, which is Body Mass Index, a measure of whether a person is obese.  Construct at least one good model to explain BMI. What are descriptive statistics for BMI?  Does this suggest some way you ought to limit the sample?  What explanatory variables could be in the model?  Which are available in the BRFSS data?  Construct at least one good regression model; discuss the estimates (including statistical significance but also relevance and whether the estimates accord with theory).  How could you improve the model?  Consider nonlinear age terms, gender-age interactions, race-age interactions, state dummies and more.  Note that INCOME2 is not a continuous variable but you would need to create dummy variables for the relevant income levels.
+
+### 22. Water and Food supply
+The BRFSS data includes information on household disaster preparedness.  Two measures are whether the household has a 3-day supply of food and water.  We might believe these to be similar so want to examine the marginal probabilities.
+
+##### Whether families have three day supply of food and water
+|                       | Has Water Supply | No Water Supply |
+|-----------------------|------------------|-----------------|
+| Has Food Supply       | 5528             | 3190            |
+| Does Have Food Supply | 484              | 1130            |
+
+What is the probability that a household has sufficient food and water for 3 days?  Given that a household has sufficient food, what is the probability that it has sufficient water as well?  If a household does not have sufficient food, what is the probability that it has sufficient water?  Are the latter two proportions statistically significantly different?
+
+### 23. BRFSS data
+Continuing with the BRFSS, examine the 0/1 dependent variable of whether the person ever smoked seriously (which they define as at least 100 cigarettes); the variable is SMOKE100.  We are interested in de-tangling the effects of both income and education. (Recall note from previous question about INCOM2 variable.)  Estimate both probit and logit models; explain different predictions from each model.  Explore various specifications possibly including interactions, dummies, etc.  Carefully explain the results that you find.
+
+### 24. NHANES
+Using data from the NHANES study, we find the following numbers of people classified as whether they report themselves to be overweight (person_overweight) and if they have ever tried marijuana (tried_pot).
+
+|                         |	person is not overweight |	person is overweight |
+|-------------------------|--------------------------|-----------------------|
+| has not tried marijuana |	613	                     | 837                   |
+| has tried marijuana	    | 848	                     | 956                   |
+
+a. What fraction of people who are overweight have tried marijuana?  What fraction of people who are not overweight have tried marijuana?  
+b. Are these statistically significantly different?  What is the p-value of a hypothesis test for a difference in the means?
+c. Does this data provide evidence that smoking marijuana helps people not be overweight?  Discuss.
+
+
+### 25. NHANES
+Using the NHANES 2007-09 data (on Blackboard, although you only need to download it for the very last part), reporting a variety of socioeconomic variables as well as behavior choices such as the number of sexual partners reported (number_partners), we want to see if richer people have more sex than poor people.  The following table is constructed, showing three categories of family income and 5 categories of number of sex partners:
+
+| family income	     | zero	  | 1	   | 2 - 5	|   6 - 25	| >25	    | Marginal:
+|--------------------|--------|------|--------|-----------|---------|
+|  < 20,000	         | 11	    | 63	 | 236	  |   255	    | 92	    | ______
+|  20 - 45,000	     | 7	    | 117	 | 323	  |   308	    | 117	    | ______
+|  > 45,000	         | 3	    | 234	 | 517	  |   607	    | 218	    | ______
+| Marginal:	         | ______ | ____ | ____	  | ______   	| ______	| ______	
+
+a. Where is the median, for number of sex partners, for poorer people?  For middle-income people?  For a. richer people?
+a. Conditional on a person being poorer, what is the likelihood that they report fewer than 6 partners?  a. Conditional on being middle-income?  Richer?
+a. Conditional on reporting 2-5 sex partners, what is the likelihood that a person is poorer?  a. Middle-income?  Richer?
+a. Explain why the average number of sex partners might not be as useful a measure as, for example, the data a. ranges above or the median or the 95%-trimmed mean.
+a. (5 points) (You will need to download the data for this part) Could the difference be explained by schooling effects?  How does college affect the number of sex partners?
+
+
+### 26. Oil and gas
+
+The oil and gas price dataset online, (oil_gas_prices.sav on InYourClass, although you only need to download it for the very last part), has data on prices of oil, gasoline, and heating oil (futures prices, in this case).  Compare two regression specifications of the current price of gasoline.  Specification A explains the current price with its price the day before.  Specification B has the price of gas on the day before but also includes the prices of crude oil and heating oil on the day before.  
+
+#### Original Estimates
+The estimates of the coefficient on gasoline are shown below:
+
+| 	Coefficient   | estimate	| Standard error  |
+|-----------------|-----------|-----------------|
+| Specification A	| 0.021	    | 0.028
+| Specification B	| 0.153	    | 0.048
+
+a. Calculate t-statistics and p-values for each specification of the regression.
+b. Explain what you could learn from each of these regressions – specifically, would it be a good idea to invest in gasoline futures?
+c. Explain why there is a difference in the estimated coefficients.   Can you say that one is more correct?
+
+#### 2. 
+
+### 27. 
 ## Solutions
