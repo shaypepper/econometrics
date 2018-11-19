@@ -1,0 +1,111 @@
+---
+title: "Regression types"
+author: "Shay Culpepper"
+date: "11/13/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+............
+
+```{r eval=FALSE}
+
+library('rpart') # tree
+library('randomForest') # random forest
+
+```
+
+## 1. Basic OLS
+Our most basic regression. 
+### Formula
+### Code in R
+### Example interpretation
+
+## 2. Logit
+### Formula
+### Code in R
+### Example interpretation
+
+## 3. Probit
+### Formula
+### Code in R
+### Example interpretation
+
+## 4. k-nn
+### Formula
+### Code in R
+### Example interpretation
+
+## 5. Interactions/multi-level
+### Formula
+### Code in R
+### Example interpretation
+
+## 6. Quantile Regression
+Sometimes it is less relevant to look at all off your data in a single regression. There are times that you are interested in the effect of your exogenous variables based on being part of a specific quantile. 
+### Formula
+### Code in R
+```{r eval=FALSE}
+p_tiles <- c(0.1, 0.25, 0.5, 0.75, 0.9)
+quantreg1 <- rq(WSAL_VAL ~ Age + female + AfAm + Asian + Amindian + race_oth + Hispanic + educ_hs + educ_smcoll + educ_as + educ_bach + educ_adv + married + divwidsep + union_m + veteran + immigrant + immig2gen, tau=p_tiles, data = dat_use)
+summary(quantreg1)
+plot(quantreg1)
+```
+### Example interpretation
+
+## 7. LOESS
+Local estimation with polynomials. Maximum 4 variables. 
+### Formula
+### Code in R
+
+```{r eval=FALSE}
+model_loess1 <- loess(WSAL_VAL ~ Age,data3)
+y_loess1_pred <- predict(model_loess1, data.frame(Age = seq(25, 55, 1)), se = TRUE)
+plot(seq(25, 55, 1),y_loess1_pred$fit)
+```
+
+### Example interpretation
+
+## 8. Propensity Score
+### Formula
+### Code in R
+### Example interpretation
+
+## 9. LASSO
+### Formula
+### Code in R
+### Example interpretation
+
+## 10. Spike and Slab
+### Formula
+### Code in R
+### Example interpretation
+
+## 11. Random Forrest
+### Formula
+### Code in R
+### Example interpretation
+
+## 12. Tree
+### Formula
+### Code in R
+```{r eval = FALSE}
+
+```
+### Example interpretation
+
+
+## 13. Non-parametric
+### Formula
+### Code in R
+### Example interpretation
+
+## 14. Spline
+### Formula
+### Code in R
+### Example interpretation
+
+
