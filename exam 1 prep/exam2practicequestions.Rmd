@@ -214,11 +214,11 @@ i. For a  Normal Distribution with mean -7 and standard deviation of 5 what valu
 j. For a  Normal Distribution with mean 12 and standard deviation of 2 what value leaves 0.03 in the right tail?  15.110  16.340  13.024  14.048  
 
 ### 14. You might sketch a picture.
-a. For a  t Distribution with sample average of 1.43, standard error of 1.22, and 11 observations, what is the area in both tails, for a null hypothesis of zero mean?        0.133       0.181    0.412       0.266   
-b. For a  t Distribution with sample average of 2.9, standard error of 1.82, and 13 observations, what is the area in both tails, for a null hypothesis of zero mean?      0.068       0.541       0.012      0.135   
-c. For a  t Distribution with sample average of 3.31, standard error of 2.16, and 9 observations, what is the area in both tails, for a null hypothesis of zero mean?     0.009    0.160       0.530      0.080   
+a. For a  t Distribution with sample average of 1.43, standard error of 1.22, and 11 observations, what is the area in both tails, for a null hypothesis of zero mean?        0.133       0.181    0.412       0.266 
+b. For a  t Distribution with sample average of 2.9, standard error of 1.82, and 13 observations, what is the area in both tails, for a null hypothesis of zero mean?      0.068       0.541       0.012      0.135
+c. For a  t Distribution with sample average of 3.31, standard error of 2.16, and 9 observations, what is the area in both tails, for a null hypothesis of zero mean?     0.009    0.160       0.530      0.080
 d. For a  t Distribution with sample average of 1.47, standard error of 1.47, and 16 observations, what is the area in both tails, for a null hypothesis of zero mean?       0.332     0.166       0.332       0.161
-e. For a  t Distribution with 20 observations and standard error of 2.53, what sample mean leaves 0.08 in the two tails, when testing a null hypothesis of zero?       0.922       1.844       3.689    4.666   
+e. For a  t Distribution with 20 observations and standard error of 2.53, what sample mean leaves 0.08 in the two tails, when testing a null hypothesis of zero?       0.922       1.844       3.689    4.666
 f. For a  t Distribution with 5 observations and standard error of 2.78, what sample mean leaves 0.2 in the two tails, when testing a null hypothesis of zero?        0.738      1.476       4.103       2.952
 g. For a  t Distribution with 20 observations and standard error of 0.53, what sample mean leaves 0.24 in the two tails, when testing a null hypothesis of zero?       1.211       0.606      0.642       2.422
 h. Sample A has mean 4.28, standard error of 0.21, and 4 observations.  Sample B has mean 4.99, standard deviation of 0.33, and 23 observations.  Test the null hypothesis of no difference.       0.005       0.002       0.906    0.517   
@@ -251,6 +251,7 @@ t. For a Normal Distribution with mean -3 and standard deviation 1.0, what value
 
 ### 16. More normal caluculations
 Calculate the probability in the following areas under the Normal pdf with mean and standard deviation as given.  You might usefully draw pictures as well as making the calculations.  For the calculations you can use either a computer or a table.
+
 a. What is the probability, if the true distribution has mean -15 and standard deviation of 9.7, of seeing a deviation as large (in absolute value) as -1?
 b. What is the probability, if the true distribution has mean 0.35 and standard deviation of 0.16, of seeing a deviation as large (in absolute value) as 0.51?
 c. What is the probability, if the true distribution has mean -0.1 and standard deviation of 0.04, of seeing a deviation as large (in absolute value) as -0.16?
@@ -259,6 +260,7 @@ c. What is the probability, if the true distribution has mean -0.1 and standard 
 
 ### 17. Standard Normal
 A random variable is distributed as a standard normal.  (You are encouraged to sketch the PDF in each case.)
+
 a. What is the probability that we could observe a value as far or farther than 1.3?
 b. What is the probability that we could observe a value nearer than 1.8?
 c. What value would leave 10% of the probability in the right-hand tail?
@@ -267,6 +269,7 @@ d. What value would leave 25% in both the tails (together)?
 
 ### 18. Standard Normal 
 A random variable is distributed as a standard normal.  (You are encouraged to sketch the PDF in each case.)
+
 a. What is the probability that we could observe a value as far or farther than -0.9?
 b. What is the probability that we could observe a value nearer than 1.4?
 c. What value would leave 5% of the probability in the right-hand tail?
@@ -358,6 +361,7 @@ b. Is there a significant change in hours on rainy days? On snowy days?
 In estimating how much choice of college major affects income, Hamermesh & Donald (2008) send out surveys to college alumni.  They first estimate the probability that a person will answer the survey with a probit model.  They use data on major (school of education is the omitted category), how long ago the person graduated, and some information from their college record.  Their results are (assume that the b0 coefficient is 0.253):
 
 |                                 | pr(respond to survey) | t-statistic
+|---------------------------------|-----------------------|-------------|
 | Architecture and Fine Arts     | -0.044  | 1.61
 | Business---general             |  0.046  | 1.72
 | Business---quantitative         | 0.038  | 1.45
@@ -384,11 +388,8 @@ a. What is the probability of reply for a major in quantitative Business, from t
 ### 5. 
 Using the BRFSS 2009 data, the following table compares the reported health status of the respondent with whether or not they smoked (defined as having at least 100 cigarettes) 
 
-|                       | SMOKED AT LEAST 100 CIGARETTES?      |
-|-----------------------|-------------------------------------|
-
-|-----------------------|---------|---------|-----------------|
-                        |  Yes    | No      | Marginal
+|-----------------------|-------------------------|-------------------------|-----------------|
+                        |  Smoked 100+ cigaretts  | Smoked <100 cigarettes  | Marginal
 | GENERAL HEALTH        |         |         |              
 | Excellent             | 27775    | 49199    | ____
 |  Very good            | 58629    | 77357    | ____
@@ -492,6 +493,7 @@ Dependent variable: ln_earn
 
 ### 8. Effects of Divorce
 A paper by Gruber looks at the effects of divorce on children (once they become adults), including whether there was an increase or decrease in education and wages.  Gruber uses data on state divorce laws: over time some states changed their laws to make divorce easier (no-fault or unilateral divorce).  Why do you think that he used state-level laws rather than the individual information (which was in the dataset) about whether a person's parents were divorced?  Is it important that he documents that states with easier divorce laws had more divorces?  If he ran a regression that explained an adult's wage on the usual variables, plus a measure of whether that person's parents had been divorced, what complications might arise?  Explain.
+
 ### 9. Cuddly Animals
 A Japanese study looked at the effect of "kawaii" (cute) on test performance.  (I am inferring numbers from the graphs shown so these might not exactly match the study!)  There were 24 subjects; half were shown pictures of cute baby animals and half were shown pictures of full-grown animals (not cute).  The ability to complete tasks, for those shown cute pictures, changed by 4, with a standard deviation of 3.5.  The ability to complete tasks, for the control group, changed by 0.5 with a standard deviation of 2.9.  What is the difference in means?  What is the standard error of the difference? What is the normalized value for the difference?  What are the degrees of freedom?  What is the p-value?  Is this difference statistically significant?  Comment on the study. Should you immediately Google images of cute baby animals to help the rest of your exam performance?
 *Nittono H, Fukushima M, Yano A, Moriya H (2012) The Power of Kawaii: Viewing Cute Images Promotes a Careful Behavior and Narrows Attentional Focus. PLoS ONE 7(9): e46362.*
@@ -712,6 +714,41 @@ where the variable (Loss) is a dummy variable for whether the firm had negative 
 
 Which estimate has the highest t-statistic (in absolute value)?  Which has the lowest p-value?  Show your calculations.  How would you explain the estimate on the "Loss" dummy variable?
 
+### 22. Logit interpretation
+Using the data on New Yorkers in 1910, we estimate a binary logistic (logit) model to explain labor force participation (whether each person was working for pay) as a function of gender (a dummy variable for female), race (a dummy for African-American), nativity (a dummy if the person is an immigrant and then another dummy if they are second-generation – their parents were immigrants), marital status (three dummies: one for married; one for Divorced/Separated; one for Widow(er)s), age, age-squared, and interaction effects.  We allow interactions between Female and Married (fem_marr = Married * Female), and then between Age and Immigrant (age_immig = Age * Immigrant) and Age-Squared and Immigrant (agesq_immig = Age2 * Immigrant). Explain the following regression results:
+
+|		           |               | B       | S.E.	  | Wald	  | df	    | Sig.	| Exp(B)
+|--------------|---------------|---------|--------|---------|---------|-------|--------|
+| Step 1(a)	   | female	       | -1.890	 | .122	  | 240.805	| 1	      | .000	| .151
+|              | AfricanAmer	 | 2.703	 | .235	  | 132.625	| 1	      | .000	| 14.919
+|              | Married	     | 1.144	 | .193	  | 35.245	| 1	      | .000	| 3.141
+|              | fem_marr	     | -4.946	 | .209	  | 562.000	| 1	      | .000	| .007
+|              | DivSep	       | .251	   | .568	  | .195	  | 1	      | .658	| 1.285
+|              | Widow	       | -1.238	 | .131	  | 89.790	| 1	      | .000	| .290
+|              | immigrant	   | 1.575	 | 1.167	| 1.822	  | 1	      | .177	| 4.831
+|              | immig2g	     | .068	   | .117	  | .338	  | 1	      | .561	| 1.070
+|              | Age	         | .114	   | .047	  | 5.858	  | 1	      | .016	| 1.121
+|              | age_sqr	     | -.00176 | .001	  | 7.137	  | 1	      | .008	| .998
+|              | age_immig	   | -.035	 | .068	  | .263	  | 1	      | .608	| .966
+|              | agesq_immig	 | 0.00027 | .001	  | .080	  | 1	      | .777	| 1.000
+|              | Constant	     | 1.069	 | .795	  | 1.809	  | 1	      | .179	| 2.911
+a. Variable(s) entered on step 1: female, AfricanAmer, Married, fem_marr, DivSep, Widow, immigrant, immig2g, age, age_sqr, age_immig, agesq_immig.
+
+At what age do natives peak in their labor force participation?  Immigrants?  Which is higher?  The regression shows that women are less likely to be in the labor force, married people are more likely, African-Americans are more likely, and immigrants are more likely to be in the labor force.  Interpret the coefficient on the female-married interaction.
+
+### 23. 
+Using data from the NHIS, we find the fraction of children who are female, who are Hispanic, and who are African-American, for two separate groups: those with and those without health insurance.  Compute tests of whether the differences in the means are significant; explain what the tests tell us.  (Note that the numbers in parentheses are the standard deviations.)
+	with health insurance	without health insurance
+	
+|          | with insurance   | without insurance |
+|----------|------------------|-------------------|
+| female	 | 0.4905           | 0.4811
+|          | (0.49994) N=7865	| (0.49990) N=950 
+| Hispanic | 0.2587           | 0.5411
+|          | (0.43797) N=7865 | (0.49857) N=950
+| African American |	0.1785  | 0.1516
+|          | (0.38297) N=7865 | (0.35880) N=950
+
 ## Solutions
 
 # Data analysis from datasets (R Required)
@@ -797,11 +834,12 @@ dat_use$lots_social <- (dat_use$ACT_SOCIAL > 180)
 | Age*Female         | -0.122      | 0.030
 | Age2*Female        | 0.001       | 0.0004
 
-  a. Are these coefficient estimates each statistically significant?  Calculate t-statistics and p-values for each (there are 105409 df).
-  b. What is the predicted BMI for a 35-year-old male? For a female of the same age? At what age are men predicted to have BMI over 30?  At what age are women predicted to have BMI over 30? 
-  c. At what age does male BMI peak?  Female? At what levels for each?
-  d. Does this model seem reasonable? Discuss.
+    a. Are these coefficient estimates each statistically significant?  Calculate t-statistics and p-values for each (there are 105409 df).
+    b. What is the predicted BMI for a 35-year-old male? For a female of the same age? At what age are men predicted to have BMI over 30?  At what age are women predicted to have BMI over 30? 
+    c. At what age does male BMI peak?  Female? At what levels for each?
+    d. Does this model seem reasonable? Discuss.
   
+
 2. (15 points) Continuing with the BMI data from BRFSS, I estimate a logit model where the dependent variable is whether the person's BMI would classify them as "overweight" or "obese" but again estimate a quadratic in age with gender interaction.  These results are:
 
 |                    | Coefficient | Std. Error |
@@ -813,15 +851,19 @@ dat_use$lots_social <- (dat_use$ACT_SOCIAL > 180)
 | Age*Female         | -0.100      | 0.010
 | Age2*Female        | 0.0011      | 0.0001
 
-a. Are these coefficient estimates each statistically significant?  Calculate t-statistics and p-values for each (there are again 105409 df).
-b. What is the predicted probability of being overweight for a 35-year-old male? For a female of the same age? 
-c. At what age does male probability of being overweight peak?  Female? At what levels for each?
-d. Does this model seem reasonable? Discuss.
+  a. Are these coefficient estimates each statistically significant?  Calculate t-statistics and p-values for each (there are again 105409 df).
+  b. What is the predicted probability of being overweight for a 35-year-old male? For a female of the same age? 
+  c. At what age does male probability of being overweight peak?  Female? At what levels for each?
+  d. Does this model seem reasonable? Discuss.
 
 The next questions use the dataset provided, BRFSS2013_forexam.RData, (details in file brfss_for_exam2.R).  You should make a further examination of factors important in determining whether a person is overweight or obese.  You can decide the best measurement: the data includes a continuous variable (BMI_measure), a 0/1 dummy for overweight (d_overweight), and/or a 4-category classification (X_BMI5CAT).  For each case, carefully specify the statistical tests that you perform, including the null hypothesis and test statistics such as t-stat and p-value.
-3. (10 points) Start with some basic statistics: how does the tendency to overweight vary among educational groups? Are these differences statistically significant? Discuss.
+
+3. (10 points) Start with some basic statistics: how does the tendency to be overweight vary among educational groups? Are these differences statistically significant? Discuss.
+
 4. (10 points) Next estimate a linear model, something like the one in Q 2 above (more extensive of course!).  Explain what variables are important to include?  Discuss the results.
+
 5. (15 points) Next estimate a logit or probit model, something like Q 3 above (more extensive of course!).  Explain what variables ought to be included or excluded. Discuss the results of the model.
+
 6. (35 points) Next estimate another model or several (of your choice) to predict BMI.  Explain and discuss – impress me with your econometric virtuosity.
 
 
@@ -910,6 +952,7 @@ Using the PUMS data for people in NYC, people are classified if they report that
 
 #### Example Question 2
 Use the PUMS data for people in NYC (download from Blackboard or InYourClass; pums_NYC_2.zip) examine people's choice of rent or own, as well as how much to pay (the variable "own_rent_frac" gives the fraction of household income that goes to costs of either owning or renting).
+
 1. What fraction of households own their apartment/house/dwelling?  What fraction rent?  What are some of the important factors that explain this difference?
 2. Estimate a limited-dependent variable model to explain the choice to rent or own.  What variables should be in this regression?  Why might we believe that the "own_rent_frac" variable would be endogenous with the own/rent choice?  What variables are statistically significant in this choice?  Have you omitted any important variables?  What are the predicted probabilities for different representative people?  Discuss.
 3. Estimate a linear regression to explain the fraction of income going to ownership or rental costs.  What variables should be in this regression?  What variables are statistically significant?  Have you omitted any important variables?  Discuss.
@@ -1041,3 +1084,105 @@ c. Explain why there is a difference in the estimated coefficients.   Can you sa
 
 ### 27. 
 ## Solutions
+#### 3. BMI
+1. 
+    a. 
+    |                    | Coefficient | Std. Error | t       | p-val   |
+|--------------------|-------------|------------|---------|---------|
+| Constant           | 18.968      | 1.023
+| Age                | 0.523       | 0.022
+| Age2               | -0.006      | 0.0003
+| Female             | 1.723       | 0.605
+| Age*Female         | -0.122      | 0.030
+| Age2*Female        | 0.001       | 0.0004
+
+    b. 
+    * Male, 35: $BMI= 18.968 + 0.523(35) + -0.006(35^2) + 1.723(0) - 0.122(0) + 0.001(0) = `r 18.968 + 0.523 * 35 - 0.006 * (35 ** 2)`$
+    * Female, 35: $BMI= 18.968 + 0.523(0) + -0.006(0) + 1.723(1) - 0.122(35) + 0.001(35^2) = `r 18.968 + 0.523 * 0 - 0.006 * 0 + 1.723 * 1 + -0.122 * 35 + 0.001 * (35 ** 2)`$
+    ```{r}
+    mensBMI <- function (ma){
+      18.968 + 0.523 * (ma) - 0.006 * (ma ** 2) 
+    }
+    mensBMI(35)
+    mensBMI(36)
+    # So 36 for men
+    
+    
+    womensBMI <- function (wa){
+      18.968 + 0.523 * (wa) - 0.006 * (wa**2) + 1.723 * 1 + -0.122 * wa + 0.001 * (wa ** 2)
+    }
+    womensBMI(39)
+    womensBMI(40)
+    womensBMI(41)
+    womensBMI(42)
+    # Women seem to peak at 40, and never hit an expected 30. 
+    ```
+  
+    c. 
+    ```{r}
+mensBMI(43)
+mensBMI(44)
+mensBMI(45)
+# Men peak at age 44 with level 30.364
+
+
+# From previous answer, women peak at 40 with level 28.731
+```
+    d. [BMI is bullshit, so emphatically no. No model here seems reasonable. (Click here for an NPR article on the subject)](https://www.npr.org/templates/story/story.php?storyId=106268439?storyId=106268439)
+
+
+2. 
+b.
+$$
+\frac{1}{1 + e^{-2.355 + 0.197  age - 0.0020  age^2}} = 
+\frac{1}{1 + e^{-2.355 + 0.197  (35) - 0.0020  (35^2)}} \approx 32.36\%
+$$
+
+c.   
+    ```{r}
+probMaleOverweight <- function(age){
+  1/ (1 + exp(-(-2.355 +  0.197 * age - 0.0020 * (age ** 2))))
+}
+probFemaleOverweight <- function(age){
+  1/ (1 + exp(-(-2.355 +  0.197 * age - 0.0020 * (age ** 2) + 1.360  + -0.100 * age + 0.0011 * (age**2))))
+}
+
+probMaleOverweight(48)
+probMaleOverweight(49)
+probMaleOverweight(50)
+probMaleOverweight(53)
+probMaleOverweight(55)
+# Men are most likely to be overweight at 49
+
+
+probFemaleOverweight(53)
+probFemaleOverweight(54)
+probFemaleOverweight(55)
+# 54 is the peak for women
+
+
+```
+### Age gaps for married people
+Here's an idea of how you might solve this
+With dplyr:
+```{r eval = FALSE}
+
+new_df <- data %>%
+  mutate(older = AGE > 50,
+         big_gap = abs(gap) > 10,
+         abs_gap = abs(gap))
+
+by_educ <- new_df %>%
+  group_by(EDU) %>%
+  summarize(spouse_age = mean(AGE), head_age = mean(h_age), mean_gap = mean(abs_gap))
+
+by_geo <- new_df %>%
+  group_by(GEO) %>%
+  summarize(spouse_age = mean(AGE), head_age = mean(h_age), mean_gap = mean(abs_gap))
+```
+
+```{r eval = FALSE}
+older <- mean(abs(data$gap[AGE > 50]))
+edu_2 <- mean(abs(data$gap[EDU = 2]))
+
+```
